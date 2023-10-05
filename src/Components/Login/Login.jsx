@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "./Input";
+import Input from "../Common/Input";
 import backGroundImg from "../../Assets/LoginImg/LoginBackground.jpg";
 import {
   Stack,
