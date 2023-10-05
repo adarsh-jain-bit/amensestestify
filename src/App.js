@@ -1,11 +1,12 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Login from "./Components/Login/Login";
+import React from "react";
+import NewAssessment from "./Components/MyAssessment/CreateNewAssessment/NewAssessment";
+import ProfileSection from "./Components/MyProfile/ProfileSection";
 
 function App() {
   return (
     <>
-      <Login />
+      {/* <NewAssessment /> */}
+      <ProfileSection />
     </>
   );
 }
