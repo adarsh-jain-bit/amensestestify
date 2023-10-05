@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Alert from '@mui/material/Alert';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -7,11 +7,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
-function NotificationTab() {
-    return (
 
+function AssessmentSetting() {
+    return (
         <React.Fragment>
             <CssBaseline />
             <Container fixed>
@@ -24,19 +23,18 @@ function NotificationTab() {
                 >
                     <Stack alignItems='flex-start'>
                         <Alert severity="info" sx={{ mb: 8 }}>
-                            The notification settings below apply to you only and not to any other users in this account.
-                            You only receive these notifications for every active assessment.
+                            These settings will be applied to all assessments including those created by other team members.
                         </Alert>
                         <FormGroup>
-                            <Typography variant="h6" sx={{ fontWeight: 'bolder' }}>
-                                Notify me..
-                            </Typography>
-                            <FormControlLabel control={<Checkbox defaultChecked />} label="Every time a candidate completes an assessmentl" />
-                            <FormControlLabel control={<Checkbox defaultChecked />} label="Every day with a summary of candidates that completed an assessment" />
+
+                            <FormControlLabel control={<Checkbox defaultChecked />} label="Request candidates anonymously to provide demographic details at the end of the assessment." />
+                            <FormControlLabel control={<Checkbox defaultChecked />} label="Provide opportunity to leave feedback after every test." />
+                            <FormControlLabel control={<Checkbox defaultChecked />} label=" Redirect candidates to a URL of your choice after finishing an assessment." />
                         </FormGroup>
 
                         <Button variant="contained" sx={{ alignSelf: 'flex-end' }}>
                             Save changes
+
                         </Button>
 
 
@@ -47,8 +45,7 @@ function NotificationTab() {
 
             </Container>
         </React.Fragment >
-
     )
 }
 
-export default NotificationTab
+export default AssessmentSetting
