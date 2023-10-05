@@ -1,20 +1,17 @@
-import logo from "./logo.svg";
+import { ThemeProvider } from "styled-components";
 import "./App.css";
-import Login from "./Components/Login/Login";
-import ResetPassword from "./Components/Login/ResetPassword";
-import Test from "./Components/Login/Test/Test";
-import DetailModal from "./Components/Login/Test/DetailModal";
-import CandidateForm from "./Components/Login/CandidateForm/CandidateForm";
+import MyAssessment from "./Components/AdminPages/Assessment/MyAssessment";
+import Navbar from "./Components/Navbar/Navbar";
+import theme from "./Components/Common/theme";
+import MyCandidates from "./Components/AdminPages/Candidates/MyCandidates";
 
 function App() {
   return (
-    <>
-      {/* <Login /> */}
-      {/* <ResetPassword /> */}
-      {/* <Test /> */}
-      {/* <DetailModal /> */}
-      <CandidateForm />
-    </>
+    <ThemeProvider theme={theme}>
+      {/* <Navbar /> */}
+      {/* <MyAssessment /> */}
+      <MyCandidates />
+    </ThemeProvider>
   );
 }
 
