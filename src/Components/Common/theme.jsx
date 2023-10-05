@@ -37,19 +37,19 @@ const theme = createTheme({
       fontSize: "2.5rem",
       fontFamily: "'Poppins', sans-serif",
       color: "#352F44",
-      fontWeight: 300,
+      fontWeight: 600,
     },
     h2: {
       fontSize: "2rem",
       fontFamily: "'Poppins', sans-serif",
       color: "#352F44",
-      fontWeight: 200,
+      fontWeight: 500,
     },
     h3: {
       fontSize: "1.75rem",
       fontFamily: "'Poppins', sans-serif",
       color: "#352F44",
-      fontWeight: 100,
+      fontWeight: 500,
     },
   },
 });
