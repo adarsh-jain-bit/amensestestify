@@ -10,11 +10,11 @@ import Test from "./Components/AdminPages/Tests/Test";
 function App() {
   return (
     <ThemeProvider theme={Theme}>
-      <Navbar />
+      {/* <Navbar />   */}
       {/* <MyAssessment /> */}
       {/* <Login /> */}
-      {/* <CandidateForm /> */}
-      <Test />
+      <CandidateForm />
+      {/* <Test /> */}
       {/* <ResetPassword /> */}
       {/* <MyCandidates /> */}
     </ThemeProvider>
