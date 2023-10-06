@@ -5,7 +5,7 @@ import { Stack } from "@mui/system";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 import CloseIcon from "@mui/icons-material/Close";
-import { Typography } from "@mui/material";
+import { Typography, Avatar, Box } from "@mui/material";
 import ModalItem1 from "../Modal/ModalItem1";
 import CheckIcon from "@mui/icons-material/Check";
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -21,12 +21,20 @@ const DetailModal = () => {
 
   const handleClose = () => {
     setOpen(false);
+    console.log("click");
   };
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Slide in alert dialog
+      <Button
+        sx={{
+          padding: "5px 8px",
+          background: "#EDEDED",
+          color: "black",
+        }}
+        onClick={handleClickOpen}
+      >
+        Details
       </Button>
       <Dialog
         open={open}
@@ -50,7 +58,7 @@ const DetailModal = () => {
             >
               Previous Sample Question
             </Button>
-            <CloseIcon />
+            <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
           </Stack>
           <Stack direction="row" gap={4} mt={6}>
             <Stack>
@@ -88,23 +96,59 @@ const DetailModal = () => {
               </Typography>
             </Stack>
             <Stack>
-              Description CNC machining is a revolutionary manufacturing process
-              where infinite amounts of parts can be produced that ensure a high
-              level of detail and precision, and range from unlimited designs
-              along with a vast number of different materials. CNC machines
-              require an operator who has a high level of technical and
-              problem-solving skills and who can adapt to diverse situations and
-              optimize the efficiency of the machine itself and the tools used
-              in the machining process. A CNC machinist should create their
-              knowledge foundation through technical information, but will
-              eventually become proficient during the time spent experiencing
-              and operating CNC machines. The CNC machinist test evaluates a
-              candidate's proven experience in this field, where knowledge and
-              know-how can only be acquired with experience and time spent
-              machining. This test will reveal a candidate's capability to
-              operate a CNC machine correctly and ensure the problem-solving and
-              machining skills needed to manufacture parts that meet the
-              requirements expected.
+              <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
+                Description
+              </Typography>
+              <Typography marginY={1}>
+                CNC machining is a revolutionary manufacturing process where
+                infinite amounts of parts can be produced that ensure a high
+                level of detail and precision, and range from unlimited designs
+                along with a vast number of different materials.
+              </Typography>
+              <Typography marginY={1}>
+                CNC machines require an operator who has a high level of
+                technical and problem-solving skills and who can adapt to
+                diverse situations and optimize the efficiency of the machine
+                itself and the tools used in the machining process.
+              </Typography>
+              <Typography marginY={1}>
+                A CNC machinist should create their knowledge foundation through
+                technical information, but will eventually become proficient
+                during the time spent experiencing and operating CNC machines.
+              </Typography>
+              <Typography marginY={1}>
+                The CNC machinist test evaluates a candidate's proven experience
+                in this field, where knowledge and know-how can only be acquired
+                with experience and time spent machining.
+              </Typography>
+              <Typography marginY={1}>
+                This test will reveal a candidate's capability to operate a CNC
+                machine correctly and ensure the problem-solving and machining
+                skills needed to manufacture parts that meet the requirements
+                expected.
+              </Typography>
+              <Typography sx={{ fontSize: "20px", color: "black", mt: "20px" }}>
+                About the subject-matter expert
+              </Typography>
+              <Stack direction="row" alignItems="baseline" gap={2}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Box>
+                  <Typography
+                    sx={{ fontSize: "20px", color: "black", mt: "20px" }}
+                  >
+                    Emilio A.
+                  </Typography>
+                  <Typography marginY={1}>
+                    Emilio has a degree in product design and manufacturing and
+                    he has worked across a number of roles, including as a
+                    CAD/CAM Technical Designer and CNC Machinist. Currently, he
+                    works in the automotive lean manufacturing industry. Emilio
+                    is professionally trained on industrial and tabletop CNC
+                    machines, CAM programming, and a wide range of associated
+                    software programs.
+                  </Typography>
+                </Box>
+              </Stack>
             </Stack>
           </Stack>
         </DialogContent>

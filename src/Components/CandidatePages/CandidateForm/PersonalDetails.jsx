@@ -3,11 +3,12 @@ import Input from "../../Common/Input";
 import styled from "@emotion/styled";
 import { Typography, Grid, Stack } from "@mui/material";
 const LoginForm = styled("div")({
-  height: "fit-content",
+  height: "400px",
   width: "33rem",
   zIndex: 2,
   borderRadius: "5px",
   margin: "auto",
+  overflowY: "scroll",
 });
 
 const PersonalDetails = () => {

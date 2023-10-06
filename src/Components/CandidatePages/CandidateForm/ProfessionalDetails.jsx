@@ -7,14 +7,16 @@ import FileUpload from "./FileUpload.jsx/FileUpload";
 import SkillDropDown from "../CandidateForm/SkillDropDown";
 
 const LoginForm = styled("div")({
-  height: "fit-content",
+  height: "400px",
   width: "33rem",
   zIndex: 2,
   borderRadius: "5px",
   margin: "auto",
+  overflowY: "scroll",
 });
 
 const ProfessionalDetails = () => {
+  const Degree = ["Btech", "MCA", "BSc", "BCA"];
   return (
     <LoginForm>
       <Grid sx={{ p: 4 }}>
@@ -31,7 +33,7 @@ const ProfessionalDetails = () => {
           />
         </Stack>
         <Stack gap={3} my={1} mt={3} direction="row">
-          <CustomDropDown />
+          <CustomDropDown label="degree" data={Degree} />
           <Input
             placeholder="College AGPA"
             type="number"
