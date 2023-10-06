@@ -5,7 +5,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
-
+import SearchIcon from "@mui/icons-material/Search";
 export default function Input({
   placeholder,
   type,
@@ -17,6 +17,8 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
+  width = 500,
+  background = undefined,
 }) {
   const inputStyles = {
     label: {
@@ -40,8 +42,9 @@ export default function Input({
   return (
     <Box
       sx={{
-        width: 500,
+        width: width,
         maxWidth: "100%",
+        background: background,
       }}
     >
       <TextField
@@ -71,6 +74,7 @@ export default function Input({
                   ) : (
                     <Visibility sx={{ color: color, marginRight: "10px" }} />
                   ))}
+                {placeholder === "Search anything here" && <SearchIcon />}
               </IconButton>
             </InputAdornment>
           ),

@@ -9,8 +9,8 @@ import {
   OutlinedInput,
 } from "@mui/material";
 const LoginForm = styled("div")({
-  height: "15rem",
-  width: "21.8rem",
+  height: "400px",
+  width: "33rem",
   zIndex: 2,
   borderRadius: "5px",
   margin: "auto",
