@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import EditIcon from '@mui/icons-material/Edit';
+import Input from '../../Common/Input'
 const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -112,12 +113,12 @@ function MyCompany() {
                                 variant="contained"
                                 startIcon={<PersonOutlinedIcon color="black" fontSize="large" />}
                                 sx={{
-                                    height: 150, width: 150, bgcolor: "#E9EFF1", mt: 3, borderRadius: "70px",
+                                    height: 150, width: 150, bgcolor: "#E9EFF1", mt: 0.3, borderRadius: "70px",
                                     "svg": {
                                         width: "70px",
                                         height: "70px",
                                         color: 'black',
-                                        ml: 3,
+                                        ml: 2.3,
                                     }
                                 }}
                             >
@@ -125,7 +126,7 @@ function MyCompany() {
                             </Custombutton>}
 
                         <Box>
-                            <TextField id="outlined-basic" label="Company name" variant="outlined" />
+                            <Input placeholder='Company name' variant='outlined' />
                             <Autocomplete
                                 id="country-select-demo"
                                 sx={{ width: 300 }}
@@ -150,7 +151,7 @@ function MyCompany() {
                                         label="Choose a country"
                                         inputProps={{
                                             ...params.inputProps,
-                                            autoComplete: 'new-password', // disable autocomplete and autofill
+                                            autoComplete: 'new-password',
                                         }}
                                     />
                                 )}
@@ -160,7 +161,7 @@ function MyCompany() {
 
                     </Stack>
                     <Stack direction='row-reverse' justifyContent='space-around'>
-                        <Button variant="contained" sx={{ ml: 60, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                        <Button variant="contained" sx={{ ml: 80, mt: 10, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
                             Save changes
                         </Button>
                     </Stack>

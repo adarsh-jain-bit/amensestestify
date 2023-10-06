@@ -56,7 +56,7 @@ function TeamManagement() {
         <React.Fragment>
             <CssBaseline />
             <Container fixed>
-                <Box sx={{ height: '60vh' }} >
+                <Box sx={{ height: '55.75vh' }} >
                     <Stack direction='row' justifyContent='space-between' my={5}>
                         <Typography variant="h6" sx={{ fontWeight: 'bolder' }} gutterBottom>
                             Add or remove team members

@@ -7,6 +7,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 
 export default function Input({
+  value = "",
   placeholder,
   type,
   handleClickShowPassword,
@@ -17,6 +18,7 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
+  defaultValue = ""
 }) {
   const inputStyles = {
     label: {
@@ -48,11 +50,13 @@ export default function Input({
         fullWidth
         // error
         // helperText="Incorrect entry."
+        value={value}
         label={placeholder}
         type={type}
         variant={variant}
         size={size}
         rows={rows}
+        defaultValue={defaultValue}
         multiline={multiline}
         InputProps={{
           style: {

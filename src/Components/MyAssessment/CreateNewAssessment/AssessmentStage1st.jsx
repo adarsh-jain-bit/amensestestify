@@ -24,6 +24,7 @@ function AssessmentStage1st() {
                         label="Name of Assessment"
 
                     />
+
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"

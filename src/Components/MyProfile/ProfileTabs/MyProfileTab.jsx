@@ -9,6 +9,8 @@ import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Input from '../../Common/Input';
+import Stack from '@mui/material/Stack'
 function MyProfileTab() {
     const [value, setValue] = useState('')
 
@@ -25,7 +27,7 @@ function MyProfileTab() {
                     component="form"
                     sx={{
                         '& .MuiTextField-root': { m: 2, width: '50ch' },
-                        height: '60vh'
+                        height: '55.75vh'
                     }}
 
                     noValidate
@@ -35,20 +37,12 @@ function MyProfileTab() {
                         Personal information
                     </Typography>
 
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="First name"
-                        defaultValue="Deepesh"
+                    <Stack direction='row' spacing={6}>
+                        <Input placeholder='First Name' variant='outlined' type='text' defaultValue="Deepesh" />
+                        <Input placeholder='Last Name' variant='outlined' type='text' defaultValue="Trivedi" />
+                    </Stack>
 
-                    />
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="Last name"
-                        defaultValue="Trivedi"
 
-                    />
 
 
 
@@ -83,7 +77,7 @@ function MyProfileTab() {
                 </Box>
 
             </Container>
-        </React.Fragment>
+        </React.Fragment >
 
 
 
