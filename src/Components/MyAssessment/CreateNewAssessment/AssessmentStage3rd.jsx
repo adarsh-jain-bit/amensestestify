@@ -41,7 +41,7 @@ const rows = [
     createData(4, 'React.js', 15),
     createData(5, 'Vue.js', 15),
 ];
-function LookThree() {
+function AssessmentStage3rd() {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -72,7 +72,7 @@ function LookThree() {
     );
 }
 
-export default LookThree
+export default AssessmentStage3rd
 
 
 

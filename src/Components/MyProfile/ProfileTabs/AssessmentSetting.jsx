@@ -32,7 +32,7 @@ function AssessmentSetting() {
                             <FormControlLabel control={<Checkbox defaultChecked />} label=" Redirect candidates to a URL of your choice after finishing an assessment." />
                         </FormGroup>
 
-                        <Button variant="contained" sx={{ alignSelf: 'flex-end' }}>
+                        <Button variant="contained" sx={{ alignSelf: 'flex-end', bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
                             Save changes
 
                         </Button>

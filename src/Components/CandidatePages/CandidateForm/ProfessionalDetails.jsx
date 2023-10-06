@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Input from "../Input";
+import Input from "../../Common/Input";
 import styled from "@emotion/styled";
 import { Typography, Grid, Stack } from "@mui/material";
-import CustomDropDown from "../Test/CustomDropDown";
+import CustomDropDown from "../../Common/CustomDropDown";
 import FileUpload from "./FileUpload.jsx/FileUpload";
-import SkillDropDown from "../Test/SkillDropDown";
+import SkillDropDown from "../CandidateForm/SkillDropDown";
 
 const LoginForm = styled("div")({
   height: "fit-content",

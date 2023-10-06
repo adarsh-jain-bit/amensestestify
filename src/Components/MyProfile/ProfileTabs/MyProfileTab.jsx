@@ -54,7 +54,7 @@ function MyProfileTab() {
 
                     <MuiTelInput value={value} onChange={handleChange} id="outlined-required"
                         label="Phone Number" />
-                    <Typography variant="h5" gutterBottom mb={5} sx={{ fontWeight: 'bolder' }}>
+                    <Typography variant="h5" gutterBottom my={3} sx={{ fontWeight: 'bolder' }}>
                         Language selection
                     </Typography>
                     <Autocomplete
@@ -63,17 +63,19 @@ function MyProfileTab() {
                         options={languages}
                         renderInput={(params) => <TextField {...params} label="Language of Assessment" />}
                     />
+                    <Box mt={3}>
+                        <Button variant="contained" startIcon={<KeyIcon />} sx={{ mr: 5, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                            Change Password
+                        </Button>
+                        <Button variant="contained" endIcon={<EmailIcon />} sx={{ bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }} >
+                            Change Email
+                        </Button>
+                        <Button variant="contained" sx={{ ml: 60, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                            Save changes
+                        </Button>
+                    </Box>
 
 
-                    <Button variant="contained" startIcon={<KeyIcon />} sx={{ mr: 5 }}>
-                        Change Password
-                    </Button>
-                    <Button variant="contained" endIcon={<EmailIcon />} >
-                        Change Email
-                    </Button>
-                    <Button variant="contained" sx={{ ml: 60 }}>
-                        Save changes
-                    </Button>
 
 
 

@@ -9,6 +9,7 @@ import MyProfileTab from './ProfileTabs/MyProfileTab';
 import NotificationTab from './ProfileTabs/NotificationTab';
 import AssessmentSetting from './ProfileTabs/AssessmentSetting';
 import TeamManagement from './ProfileTabs/TeamManagement';
+import MyCompany from './ProfileTabs/MyCompany';
 function ProfileSection() {
     const [value, setValue] = useState('1');
 
@@ -19,7 +20,7 @@ function ProfileSection() {
     return (
         <>
             <Stack alignItems='center' mt={20}>
-                <Box sx={{ width: '60%', height: '80%', typography: 'body1', backgroundColor: '#DAFFFB' }}>
+                <Box sx={{ width: '60%', height: '80%', typography: 'body1', backgroundColor: '#F5F6F6' }}>
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -32,7 +33,7 @@ function ProfileSection() {
                         </Box>
                         <TabPanel value="1"><MyProfileTab /></TabPanel>
                         <TabPanel value="2"><NotificationTab /></TabPanel>
-                        <TabPanel value="3">Item Three</TabPanel>
+                        <TabPanel value="3"><MyCompany /></TabPanel>
                         <TabPanel value="4"><TeamManagement /></TabPanel>
                         <TabPanel value="5"><AssessmentSetting /></TabPanel>
                     </TabContext>
