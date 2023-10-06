@@ -8,7 +8,8 @@ import ResetPassword from "./Components/Login/ResetPassword";
 import CandidateForm from "./Components/CandidatePages/CandidateForm/CandidateForm";
 import Test from "./Components/AdminPages/Tests/Test";
 import ProfileSection from "./Components/MyProfile/ProfileSection";
-import NewAssessment from "./Components/MyAssessment/CreateNewAssessment/NewAssessment"
+import NewAssessment from "./Components/MyAssessment/CreateNewAssessment/NewAssessment";
+import Input from "./Components/Common/Input";
 function App() {
   return (
     <ThemeProvider theme={Theme}>
@@ -19,8 +20,9 @@ function App() {
       {/* <Test /> */}
       {/* <ResetPassword /> */}
       {/* <MyCandidates /> */}
-      <ProfileSection />
+      {/* <ProfileSection /> */}
       {/* <NewAssessment /> */}
+      {/* <Input /> */}
     </ThemeProvider>
   );
 }
