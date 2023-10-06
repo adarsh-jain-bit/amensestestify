@@ -8,13 +8,7 @@ import {
   TextField,
   OutlinedInput,
 } from "@mui/material";
-const LoginForm = styled("div")({
-  height: "400px",
-  width: "33rem",
-  zIndex: 2,
-  borderRadius: "5px",
-  margin: "auto",
-});
+import { LoginForm } from "../../Common/GlobalWrapper";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);

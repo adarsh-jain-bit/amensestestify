@@ -42,7 +42,11 @@ export default function BasicSelect({
         >
           {data.length > 0 &&
             data.map((value) => {
-              return <MenuItem value={value}>{value}</MenuItem>;
+              return (
+                <MenuItem value={value} key={value}>
+                  {value}
+                </MenuItem>
+              );
             })}
         </Select>
       </FormControl>

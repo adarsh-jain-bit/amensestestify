@@ -25,11 +25,14 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const FileUpload = () => {
+  const [progress, setProgress] = useState(10);
   const [file, setFile] = useState("");
   const handleFile = (e) => {
     setFile(e.target.files[0].name);
   };
-
+  const handleDelete = () => {
+    setFile("");
+  };
   return (
     <Paper sx={{ p: "20px", mt: "10px" }}>
       <Typography textAlign="Center" variant="h5" mb={2}>
@@ -55,11 +58,15 @@ const FileUpload = () => {
                 <Stack direction="row" justifyContent="space-between">
                   <Typography>{file.slice(0, 20)}</Typography>
                   <Stack direction="row">
-                    <DownloadingIcon sx={{ color: "blue" }} />
-                    <DeleteIcon sx={{ color: "red" }} />
+                    {progress == 100 && (
+                      <DeleteIcon
+                        sx={{ color: "red" }}
+                        onClick={handleDelete}
+                      />
+                    )}
                   </Stack>
                 </Stack>
-                <ProgressBar />
+                <ProgressBar progress={progress} setProgress={setProgress} />
               </Stack>
             </Stack>
           </Paper>

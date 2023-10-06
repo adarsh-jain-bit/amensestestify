@@ -5,15 +5,7 @@ import { Typography, Grid, Stack } from "@mui/material";
 import CustomDropDown from "../../Common/CustomDropDown";
 import FileUpload from "./FileUpload.jsx/FileUpload";
 import SkillDropDown from "../CandidateForm/SkillDropDown";
-
-const LoginForm = styled("div")({
-  height: "400px",
-  width: "33rem",
-  zIndex: 2,
-  borderRadius: "5px",
-  margin: "auto",
-  overflowY: "scroll",
-});
+import { LoginForm } from "../../Common/GlobalWrapper";
 
 const ProfessionalDetails = () => {
   const Degree = ["Btech", "MCA", "BSc", "BCA"];

@@ -23,6 +23,7 @@ const Theme = createTheme({
         },
       },
     },
+
     MuiButtonBase: {
       styleOverrides: {
         root: ({ ownerState }) => ({
