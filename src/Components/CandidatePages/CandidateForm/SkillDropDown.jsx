@@ -57,10 +57,20 @@ export default function SkillDropDown() {
   return (
     <div>
       <Stack display="flex" direction="row" gap={2} alignItems="center">
-        <FormControl fullWidth style={{ border: "1px solid black" }}>
+        <FormControl
+          fullWidth
+          sx={{
+            fieldset: {
+              borderColor: "black",
+            },
+          }}
+        >
           <InputLabel
             id="demo-multiple-checkbox-label"
-            style={{ color: "black" }} // Set label color to black
+            sx={{
+              top: "-6px",
+              color: "black",
+            }}
           >
             Skills
           </InputLabel>
@@ -72,10 +82,10 @@ export default function SkillDropDown() {
             value={personName}
             size="small"
             onChange={handleChange}
+            onClose={handleAddChip}
             input={<OutlinedInput label="Tag" />}
             renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
-            sx={{ border: "none" }}
           >
             {names.map((name) => (
               <MenuItem key={name} value={name}>
@@ -85,9 +95,6 @@ export default function SkillDropDown() {
             ))}
           </Select>
         </FormControl>
-        <Button onClick={handleAddChip} variant="outlined" size="small">
-          Add Selected Skills
-        </Button>
       </Stack>
       {chips.length > 0 && <ChipsArray chips={chips} setChips={setChips} />}
     </div>

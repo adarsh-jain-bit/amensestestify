@@ -14,13 +14,25 @@ export default function BasicSelect() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <FormControl sx={{ width: "100%" }}>
-        <InputLabel id="demo-simple-select-label">Degree</InputLabel>
+      <FormControl
+        sx={{
+          width: "100%",
+          fieldset: {
+            borderColor: "black",
+          },
+        }}
+      >
+        <InputLabel
+          id="demo-simple-select-label"
+          sx={{ top: "-6px", color: "black" }}
+        >
+          Degree
+        </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
-          label="Age"
+          label="Degree"
           onChange={handleChange}
           size="small"
         >
