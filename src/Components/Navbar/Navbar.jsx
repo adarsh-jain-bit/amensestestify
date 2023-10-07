@@ -17,14 +17,14 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles"; // Import useTheme from Material-UI
+import { useNavigate, Link } from "react-router-dom";
+
 
 const options = [
   "My Profile",
   "Notifications",
   "My Company",
   "Team management",
-  "Plan & billing",
-  "Integrations",
   "Assessment settings",
   "Refer & earn",
   "Log out",
@@ -32,14 +32,16 @@ const options = [
 
 function Navbar() {
   const theme = useTheme();
+  const nav = useNavigate();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setOpen(false);
+  const handleMenuItemClick = (option) => {
+    console.log(`/${option}`);
+    const newOption = option.replace(/ /g, "");
+    nav(`/${newOption}`);
   };
 
   const handleToggle = () => {
@@ -53,6 +55,8 @@ function Navbar() {
 
     setOpen(false);
   };
+
+
 
   return (
     <Paper elevation={3}>
@@ -100,7 +104,7 @@ function Navbar() {
           <Button
             variant="outlined"
             size="small"
-            // sx={{ color: theme.palette.secondary.black }}
+          // sx={{ color: theme.palette.secondary.black }}
           >
             Talk to us
           </Button>
@@ -148,9 +152,9 @@ function Navbar() {
                       {options.map((option, index) => (
                         <MenuItem
                           key={option}
-                          disabled={index === 2}
+                          // onClick={() => handleNavigation(option)}
                           selected={index === selectedIndex}
-                          onClick={(event) => handleMenuItemClick(event, index)}
+                          onClick={() => handleMenuItemClick(option)}
                         >
                           {option}
                         </MenuItem>

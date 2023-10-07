@@ -10,15 +10,18 @@ import NotificationTab from './ProfileTabs/NotificationTab';
 import AssessmentSetting from './ProfileTabs/AssessmentSetting';
 import TeamManagement from './ProfileTabs/TeamManagement';
 import MyCompany from './ProfileTabs/MyCompany';
-function ProfileSection() {
+import Navbar from '../Navbar/Navbar';
+function ProfileSection({ tabs }) {
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    console.log(tabs)
 
     return (
         <>
+            <Navbar />
             <Stack alignItems='center' mt={20}>
                 <Box sx={{ width: '60%', height: '80%', typography: 'body1', backgroundColor: '#F5F6F6' }}>
                     <TabContext value={value}>
