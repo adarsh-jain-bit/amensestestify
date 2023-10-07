@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -11,20 +11,24 @@ import AssessmentSetting from './ProfileTabs/AssessmentSetting';
 import TeamManagement from './ProfileTabs/TeamManagement';
 import MyCompany from './ProfileTabs/MyCompany';
 import Navbar from '../Navbar/Navbar';
-function ProfileSection({ tabs }) {
-    const [value, setValue] = useState('1');
+import { useLocation } from "react-router-dom";
 
+function ProfileSection({ tabs, value }) {
+    const [newValue, setNewValue] = useState(value)
+    const location = useLocation();
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setNewValue(newValue);
     };
-    console.log(tabs)
+
+    useEffect(() => {
+        console.log('Route changed to:', location.pathname);
+    }, [location.pathname]);
 
     return (
         <>
-            <Navbar />
-            <Stack alignItems='center' mt={20}>
+            <Stack alignItems='center' mt={10}>
                 <Box sx={{ width: '60%', height: '80%', typography: 'body1', backgroundColor: '#F5F6F6' }}>
-                    <TabContext value={value}>
+                    <TabContext value={newValue}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} aria-label="lab API tabs example">
                                 <Tab label="My Profile" value="1" />

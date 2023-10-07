@@ -17,7 +17,9 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles"; // Import useTheme from Material-UI
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 const options = [
@@ -39,8 +41,8 @@ function Navbar() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleMenuItemClick = (option) => {
-    console.log(`/${option}`);
-    const newOption = option.replace(/ /g, "");
+    const newOption = option.replace(/ /g, '');
+    // console.log(newOption)
     nav(`/${newOption}`);
   };
 
@@ -152,7 +154,7 @@ function Navbar() {
                       {options.map((option, index) => (
                         <MenuItem
                           key={option}
-                          // onClick={() => handleNavigation(option)}
+
                           selected={index === selectedIndex}
                           onClick={() => handleMenuItemClick(option)}
                         >

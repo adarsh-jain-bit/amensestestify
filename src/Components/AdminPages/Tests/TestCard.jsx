@@ -3,6 +3,7 @@ import { Stack, Typography, Grid, Paper } from "@mui/material";
 import { styled } from "@mui/system";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import DetailModal from "../../Common/Modal/DetailModal";
 const Button = styled("button")({
   letterSpacing: "1px",
   borderRadius: "5px",
@@ -38,15 +39,8 @@ const TestCard = ({ index }) => {
               <Button sx={{ padding: "5px 10px", background: "#EDEDED" }}>
                 <VisibilityIcon style={{ color: "#636e72" }} />
               </Button>
-              <Button
-                sx={{
-                  padding: "5px 8px",
-                  background: "#EDEDED",
-                  color: "black",
-                }}
-              >
-                Details
-              </Button>
+              {/* detail button */}
+              <DetailModal />
             </Stack>
             <Button
               sx={{

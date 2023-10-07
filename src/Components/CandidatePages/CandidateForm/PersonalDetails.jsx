@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import Input from "../../Common/Input";
 import styled from "@emotion/styled";
 import { Typography, Grid, Stack } from "@mui/material";
-const LoginForm = styled("div")({
-  height: "fit-content",
-  width: "33rem",
-  zIndex: 2,
-  borderRadius: "5px",
-  margin: "auto",
-});
+import { LoginForm } from "../../Common/GlobalWrapper";
 
 const PersonalDetails = () => {
   return (
@@ -47,7 +41,7 @@ const PersonalDetails = () => {
             color="black"
             variant="outlined"
             size="small"
-            shrink="true"
+            shrink={true}
           />
         </Stack>
         <Stack gap={3} mt={3}>

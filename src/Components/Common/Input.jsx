@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function Input({
   value = "",
@@ -18,14 +19,24 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
-  defaultValue = ""
+  defaultValue = "",
+  width = 500,
+  background = undefined,
 }) {
   const inputStyles = {
     label: {
       color: color,
     },
-    underlineAfter: {
-      borderBottomColor: color,
+    underline: {
+      "&:hover:not(.Mui-disabled):before": {
+        borderBottomColor: color,
+      },
+      "&:before": {
+        borderBottomColor: color,
+      },
+      "&:after": {
+        borderBottomColor: color,
+      },
     },
     outlinedRoot: {
       "& fieldset": {
@@ -39,17 +50,17 @@ export default function Input({
       },
     },
   };
+
   return (
     <Box
       sx={{
-        width: 500,
+        width: width,
         maxWidth: "100%",
+        background: background,
       }}
     >
       <TextField
         fullWidth
-        // error
-        // helperText="Incorrect entry."
         value={value}
         label={placeholder}
         type={type}
@@ -75,20 +86,19 @@ export default function Input({
                   ) : (
                     <Visibility sx={{ color: color, marginRight: "10px" }} />
                   ))}
+                {placeholder === "Search anything here" && <SearchIcon />}
               </IconButton>
             </InputAdornment>
           ),
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          shrink: placeholder === "DOB" ? shrink : undefined,
+          shrink: shrink,
         }}
         sx={{
           color: color,
           "& label.Mui-focused": inputStyles.label,
-          "& .MuiInput-underline:after": inputStyles.underlineAfter,
-          "& .MuiInput-underline:before": inputStyles.underlineAfter,
-          "& .MuiInput-root:hover:before": inputStyles.underlineAfter,
+          "& .MuiInput-underline": inputStyles.underline,
           "& .MuiOutlinedInput-root": inputStyles.outlinedRoot,
         }}
       />

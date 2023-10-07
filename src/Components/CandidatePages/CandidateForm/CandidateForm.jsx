@@ -7,12 +7,14 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import SignUp from "./SignUp";
+import { useTheme } from "styled-components";
 import PersonalDetails from "./PersonalDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
 
 const StepsLabel = ["Sign Up", "Personal Detail", "Professional Info"];
 
 export default function CandidateForm() {
+  const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -83,7 +85,12 @@ export default function CandidateForm() {
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Reset</Button>
+              <Button
+                onClick={handleReset}
+                sx={{ color: theme.palette.primary.main }}
+              >
+                Reset
+              </Button>
             </Box>
           </React.Fragment>
         ) : (
