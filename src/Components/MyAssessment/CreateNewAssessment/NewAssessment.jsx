@@ -13,9 +13,9 @@ function NewAssessment() {
 
     return (
         <div>
-            <Container maxWidth='lg'>
-                <Stack direction='row' mt={16} mb={10}>
-                    <Typography variant='body1' fontSize={32} fontWeight={'bold'} >Create new assessment</Typography>
+            <Container maxWidth='lg' >
+                <Stack direction='row' mt='1%' mb='6%'>
+                    <Typography variant='h4' fontWeight='bold' >Create new assessment</Typography>
                 </Stack>
 
                 <StepperStep />

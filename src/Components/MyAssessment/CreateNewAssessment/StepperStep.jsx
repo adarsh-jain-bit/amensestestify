@@ -76,49 +76,53 @@ function StepperStep() {
             <div>
                 {allStepsCompleted() ? (
                     <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>
+                        <Typography sx={{ mt: '2%', mb: '1%' }}>
                             All steps completed - you&apos;re finished
                         </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: '1%' }}>
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleReset}>Reset</Button>
+                            <Button onClick={handleReset} sx={{ color: 'white', bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}>Reset</Button>
                         </Box>
                     </React.Fragment>
                 ) : (
                     <React.Fragment>
-                        <Typography sx={{ mt: 10, mb: 1, py: 1 }}>
+                        <Typography sx={{ mt: '10%', mb: '1%', py: '1%' }}>
 
                             {activeStep === 0 && <AssessmentStage1st />}
                             {activeStep === 1 && <AssessmentStage2nd />}
                             {activeStep === 2 && <AssessmentStage3rd />}
                         </Typography>
-                        <Box sx={{ pt: 2 }}>
+                        <Box sx={{ pt: '2%', mb: '2%' }}>
                             <Stack direction='row' justifyContent='space-between'>
                                 <Button
+                                    variant="contained"
                                     color="inherit"
                                     disabled={activeStep === 0}
                                     onClick={handleBack}
-                                // sx={{ }}
+                                    sx={{ color: 'white', bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}
                                 >
                                     Back
                                 </Button>
                                 <Box>
-                                    <Button onClick={handleNext} >
-                                        Next
-                                    </Button>
-                                    {activeStep !== steps.length &&
-                                        (completed[activeStep] ? (
-                                            <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                                                Step {activeStep + 1} already completed
-                                            </Typography>
-                                        ) : (
+                                    <Stack direction='row' spacing={3}>
+                                        <Button variant="contained" onClick={handleNext} sx={{ bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}>
+                                            Next
+                                        </Button>
+                                        {activeStep !== steps.length &&
+                                            (completed[activeStep] ? (
+                                                <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                                                    Step {activeStep + 1} already completed
+                                                </Typography>
+                                            ) : (
 
-                                            <Button onClick={handleComplete}>
-                                                {completedSteps() === totalSteps() - 1
-                                                    ? 'Finish'
-                                                    : 'Complete Step'}
-                                            </Button>
-                                        ))}
+                                                <Button variant="contained" onClick={handleComplete} sx={{ bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}>
+                                                    {completedSteps() === totalSteps() - 1
+                                                        ? 'Finish'
+                                                        : 'Complete Step'}
+                                                </Button>
+                                            ))}
+                                    </Stack>
+
                                 </Box>
 
                             </Stack>

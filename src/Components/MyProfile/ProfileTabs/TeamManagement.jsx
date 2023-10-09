@@ -55,16 +55,19 @@ function TeamManagement() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container fixed>
-                <Box sx={{ height: '55.75vh' }} >
-                    <Stack direction='row' justifyContent='space-between' my={5}>
+            <Container>
+                <Box sx={{
+                    "& .MuiTextField-root": { m: '1%', width: "50ch" },
+                    height: "60vh",
+                }} >
+                    <Stack direction='row' justifyContent='space-between' mt='1%' mb='2%'>
                         <Typography variant="h6" sx={{ fontWeight: 'bolder' }} gutterBottom>
                             Add or remove team members
                         </Typography>
-                        <Button variant="contained" sx={{ bgcolor: '#46A997' }}><AddCircleOutlineIcon sx={{ mx: 1 }} />Add Users {numUser}/5</Button>
+                        <Button variant="contained" sx={{ bgcolor: '#5C5470', width: '20%', '&:hover': { bgcolor: '#5C5470' } }}><AddCircleOutlineIcon sx={{ mx: '0.5%' }} />Add Users {numUser}/5</Button>
                     </Stack>
                     <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <Table sx={{ minWidth: '70%' }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="right">ID</StyledTableCell>

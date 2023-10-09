@@ -4,6 +4,8 @@ import { styled } from "@mui/system";
 import TestCard from "./TestCard";
 import Input from "../../Common/Input";
 import CustomDropDown from "../../Common/CustomDropDown";
+import { Link } from "react-router-dom";
+
 const Button = styled("button")({
   letterSpacing: "1px",
   borderRadius: "5px",
@@ -46,7 +48,7 @@ const Test = () => {
               My Company Tests
             </Button>
             <Button sx={{ background: "#7d5ce9" }}>
-              Create New Assesments
+              <Link to="/NewAssessment">Create new Assessment</Link>
             </Button>
           </Stack>
         </Stack>

@@ -20,7 +20,7 @@ export default function Input({
   multiline = false,
   shrink = false,
   defaultValue = "",
-  width = 500,
+  width = 'auto',
   background = undefined,
 }) {
   const inputStyles = {
