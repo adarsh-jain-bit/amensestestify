@@ -10,7 +10,6 @@ import NotificationTab from './ProfileTabs/NotificationTab';
 import AssessmentSetting from './ProfileTabs/AssessmentSetting';
 import TeamManagement from './ProfileTabs/TeamManagement';
 import MyCompany from './ProfileTabs/MyCompany';
-import Navbar from '../Navbar/Navbar';
 import { useLocation } from "react-router-dom";
 
 function ProfileSection({ tabs, value }) {

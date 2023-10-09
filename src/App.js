@@ -22,15 +22,22 @@ function App() {
       <ThemeProvider theme={Theme}>
         <Navbar />
         <Routes>
-          {/* <Route path="/" element={<Navbar />} /> */}
-          <Route path="MyProfile" element={<ProfileSection value="1" />} />
-          <Route path="Notifications" element={<ProfileSection value="2" />} />
-          <Route path="MyCompany" element={<ProfileSection value="3" />} />
-          <Route path="Teammanagement" element={<ProfileSection value="4" />} />
+          <Route path="/" />
+          <Route path="/MyProfile" element={<ProfileSection value="1" />} />
+          <Route path="/Notifications" element={<ProfileSection value="2" />} />
+          <Route path="/MyCompany" element={<ProfileSection value="3" />} />
           <Route
-            path="Assessmentsettings"
+            path="/Teammanagement"
+            element={<ProfileSection value="4" />}
+          />
+          <Route
+            path="/Assessmentsettings"
             element={<ProfileSection value="5" />}
           />
+          <Route path="/MyAssessment" element={<MyAssessment />} />
+          <Route path="/MyCandidates" element={<MyCandidates />} />
+          <Route path="/Tests" element={<Test />} />
+          <Route path="/NewAssessment" element={<NewAssessment />} />
         </Routes>
 
         {/* <MyAssessment /> */}

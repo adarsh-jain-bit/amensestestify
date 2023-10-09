@@ -17,19 +17,21 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles"; // Import useTheme from Material-UI
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
+
 
 
 
 
 const options = [
-  "My Profile",
-  "Notifications",
-  "My Company",
-  "Team management",
-  "Assessment settings",
-  "Refer & earn",
-  "Log out",
+  { id: 1, title: "My Profile" },
+  { id: 2, title: "Notifications" },
+  { id: 3, title: "My Company" },
+  { id: 4, title: "Team management" },
+  { id: 5, title: "Assessment settings" },
+  { id: 6, title: "Refer & earn" },
+  { id: 7, title: "Log out" }
 ];
 
 function Navbar() {
@@ -76,21 +78,22 @@ function Navbar() {
           flexDirection="row"
           width="40%"
         >
-          <Typography>TestGorilla</Typography>
+          <Link to="/"><Typography>TestGorilla</Typography></Link>
           <List sx={{ display: "flex" }}>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton>
-                <ListItemText primary="My assessments" />
+                <Link to="/MyAssessment"><ListItemText primary="My assessments" /></Link>
+
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton component="a" href="#simple-list">
-                <ListItemText primary="My candidates" />
+                <Link to="/MyCandidates"><ListItemText primary="My candidates" /></Link>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton>
-                <ListItemText primary="Tests" />
+                <Link to="/Tests"><ListItemText primary="Tests" /></Link>
               </ListItemButton>
             </ListItem>
           </List>
@@ -153,12 +156,12 @@ function Navbar() {
                     <MenuList id="split-button-menu" autoFocusItem>
                       {options.map((option, index) => (
                         <MenuItem
-                          key={option}
+                          key={option.id}
 
                           selected={index === selectedIndex}
-                          onClick={() => handleMenuItemClick(option)}
+                          onClick={() => handleMenuItemClick(option.title)}
                         >
-                          {option}
+                          {option.title}
                         </MenuItem>
                       ))}
                     </MenuList>
