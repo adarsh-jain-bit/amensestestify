@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import Stack from '@mui/material/Stack';
 import MyProfileTab from './ProfileTabs/MyProfileTab';
 import NotificationTab from './ProfileTabs/NotificationTab';
@@ -11,6 +8,9 @@ import AssessmentSetting from './ProfileTabs/AssessmentSetting';
 import TeamManagement from './ProfileTabs/TeamManagement';
 import MyCompany from './ProfileTabs/MyCompany';
 import { useLocation } from "react-router-dom";
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext';
 
 function ProfileSection({ tabs, value }) {
     const [newValue, setNewValue] = useState(value)

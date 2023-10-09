@@ -13,16 +13,16 @@ function AssessmentSetting() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container fixed>
+            <Container>
                 <Box
                     sx={{
-                        '& .MuiTextField-root': { m: 1, width: '50ch' },
+                        '& .MuiTextField-root': { m: '1%', width: '50ch' },
                         height: '60vh'
                     }}
 
                 >
                     <Stack alignItems='flex-start'>
-                        <Alert severity="info" sx={{ mb: 8 }}>
+                        <Alert severity="info" sx={{ mb: '8%' }}>
                             These settings will be applied to all assessments including those created by other team members.
                         </Alert>
                         <FormGroup>
@@ -32,7 +32,7 @@ function AssessmentSetting() {
                             <FormControlLabel control={<Checkbox defaultChecked />} label=" Redirect candidates to a URL of your choice after finishing an assessment." />
                         </FormGroup>
 
-                        <Button variant="contained" sx={{ alignSelf: 'flex-end', bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                        <Button variant="contained" sx={{ alignSelf: 'flex-end', bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}>
                             Save changes
 
                         </Button>

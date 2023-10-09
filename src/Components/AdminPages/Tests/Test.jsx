@@ -14,6 +14,19 @@ import TestCard from "./TestCard";
 import SearchIcon from "@mui/icons-material/Search";
 import CustomDropDown from "../../Common/CustomDropDown";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
+
+const Button = styled("button")({
+  letterSpacing: "1px",
+  borderRadius: "5px",
+  border: "none",
+  outline: "none",
+  cursor: "pointer",
+  transition: "0.6s",
+  color: "#FFFFFF",
+  padding: "10px",
+});
+=======
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const buttonStyle = {
@@ -22,6 +35,7 @@ const buttonStyle = {
   height: "50px",
   width: "250px",
 };
+>>>>>>> 7acdcaa7e02effd9a56272b0e39cda3f085e1f21
 
 var arr = [];
 
@@ -33,6 +47,28 @@ const Test = () => {
   const JobRole = ["Backend", "Frontend", "Full Stack"];
   const TestType = ["Aptitude Test", "Typing Test", "Software Skills"];
   return (
+<<<<<<< HEAD
+    <BootStrapContainer>
+      <Container>
+        <Stack
+          display="flex"
+          justifyContent="space-between"
+          direction="row"
+          pt={3}
+        >
+          <Typography variant="h5" fontWeight="700" fontFamily="sans-serif">
+            Tests
+          </Typography>
+
+          <Stack display="flex" direction="row" gap={2}>
+            <Button sx={{ background: "#EDEDED", color: "black" }}>
+              My Company Tests
+            </Button>
+            <Button sx={{ background: "#7d5ce9" }}>
+              <Link to="/NewAssessment">Create new Assessment</Link>
+            </Button>
+          </Stack>
+=======
     <Container>
       <Stack
         display="flex"
@@ -56,6 +92,7 @@ const Test = () => {
               Create new Assessment
             </Link>
           </Button>
+>>>>>>> 7acdcaa7e02effd9a56272b0e39cda3f085e1f21
         </Stack>
       </Stack>
       <Stack direction="row" gap={4} mt={3}>

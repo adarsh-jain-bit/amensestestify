@@ -16,7 +16,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useTheme } from "@mui/material/styles"; // Import useTheme from Material-UI
+import { useTheme } from "@mui/material/styles";
 import { useNavigate, Link } from "react-router-dom";
 
 const options = [
@@ -40,6 +40,7 @@ function Navbar() {
   const handleMenuItemClick = (option) => {
     const newOption = option.replace(/ /g, "");
     nav(`/${newOption}`);
+    setOpen(false);
   };
 
   const handleToggle = () => {

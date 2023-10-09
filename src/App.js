@@ -1,4 +1,5 @@
 import { ThemeProvider } from "styled-components";
+import React, { useEffect } from "react";
 import "./App.css";
 import { styled } from "@mui/system";
 import MyAssessment from "./Components/AdminPages/Assessment/MyAssessment";
@@ -10,7 +11,7 @@ import Login from "./Components/Login/Login";
 import ResetPassword from "./Components/Login/ResetPassword";
 import CandidateForm from "./Components/CandidatePages/CandidateForm/CandidateForm";
 import Test from "./Components/AdminPages/Tests/Test";
-import { BrowserRouter, Route, Router, Routes, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import MyProfileTab from "./Components/MyProfile/ProfileTabs/MyProfileTab";
 import NotificationTab from "./Components/MyProfile/ProfileTabs/NotificationTab";
 import MyCompany from "./Components/MyProfile/ProfileTabs/MyCompany";
@@ -36,11 +37,11 @@ function App() {
           <Route path="/MyCompany" element={<ProfileSection value="3" />} />
           <Route
             path="/Teammanagement"
-            element={<ProfileSection value="4" />}
+            element={<ProfileSection value="4" key="teammanagemant" />}
           />
           <Route
             path="/Assessmentsettings"
-            element={<ProfileSection value="5" />}
+            element={<ProfileSection value="5" key="assessmentsettings" />}
           />
           <Route path="/MyAssessment" element={<MyAssessment />} />
           <Route path="/MyCandidates" element={<MyCandidates />} />

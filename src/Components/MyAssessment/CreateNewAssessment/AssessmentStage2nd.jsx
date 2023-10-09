@@ -50,7 +50,7 @@ function AssessmentStage2nd() {
                                         label={data.label}
                                         onDelete={handleDelete(data)}
                                         color="primary" variant="outlined" size='large'
-                                        sx={{ ml: 4, border: 'none', my: 2, fontSize: 20, mx: 2 }}
+                                        sx={{ ml: 4, border: 'none', my: 1, fontSize: 20, mx: 2 }}
                                     />
                                 </Box>
 

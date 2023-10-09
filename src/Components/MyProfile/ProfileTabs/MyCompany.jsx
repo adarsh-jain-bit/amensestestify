@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
+import {
+    styled,
+    Button,
+    CssBaseline,
+    Container,
+    Box,
+    TextField,
+    Stack,
+    Autocomplete,
+} from "@mui/material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import EditIcon from '@mui/icons-material/Edit';
-import Input from '../../Common/Input'
+import EditIcon from "@mui/icons-material/Edit";
+import Input from "../../Common/Input";
 const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -68,10 +70,10 @@ function MyCompany() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container fixed>
+            <Container>
                 <Box
                     sx={{
-                        "& .MuiTextField-root": { m: 1, width: "50ch" },
+                        "& .MuiTextField-root": { m: '1%', width: "50ch" },
                         height: "60vh",
                     }}
                 >
@@ -87,7 +89,7 @@ function MyCompany() {
                                     height: "150px",
                                     borderRadius: "70px",
                                     objectFit: "cover",
-                                    transition: "opacity 0.3s ease", // Add a transition for smooth opacity change
+                                    transition: "opacity 0.3s ease",
                                     opacity: hovered ? 0.7 : 1
                                 }}
                                 onMouseEnter={() => handleMouseEnter(true)}
@@ -126,7 +128,7 @@ function MyCompany() {
                             </Custombutton>}
 
                         <Box>
-                            <Input placeholder='Company name' variant='outlined' />
+                            <Input placeholder='Company name' variant='outlined' size="small" />
                             <Autocomplete
                                 id="country-select-demo"
                                 sx={{ width: 300 }}
@@ -153,6 +155,7 @@ function MyCompany() {
                                             ...params.inputProps,
                                             autoComplete: 'new-password',
                                         }}
+                                        size="small"
                                     />
                                 )}
                             />
@@ -161,7 +164,7 @@ function MyCompany() {
 
                     </Stack>
                     <Stack direction='row-reverse' justifyContent='space-around'>
-                        <Button variant="contained" sx={{ ml: 80, mt: 10, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                        <Button variant="contained" sx={{ ml: 80, mt: 10, bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}>
                             Save changes
                         </Button>
                     </Stack>
