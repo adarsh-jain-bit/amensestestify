@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -6,7 +6,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+
 export default function Input({
+  value = "",
   placeholder,
   type,
   handleClickShowPassword,
@@ -17,6 +19,7 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
+  defaultValue = "",
   width = 500,
   background = undefined,
 }) {
@@ -24,8 +27,16 @@ export default function Input({
     label: {
       color: color,
     },
-    underlineAfter: {
-      borderBottomColor: color,
+    underline: {
+      "&:hover:not(.Mui-disabled):before": {
+        borderBottomColor: color,
+      },
+      "&:before": {
+        borderBottomColor: color,
+      },
+      "&:after": {
+        borderBottomColor: color,
+      },
     },
     outlinedRoot: {
       "& fieldset": {
@@ -39,6 +50,7 @@ export default function Input({
       },
     },
   };
+
   return (
     <Box
       sx={{
@@ -49,13 +61,13 @@ export default function Input({
     >
       <TextField
         fullWidth
-        // error
-        // helperText="Incorrect entry."
+        value={value}
         label={placeholder}
         type={type}
         variant={variant}
         size={size}
         rows={rows}
+        defaultValue={defaultValue}
         multiline={multiline}
         InputProps={{
           style: {
@@ -81,14 +93,12 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          shrink: placeholder === "DOB" ? shrink : undefined,
+          shrink: shrink,
         }}
         sx={{
           color: color,
           "& label.Mui-focused": inputStyles.label,
-          "& .MuiInput-underline:after": inputStyles.underlineAfter,
-          "& .MuiInput-underline:before": inputStyles.underlineAfter,
-          "& .MuiInput-root:hover:before": inputStyles.underlineAfter,
+          "& .MuiInput-underline": inputStyles.underline,
           "& .MuiOutlinedInput-root": inputStyles.outlinedRoot,
         }}
       />

@@ -9,6 +9,8 @@ import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Input from '../../Common/Input';
+import Stack from '@mui/material/Stack'
 function MyProfileTab() {
     const [value, setValue] = useState('')
 
@@ -25,7 +27,7 @@ function MyProfileTab() {
                     component="form"
                     sx={{
                         '& .MuiTextField-root': { m: 2, width: '50ch' },
-                        height: '60vh'
+                        height: '55.75vh'
                     }}
 
                     noValidate
@@ -35,26 +37,18 @@ function MyProfileTab() {
                         Personal information
                     </Typography>
 
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="First name"
-                        defaultValue="Deepesh"
+                    <Stack direction='row' spacing={6}>
+                        <Input placeholder='First Name' variant='outlined' type='text' defaultValue="Deepesh" />
+                        <Input placeholder='Last Name' variant='outlined' type='text' defaultValue="Trivedi" />
+                    </Stack>
 
-                    />
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="Last name"
-                        defaultValue="Trivedi"
 
-                    />
 
 
 
                     <MuiTelInput value={value} onChange={handleChange} id="outlined-required"
                         label="Phone Number" />
-                    <Typography variant="h5" gutterBottom mb={5} sx={{ fontWeight: 'bolder' }}>
+                    <Typography variant="h5" gutterBottom my={3} sx={{ fontWeight: 'bolder' }}>
                         Language selection
                     </Typography>
                     <Autocomplete
@@ -63,17 +57,19 @@ function MyProfileTab() {
                         options={languages}
                         renderInput={(params) => <TextField {...params} label="Language of Assessment" />}
                     />
+                    <Box mt={3}>
+                        <Button variant="contained" startIcon={<KeyIcon />} sx={{ mr: 5, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                            Change Password
+                        </Button>
+                        <Button variant="contained" endIcon={<EmailIcon />} sx={{ bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }} >
+                            Change Email
+                        </Button>
+                        <Button variant="contained" sx={{ ml: 60, bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
+                            Save changes
+                        </Button>
+                    </Box>
 
 
-                    <Button variant="contained" startIcon={<KeyIcon />} sx={{ mr: 5 }}>
-                        Change Password
-                    </Button>
-                    <Button variant="contained" endIcon={<EmailIcon />} >
-                        Change Email
-                    </Button>
-                    <Button variant="contained" sx={{ ml: 60 }}>
-                        Save changes
-                    </Button>
 
 
 
@@ -81,7 +77,7 @@ function MyProfileTab() {
                 </Box>
 
             </Container>
-        </React.Fragment>
+        </React.Fragment >
 
 
 

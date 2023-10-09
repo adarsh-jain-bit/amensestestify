@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import TestCard from './TestCard';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -7,10 +6,11 @@ import { styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import TestCard from '../../AdminPages/Tests/TestCard'
 const ListItem = styled('li')(({ theme }) => ({
     margin: theme.spacing(0.5),
 }));
-function LookTwo() {
+function AssessmentStage2nd() {
     const [chipData, setChipData] = useState([
         { key: 0, label: 'Angular' },
         { key: 1, label: 'jQuery' },
@@ -77,20 +77,18 @@ function LookTwo() {
                 />
             </Stack>
 
-            <Stack direction='row' justifyContent='space-between' flexWrap="wrap">
+            <Stack direction='row' justifyContent='space-between' >
                 <TestCard />
                 <TestCard />
                 <TestCard />
-                <TestCard />
-                <TestCard />
-                <TestCard />
+
             </Stack>
 
         </div>
     )
 }
 
-export default LookTwo
+export default AssessmentStage2nd
 
 const testType = ["My company Test", "Cognitive Test", "Personality & Culture", "Programming Skill"];
 const testName = ["My company Test", "Cognitive Test", "Personality & Culture", "Programming Skill"];

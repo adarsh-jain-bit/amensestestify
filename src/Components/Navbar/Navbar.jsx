@@ -17,29 +17,35 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles"; // Import useTheme from Material-UI
+import { useNavigate, Link } from "react-router-dom";
+
+
+
+
+
 
 const options = [
-  "My Profile",
-  "Notifications",
-  "My Company",
-  "Team management",
-  "Plan & billing",
-  "Integrations",
-  "Assessment settings",
-  "Refer & earn",
-  "Log out",
+  { id: 1, title: "My Profile" },
+  { id: 2, title: "Notifications" },
+  { id: 3, title: "My Company" },
+  { id: 4, title: "Team management" },
+  { id: 5, title: "Assessment settings" },
+  { id: 6, title: "Refer & earn" },
+  { id: 7, title: "Log out" }
 ];
 
 function Navbar() {
   const theme = useTheme();
+  const nav = useNavigate();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setOpen(false);
+  const handleMenuItemClick = (option) => {
+    const newOption = option.replace(/ /g, '');
+    // console.log(newOption)
+    nav(`/${newOption}`);
   };
 
   const handleToggle = () => {
@@ -53,6 +59,8 @@ function Navbar() {
 
     setOpen(false);
   };
+
+
 
   return (
     <Paper elevation={3}>
@@ -70,21 +78,22 @@ function Navbar() {
           flexDirection="row"
           width="40%"
         >
-          <Typography>TestGorilla</Typography>
+          <Link to="/"><Typography>TestGorilla</Typography></Link>
           <List sx={{ display: "flex" }}>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton>
-                <ListItemText primary="My assessments" />
+                <Link to="/MyAssessment"><ListItemText primary="My assessments" /></Link>
+
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton component="a" href="#simple-list">
-                <ListItemText primary="My candidates" />
+                <Link to="/MyCandidates"><ListItemText primary="My candidates" /></Link>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton>
-                <ListItemText primary="Tests" />
+                <Link to="/Tests"><ListItemText primary="Tests" /></Link>
               </ListItemButton>
             </ListItem>
           </List>
@@ -100,7 +109,7 @@ function Navbar() {
           <Button
             variant="outlined"
             size="small"
-            // sx={{ color: theme.palette.secondary.black }}
+          // sx={{ color: theme.palette.secondary.black }}
           >
             Talk to us
           </Button>
@@ -147,12 +156,12 @@ function Navbar() {
                     <MenuList id="split-button-menu" autoFocusItem>
                       {options.map((option, index) => (
                         <MenuItem
-                          key={option}
-                          disabled={index === 2}
+                          key={option.id}
+
                           selected={index === selectedIndex}
-                          onClick={(event) => handleMenuItemClick(event, index)}
+                          onClick={() => handleMenuItemClick(option.title)}
                         >
-                          {option}
+                          {option.title}
                         </MenuItem>
                       ))}
                     </MenuList>

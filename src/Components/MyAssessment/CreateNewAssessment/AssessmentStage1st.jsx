@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
-function LookOne() {
+function AssessmentStage1st() {
 
     return (
         <div>
@@ -24,6 +24,7 @@ function LookOne() {
                         label="Name of Assessment"
 
                     />
+
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -45,7 +46,7 @@ function LookOne() {
     )
 }
 
-export default LookOne
+export default AssessmentStage1st
 
 
 const languages = ["English", "Hindi", "Turkey", "Spanish"];

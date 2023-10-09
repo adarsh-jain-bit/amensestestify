@@ -28,14 +28,14 @@ function NotificationTab() {
                             You only receive these notifications for every active assessment.
                         </Alert>
                         <FormGroup>
-                            <Typography variant="h6" sx={{ fontWeight: 'bolder' }}>
+                            <Typography variant="h6" sx={{ fontWeight: 'bolder' }} >
                                 Notify me..
                             </Typography>
                             <FormControlLabel control={<Checkbox defaultChecked />} label="Every time a candidate completes an assessmentl" />
                             <FormControlLabel control={<Checkbox defaultChecked />} label="Every day with a summary of candidates that completed an assessment" />
                         </FormGroup>
 
-                        <Button variant="contained" sx={{ alignSelf: 'flex-end' }}>
+                        <Button variant="contained" sx={{ alignSelf: 'flex-end', bgcolor: '#46A997', '&:hover': { bgcolor: '#46A997' } }}>
                             Save changes
                         </Button>
 

@@ -5,10 +5,11 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import LookOne from './LookOne';
-import LookTwo from './LookTwo';
-import LookThree from './LookThree';
+
 import Stack from '@mui/material/Stack';
+import AssessmentStage1st from './AssessmentStage1st';
+import AssessmentStage3rd from './AssessmentStage3rd';
+import AssessmentStage2nd from './AssessmentStage2nd';
 const steps = ['Name assessment', 'Select tests', 'review and configure'];
 
 function StepperStep() {
@@ -87,9 +88,9 @@ function StepperStep() {
                     <React.Fragment>
                         <Typography sx={{ mt: 10, mb: 1, py: 1 }}>
 
-                            {activeStep === 0 && <LookOne />}
-                            {activeStep === 1 && <LookTwo />}
-                            {activeStep === 2 && <LookThree />}
+                            {activeStep === 0 && <AssessmentStage1st />}
+                            {activeStep === 1 && <AssessmentStage2nd />}
+                            {activeStep === 2 && <AssessmentStage3rd />}
                         </Typography>
                         <Box sx={{ pt: 2 }}>
                             <Stack direction='row' justifyContent='space-between'>

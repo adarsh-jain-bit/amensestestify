@@ -22,6 +22,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { Link } from "react-router-dom";
 
 const MyCandidates = () => {
   const [age, setAge] = React.useState("");
@@ -55,7 +56,8 @@ const MyCandidates = () => {
         </Typography>
         <Stack display="flex" direction="row" gap={2}>
           <Button variant="outlined" startIcon={<AddCircleOutlineIcon />}>
-            Create new Assessment
+
+            <Link to="/NewAssessment">Create new Assessment</Link>
           </Button>
         </Stack>
       </Stack>
