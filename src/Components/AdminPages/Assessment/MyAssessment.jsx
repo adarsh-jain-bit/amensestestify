@@ -1,13 +1,9 @@
 import React from "react";
+import CustomDropDown from "../../Common/CustomDropDown";
 import {
-  FormControl,
-  FormHelperText,
   IconButton,
   InputBase,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
   Stack,
   Table,
   TableBody,
@@ -20,17 +16,11 @@ import {
   Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link } from "react-router-dom";
 
-
 const MyAssessment = () => {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const Assessment = ["Active", "Archived"];
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -44,6 +34,13 @@ const MyAssessment = () => {
     createData("Gingerbread", 356, 16.0, 49, 3.9),
   ];
 
+  const buttonStyle = {
+    backgroundColor: "#5C5470",
+    color: "white",
+    height: "50px",
+    width: "250px",
+  };
+
   return (
     <Container>
       <Stack
@@ -52,12 +49,21 @@ const MyAssessment = () => {
         direction="row"
         py={5} // Add padding top and bottom for spacing
       >
-        <Typography variant="h5" fontWeight="700" fontFamily="sans-serif">
-          Tests
+        <Typography variant="h6" fontWeight="700" fontFamily="sans-serif">
+          My Assessments
         </Typography>
         <Stack display="flex" direction="row" gap={2}>
-          <Button variant="outlined" startIcon={<AddCircleOutlineIcon />}>
-            <Link to="/NewAssessment">Create new Assessment</Link>
+          <Button
+            variant="outlined"
+            startIcon={<AddCircleOutlineIcon />}
+            style={buttonStyle}
+          >
+            <Link
+              to="/NewAssessment"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Create new Assessment
+            </Link>
           </Button>
         </Stack>
       </Stack>
@@ -66,6 +72,7 @@ const MyAssessment = () => {
         justifyContent="space-between"
         direction="row"
         py={3} // Add padding top and bottom for spacing
+        mb={5}
       >
         <Paper
           component="form"
@@ -86,23 +93,12 @@ const MyAssessment = () => {
             <SearchIcon />
           </IconButton>
         </Paper>
-        <Stack display="flex" direction="row" gap={2}>
-          <FormControl sx={{ m: 3, minWidth: 240 }}>
-            <InputLabel id="demo-simple-select-helper-label">
-              Assessments
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={age}
-              label="Assessments"
-              onChange={handleChange}
-            >
-              <MenuItem value="Active">Active</MenuItem>
-              <MenuItem value="Archived">Archived</MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
+        <CustomDropDown
+          width="200px"
+          background="white"
+          label="Language"
+          data={Assessment}
+        />
       </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
