@@ -19,11 +19,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate, Link } from "react-router-dom";
 
-
-
-
-
-
 const options = [
   { id: 1, title: "My Profile" },
   { id: 2, title: "Notifications" },
@@ -31,7 +26,7 @@ const options = [
   { id: 4, title: "Team management" },
   { id: 5, title: "Assessment settings" },
   { id: 6, title: "Refer & earn" },
-  { id: 7, title: "Log out" }
+  { id: 7, title: "Log out" },
 ];
 
 function Navbar() {
@@ -43,7 +38,7 @@ function Navbar() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleMenuItemClick = (option) => {
-    const newOption = option.replace(/ /g, '');
+    const newOption = option.replace(/ /g, "");
     nav(`/${newOption}`);
     setOpen(false);
   };
@@ -60,8 +55,6 @@ function Navbar() {
     setOpen(false);
   };
 
-
-
   return (
     <Paper elevation={3}>
       <Stack
@@ -71,36 +64,62 @@ function Navbar() {
         flexDirection="row"
       >
         <Stack
-          pl="7%"
+          pl="10%"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
           flexDirection="row"
-          width="40%"
+          width="45%"
         >
-          <Link to="/"><Typography>TestGorilla</Typography></Link>
+          <Link to="/">
+            <Typography
+              sx={{ color: "black", fontSize: "22px", fontWeight: "bold" }}
+            >
+              TestGorilla
+            </Typography>
+          </Link>
           <List sx={{ display: "flex" }}>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton>
-                <Link to="/MyAssessment"><ListItemText primary="My assessments" /></Link>
-
+                <Link to="/MyAssessment">
+                  <ListItemText
+                    primary="My assessments"
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                </Link>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton component="a" href="#simple-list">
-                <Link to="/MyCandidates"><ListItemText primary="My candidates" /></Link>
+                <Link to="/MyCandidates">
+                  <ListItemText
+                    primary="My candidates"
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                </Link>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
               <ListItemButton>
-                <Link to="/Tests"><ListItemText primary="Tests" /></Link>
+                <Link to="/Tests">
+                  <ListItemText
+                    primary="Tests"
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                </Link>
               </ListItemButton>
             </ListItem>
           </List>
         </Stack>
         <Stack
           pr="7%"
-          width="30%"
+          width="35%"
           display="flex"
           justifyContent="space-evenly"
           alignItems="center"
@@ -109,26 +128,36 @@ function Navbar() {
           <Button
             variant="outlined"
             size="small"
-          // sx={{ color: theme.palette.secondary.black }}
+            sx={{
+              color: "black",
+              borderColor: "black",
+              height: "40px", // Adjust the height as needed
+              width: "120px",
+            }}
           >
             Talk to us
           </Button>
-          <Button variant="outlined" size="small">
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{
+              color: "black",
+              borderColor: "black",
+              height: "40px", // Adjust the height as needed
+              width: "120px",
+            }}
+          >
             Upgrade
           </Button>
-          <ButtonGroup
-            // variant="contained"
-            ref={anchorRef}
-            aria-label="split button"
-          >
+          <ButtonGroup ref={anchorRef} aria-label="split button">
             <Button
               endIcon={<ArrowDropDownIcon />}
-              // size="small"
-              // aria-controls={open ? "split-button-menu" : undefined}
-              // aria-expanded={open ? "true" : undefined}
-              // aria-haspopup="menu"
               variant="text"
               onClick={handleToggle}
+              sx={{
+                color: "black",
+                borderColor: "black",
+              }}
             >
               Name
             </Button>
@@ -157,7 +186,6 @@ function Navbar() {
                       {options.map((option, index) => (
                         <MenuItem
                           key={option.id}
-
                           selected={index === selectedIndex}
                           onClick={() => handleMenuItemClick(option.title)}
                         >

@@ -14,7 +14,7 @@ function NewAssessment() {
     return (
         <div>
             <Container maxWidth='lg' >
-                <Stack direction='row' mt='1%' mb='6%'>
+                <Stack direction='row' mt='1%' mb='3%'>
                     <Typography variant='h4' fontWeight='bold' >Create new assessment</Typography>
                 </Stack>
 

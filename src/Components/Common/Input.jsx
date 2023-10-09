@@ -22,6 +22,7 @@ export default function Input({
   defaultValue = "",
   width = 'auto',
   background = undefined,
+  height = "60px", // Adjust the height as needed
 }) {
   const inputStyles = {
     label: {
@@ -72,19 +73,19 @@ export default function Input({
         InputProps={{
           style: {
             color: color,
+            height: height, // Set the height here
           },
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
-                edge="end"
               >
                 {placeholder === "Password" &&
                   (!showPassword ? (
-                    <VisibilityOff sx={{ color: color, marginRight: "10px" }} />
+                    <VisibilityOff sx={{ color: color }} />
                   ) : (
-                    <Visibility sx={{ color: color, marginRight: "10px" }} />
+                    <Visibility sx={{ color: color }} />
                   ))}
                 {placeholder === "Search anything here" && <SearchIcon />}
               </IconButton>

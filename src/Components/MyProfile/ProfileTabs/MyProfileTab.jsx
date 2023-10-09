@@ -14,13 +14,12 @@ import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 import Input from '../../Common/Input';
 function MyProfileTab() {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState("");
 
     const handleChange = (newValue) => {
-        setValue(newValue)
-    }
+        setValue(newValue);
+    };
     return (
-
         <React.Fragment>
             <CssBaseline />
             <Container>
@@ -43,10 +42,6 @@ function MyProfileTab() {
                         <Input placeholder='First Name' variant='outlined' type='text' defaultValue="Deepesh" size='small' />
                         <Input placeholder='Last Name' variant='outlined' type='text' defaultValue="Trivedi" size='small' />
                     </Stack>
-
-
-
-
 
                     <MuiTelInput value={value} onChange={handleChange} id="outlined-required"
                         label="Phone Number" size='small' />
@@ -86,6 +81,6 @@ function MyProfileTab() {
     )
 }
 
-export default MyProfileTab
+export default MyProfileTab;
 
 const languages = ["English", "Hindi", "Turkey", "Spanish"];

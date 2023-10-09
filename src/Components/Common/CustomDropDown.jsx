@@ -17,19 +17,14 @@ export default function BasicSelect({
     setInfo(event.target.value);
   };
   return (
-    <Box sx={{ width: width, background: background }}>
+    <Box sx={{ width: width, background: background }} gap={1}>
       <FormControl
         sx={{
           width: "100%",
-          fieldset: {
-            borderColor: "black",
-          },
+          height: "60px", // Adjust the height as needed
         }}
       >
-        <InputLabel
-          id="demo-simple-select-label"
-          sx={{ top: "-6px", color: "black" }}
-        >
+        <InputLabel id="demo-simple-select-label" sx={{ color: "black" }}>
           {label}
         </InputLabel>
         <Select
@@ -39,6 +34,9 @@ export default function BasicSelect({
           label={label}
           onChange={handleChange}
           size="small"
+          sx={{
+            height: "100%",
+          }}
         >
           {data.length > 0 &&
             data.map((value) => {
