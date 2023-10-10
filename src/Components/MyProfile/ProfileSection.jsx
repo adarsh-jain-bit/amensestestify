@@ -25,27 +25,28 @@ function ProfileSection({ tabs, value }) {
 
     return (
         <>
-            <Stack alignItems='center' mt={10}>
-                <Box sx={{ width: '60%', height: '80%', typography: 'body1', backgroundColor: '#F5F6F6' }}>
-                    <TabContext value={newValue}>
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <TabList onChange={handleChange} aria-label="lab API tabs example">
-                                <Tab label="My Profile" value="1" />
-                                <Tab label="Notification" value="2" />
-                                <Tab label="My Company" value="3" />
-                                <Tab label="Team Management" value="4" />
-                                <Tab label="Assessment settings" value="5" />
-                            </TabList>
-                        </Box>
-                        <TabPanel value="1"><MyProfileTab /></TabPanel>
-                        <TabPanel value="2"><NotificationTab /></TabPanel>
-                        <TabPanel value="3"><MyCompany /></TabPanel>
-                        <TabPanel value="4"><TeamManagement /></TabPanel>
-                        <TabPanel value="5"><AssessmentSetting /></TabPanel>
-                    </TabContext>
-                </Box>
-            </Stack>
-
+            <Box sx={{ height: '91vh' }}>
+                <Stack alignItems='center'>
+                    <Box sx={{ width: '60%', height: '80%', typography: 'body1', backgroundColor: '#FFFFFF', mt: 10 }}>
+                        <TabContext value={newValue}>
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                <TabList onChange={handleChange} aria-label="lab API tabs example">
+                                    <Tab label="My Profile" value="1" />
+                                    <Tab label="Notification" value="2" />
+                                    <Tab label="My Company" value="3" />
+                                    <Tab label="Team Management" value="4" />
+                                    <Tab label="Assessment settings" value="5" />
+                                </TabList>
+                            </Box>
+                            <TabPanel value="1"><MyProfileTab /></TabPanel>
+                            <TabPanel value="2"><NotificationTab /></TabPanel>
+                            <TabPanel value="3"><MyCompany /></TabPanel>
+                            <TabPanel value="4"><TeamManagement /></TabPanel>
+                            <TabPanel value="5"><AssessmentSetting /></TabPanel>
+                        </TabContext>
+                    </Box>
+                </Stack>
+            </Box>
         </>
 
     );

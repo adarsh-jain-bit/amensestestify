@@ -127,8 +127,8 @@ function MyCompany() {
                                 <VisuallyHiddenInput type="file" onChange={handleFile} />
                             </Custombutton>}
 
-                        <Box>
-                            <Input placeholder='Company name' variant='outlined' size="small" />
+                        <Box sx={{ mt: 3.2 }}>
+                            <TextField label='Company name' variant='outlined' size="small" />
                             <Autocomplete
                                 id="country-select-demo"
                                 sx={{ width: 300 }}
