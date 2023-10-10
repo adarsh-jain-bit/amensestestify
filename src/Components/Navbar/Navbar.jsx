@@ -14,7 +14,6 @@ import {
   ClickAwayListener,
   MenuList,
   MenuItem,
-  IconButton, // Import IconButton from Material-UI
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles";
@@ -35,7 +34,6 @@ const options = [
   { id: 3, title: "My Company", icon: <Business /> },
   { id: 4, title: "Team management", icon: <Group /> },
   { id: 5, title: "Assessment settings", icon: <Settings /> },
-  { id: 6, title: "Refer & earn", icon: <MonetizationOn /> },
   { id: 7, title: "Log out", icon: <ExitToApp /> },
 ];
 
@@ -197,7 +195,7 @@ function Navbar() {
                 }}
               >
                 <Paper sx={{ ml: 10, mt: 1.5 }}>
-                  <ClickAwayListener onClickAway={handleClose} >
+                  <ClickAwayListener onClickAway={handleClose}>
                     <MenuList id="split-button-menu" autoFocusItem>
                       {options.map((option, index) => (
                         <MenuItem
