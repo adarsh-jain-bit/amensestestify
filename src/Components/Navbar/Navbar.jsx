@@ -18,15 +18,23 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate, Link } from "react-router-dom";
+import {
+  AccountCircle,
+  Notifications,
+  Business,
+  Group,
+  Settings,
+  MonetizationOn,
+  ExitToApp,
+} from "@mui/icons-material"; // Import icons
 
 const options = [
-  { id: 1, title: "My Profile" },
-  { id: 2, title: "Notifications" },
-  { id: 3, title: "My Company" },
-  { id: 4, title: "Team management" },
-  { id: 5, title: "Assessment settings" },
-  { id: 6, title: "Refer & earn" },
-  { id: 7, title: "Log out" },
+  { id: 1, title: "My Profile", icon: <AccountCircle /> },
+  { id: 2, title: "Notifications", icon: <Notifications /> },
+  { id: 3, title: "My Company", icon: <Business /> },
+  { id: 4, title: "Team management", icon: <Group /> },
+  { id: 5, title: "Assessment settings", icon: <Settings /> },
+  { id: 7, title: "Log out", icon: <ExitToApp /> },
 ];
 
 function Navbar() {
@@ -54,6 +62,10 @@ function Navbar() {
 
     setOpen(false);
   };
+
+  // Set a consistent anchorOrigin and transformOrigin for Popper
+  const popperAnchorOrigin = { vertical: "bottom", horizontal: "center" };
+  const popperTransformOrigin = { vertical: "top", horizontal: "center" };
 
   return (
     <Paper elevation={3}>
@@ -171,6 +183,8 @@ function Navbar() {
             role={undefined}
             transition
             disablePortal
+            anchorOrigin={popperAnchorOrigin}
+            transformOrigin={popperTransformOrigin}
           >
             {({ TransitionProps, placement }) => (
               <Grow
@@ -181,14 +195,25 @@ function Navbar() {
                 }}
               >
                 <Paper sx={{ ml: 10, mt: 1.5 }}>
-                  <ClickAwayListener onClickAway={handleClose} >
+                  <ClickAwayListener onClickAway={handleClose}>
                     <MenuList id="split-button-menu" autoFocusItem>
                       {options.map((option, index) => (
                         <MenuItem
                           key={option.id}
                           onClick={() => handleMenuItemClick(option.title)}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            padding: "8px", // Add space around the icon and text
+                            marginBottom: "10px", // Add space between cards
+                            fontSize: "13px", // Set the font size to small
+                          }}
                         >
+                          <span style={{ marginRight: "10px" }}></span>
+                          {option.icon}
+                          <span style={{ marginRight: "30px" }}></span>
                           {option.title}
+                          <span style={{ marginRight: "10px" }}></span>
                         </MenuItem>
                       ))}
                     </MenuList>
