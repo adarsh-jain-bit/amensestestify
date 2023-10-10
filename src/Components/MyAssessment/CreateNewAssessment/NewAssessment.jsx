@@ -2,7 +2,7 @@ import React from 'react'
 
 
 
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Box } from '@mui/material';
 import Container from '@mui/material/Container';
 
 
@@ -13,13 +13,14 @@ function NewAssessment() {
 
     return (
         <div>
-            <Container maxWidth='lg' >
-                <Stack direction='row' mt='1%' mb='3%'>
-                    <Typography variant='h4' fontWeight='bold' >Create new assessment</Typography>
-                </Stack>
+            <Container>
+                <Box sx={{ height: '91vh' }}>
+                    <Stack direction='row' mb='3%'>
+                        <Typography variant='h4' fontWeight='bold' mt={1} >Create new assessment</Typography>
+                    </Stack>
 
-                <StepperStep />
-
+                    <StepperStep />
+                </Box>
             </Container>
 
 

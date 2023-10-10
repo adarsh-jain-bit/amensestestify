@@ -8,6 +8,7 @@ import {
   Typography,
   Container,
   Button,
+  Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -27,74 +28,76 @@ const MyCandidates = () => {
 
   return (
     <Container>
-      <Stack
-        display="flex"
-        justifyContent="space-between"
-        direction="row"
-        py={5} // Add padding top and bottom for spacing
-      >
-        <Typography variant="h6" fontWeight="700" fontFamily="sans-serif">
-          My Candidates
-        </Typography>
-        <Stack display="flex" direction="row" gap={2}>
-          <Button
-            variant="outlined"
-            startIcon={<AddCircleOutlineIcon />}
-            style={buttonStyle}
-          >
-            <Link
-              to="/NewAssessment"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Create new Assessment
-            </Link>
-          </Button>
-        </Stack>
-      </Stack>
-      <Stack
-        display="flex"
-        justifyContent="space-between"
-        direction="row"
-        py={3} // Add padding top and bottom for spacing
-      >
-        <Paper
-          component="form"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            width: 400,
-            height: 55,
-          }}
+      <Box sx={{ height: '91vh' }}>
+        <Stack
+          display="flex"
+          justifyContent="space-between"
+          direction="row"
+          py={5} // Add padding top and bottom for spacing
         >
-          <InputBase
-            sx={{ ml: 1, flex: 1, height: "5px", m: 3 }}
-            placeholder="Search Assessment"
-            inputProps={{ "aria-label": "Search Assessment" }}
-          />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
+          <Typography variant="h6" fontWeight="700" fontFamily="sans-serif">
+            My Candidates
+          </Typography>
+          <Stack display="flex" direction="row" gap={2}>
+            <Button
+              variant="outlined"
+              startIcon={<AddCircleOutlineIcon />}
+              style={buttonStyle}
+            >
+              <Link
+                to="/NewAssessment"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Create new Assessment
+              </Link>
+            </Button>
+          </Stack>
+        </Stack>
+        <Stack
+          display="flex"
+          justifyContent="space-between"
+          direction="row"
+          py={3} // Add padding top and bottom for spacing
+        >
+          <Paper
+            component="form"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              width: 400,
+              height: 55,
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1, height: "5px", m: 3 }}
+              placeholder="Search Assessment"
+              inputProps={{ "aria-label": "Search Assessment" }}
+            />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Paper>
 
-        <CustomDropDown
-          width="180px"
-          background="white"
-          label="Language"
-          data={Assesment}
-        />
-        <CustomDropDown
-          width="180px"
-          background="white"
-          label="Language"
-          data={TestType}
-        />
-        <CustomDropDown
-          width="180px"
-          background="white"
-          label="Language"
-          data={JobRole}
-        />
-      </Stack>
+          <CustomDropDown
+            width="180px"
+            background="white"
+            label="Language"
+            data={Assesment}
+          />
+          <CustomDropDown
+            width="180px"
+            background="white"
+            label="Language"
+            data={TestType}
+          />
+          <CustomDropDown
+            width="180px"
+            background="white"
+            label="Language"
+            data={JobRole}
+          />
+        </Stack>
+      </Box>
     </Container>
   );
 };

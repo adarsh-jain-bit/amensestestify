@@ -180,13 +180,12 @@ function Navbar() {
                     placement === "bottom" ? "center top" : "center bottom",
                 }}
               >
-                <Paper>
-                  <ClickAwayListener onClickAway={handleClose}>
+                <Paper sx={{ ml: 10, mt: 1.5 }}>
+                  <ClickAwayListener onClickAway={handleClose} >
                     <MenuList id="split-button-menu" autoFocusItem>
                       {options.map((option, index) => (
                         <MenuItem
                           key={option.id}
-                          selected={index === selectedIndex}
                           onClick={() => handleMenuItemClick(option.title)}
                         >
                           {option.title}
