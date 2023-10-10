@@ -18,6 +18,7 @@ import MyCompany from "./Components/MyProfile/ProfileTabs/MyCompany";
 import TeamManagement from "./Components/MyProfile/ProfileTabs/TeamManagement";
 import AssessmentSetting from "./Components/MyProfile/ProfileTabs/AssessmentSetting";
 // import Theme from "./Components/Common/Theme";
+import TestWindow from "./Components/Test window/TestWindow";
 function App() {
   const BootStrapContainer = styled("div")({
     width: "100%",
@@ -50,6 +51,7 @@ function App() {
         </Routes>
       </BootStrapContainer>
       {/* <MyAssessment /> */}
+      {/* <TestWindow /> */}
       {/* <MyCandidates /> */}
       {/* <ProfileSection /> */}
       {/* <NewAssessment /> */}
