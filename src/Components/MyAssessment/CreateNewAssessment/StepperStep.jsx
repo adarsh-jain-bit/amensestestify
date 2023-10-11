@@ -64,10 +64,10 @@ function StepperStep() {
 
     return (
         <Box >
-            <Stepper nonLinear activeStep={activeStep} alternativeLabel>
+            <Stepper nonLinear activeStep={activeStep} alternativeLabel sx={{ mb: 5, mt: 5 }}>
                 {steps.map((label, index) => (
                     <Step key={label} completed={completed[index]}>
-                        <StepButton color="inherit" onClick={handleStep(index)}>
+                        <StepButton color="#5C5470" onClick={handleStep(index)} >
                             {label}
                         </StepButton>
                     </Step>
@@ -76,17 +76,17 @@ function StepperStep() {
             <div>
                 {allStepsCompleted() ? (
                     <React.Fragment>
-                        <Typography sx={{ mt: '2%', mb: '1%' }}>
+                        <Typography sx={{ mt: '2%', mb: 10 }}>
                             All steps completed - you&apos;re finished
                         </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: '1%' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 3 }}>
                             <Box sx={{ flex: '1 1 auto' }} />
                             <Button onClick={handleReset} sx={{ color: 'white', bgcolor: '#5C5470', '&:hover': { bgcolor: '#5C5470' } }}>Reset</Button>
                         </Box>
                     </React.Fragment>
                 ) : (
                     <React.Fragment>
-                        <Typography sx={{ mt: '10%', mb: '1%', py: '1%' }}>
+                        <Typography sx={{ mt: 5, py: '1%' }}>
 
                             {activeStep === 0 && <AssessmentStage1st />}
                             {activeStep === 1 && <AssessmentStage2nd />}

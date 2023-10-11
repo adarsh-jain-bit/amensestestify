@@ -33,9 +33,18 @@ function App() {
       <BootStrapContainer>
         <Routes>
           <Route path="/" element={<MyAssessment />} />
-          <Route path="/MyProfile" element={<ProfileSection value="1" />} />
-          <Route path="/Notifications" element={<ProfileSection value="2" />} />
-          <Route path="/MyCompany" element={<ProfileSection value="3" />} />
+          <Route
+            path="/MyProfile"
+            element={<ProfileSection value="1" key="MyProfile" />}
+          />
+          <Route
+            path="/Notifications"
+            element={<ProfileSection value="2" key="Notifications" />}
+          />
+          <Route
+            path="/MyCompany"
+            element={<ProfileSection value="3" key="MyCompany" />}
+          />
           <Route
             path="/Teammanagement"
             element={<ProfileSection value="4" key="teammanagemant" />}
