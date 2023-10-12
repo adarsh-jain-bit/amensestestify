@@ -37,7 +37,6 @@ const options = [
 ];
 
 function Navbar() {
-  const theme = useTheme();
   const nav = useNavigate();
 
   const [open, setOpen] = React.useState(false);
