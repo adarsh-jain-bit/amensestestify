@@ -12,7 +12,6 @@ import {
 import { MuiTelInput } from 'mui-tel-input';
 import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
-import Input from '../../Common/Input';
 function MyProfileTab() {
     const [value, setValue] = useState("");
 
@@ -39,8 +38,8 @@ function MyProfileTab() {
                     </Typography>
 
                     <Stack direction='row' spacing='3%' ml='1%'>
-                        <Input placeholder='First Name' variant='outlined' type='text' defaultValue="Deepesh" size='small' />
-                        <Input placeholder='Last Name' variant='outlined' type='text' defaultValue="Trivedi" size='small' />
+                        <TextField placeholder='First Name' variant='outlined' type='text' defaultValue="Deepesh" size='small' />
+                        <TextField placeholder='Last Name' variant='outlined' type='text' defaultValue="Trivedi" size='small' />
                     </Stack>
 
                     <MuiTelInput value={value} onChange={handleChange} id="outlined-required"
