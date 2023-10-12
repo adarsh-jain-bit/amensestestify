@@ -18,6 +18,8 @@ import MyCompany from "./Components/MyProfile/ProfileTabs/MyCompany";
 import TeamManagement from "./Components/MyProfile/ProfileTabs/TeamManagement";
 import AssessmentSetting from "./Components/MyProfile/ProfileTabs/AssessmentSetting";
 // import Theme from "./Components/Common/Theme";
+import TestWindow from "./Components/Test window/TestWindow";
+import QuestionDashboard from "./Components/Question Dashboard/QuestionDashboard";
 function App() {
   const BootStrapContainer = styled("div")({
     width: "100%",
@@ -28,13 +30,22 @@ function App() {
   return (
     <BrowserRouter>
       {/* <ThemeProvider theme={Theme}> */}
-      <Navbar />
+      {/* <Navbar />
       <BootStrapContainer>
         <Routes>
           <Route path="/" element={<MyAssessment />} />
-          <Route path="/MyProfile" element={<ProfileSection value="1" />} />
-          <Route path="/Notifications" element={<ProfileSection value="2" />} />
-          <Route path="/MyCompany" element={<ProfileSection value="3" />} />
+          <Route
+            path="/MyProfile"
+            element={<ProfileSection value="1" key="MyProfile" />}
+          />
+          <Route
+            path="/Notifications"
+            element={<ProfileSection value="2" key="Notifications" />}
+          />
+          <Route
+            path="/MyCompany"
+            element={<ProfileSection value="3" key="MyCompany" />}
+          />
           <Route
             path="/Teammanagement"
             element={<ProfileSection value="4" key="teammanagemant" />}
@@ -48,8 +59,10 @@ function App() {
           <Route path="/Tests" element={<Test />} />
           <Route path="/NewAssessment" element={<NewAssessment />} />
         </Routes>
-      </BootStrapContainer>
+      </BootStrapContainer> */}
+      <QuestionDashboard />
       {/* <MyAssessment /> */}
+      {/* <TestWindow /> */}
       {/* <MyCandidates /> */}
       {/* <ProfileSection /> */}
       {/* <NewAssessment /> */}

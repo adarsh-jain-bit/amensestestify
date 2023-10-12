@@ -5,6 +5,7 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+
 import Stack from "@mui/material/Stack";
 import AssessmentStage1st from "./AssessmentStage1st";
 import AssessmentStage3rd from "./AssessmentStage3rd";
@@ -35,6 +36,7 @@ function StepperStep() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
+          // find the first step that has been completed
           steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
@@ -62,10 +64,15 @@ function StepperStep() {
 
   return (
     <Box>
-      <Stepper nonLinear activeStep={activeStep} alternativeLabel>
+      <Stepper
+        nonLinear
+        activeStep={activeStep}
+        alternativeLabel
+        sx={{ mb: 5, mt: 5 }}
+      >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
+            <StepButton color="#5C5470" onClick={handleStep(index)}>
               {label}
             </StepButton>
           </Step>
@@ -74,10 +81,10 @@ function StepperStep() {
       <div>
         {allStepsCompleted() ? (
           <React.Fragment>
-            <Typography sx={{ mt: "2%", mb: "1%" }}>
+            <Typography sx={{ mt: "2%", mb: 10 }}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: "1%" }}>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 3 }}>
               <Box sx={{ flex: "1 1 auto" }} />
               <Button
                 onClick={handleReset}
@@ -93,7 +100,7 @@ function StepperStep() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Typography sx={{ mt: "10%", mb: "1%", py: "1%" }}>
+            <Typography sx={{ mt: 5, py: "1%" }}>
               {activeStep === 0 && <AssessmentStage1st />}
               {activeStep === 1 && <AssessmentStage2nd />}
               {activeStep === 2 && <AssessmentStage3rd />}

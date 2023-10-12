@@ -16,7 +16,7 @@ function NewAssessment() {
             <Container>
                 <Box sx={{ height: '91vh' }}>
                     <Stack direction='row' mb='3%'>
-                        <Typography variant='h4' fontWeight='bold' mt={1} >Create new assessment</Typography>
+                        <Typography variant='h5' fontWeight='bold' mt={5} >Create new assessment</Typography>
                     </Stack>
 
                     <StepperStep />
