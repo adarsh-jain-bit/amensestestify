@@ -30,8 +30,8 @@ function App() {
   return (
     <BrowserRouter>
       {/* <ThemeProvider theme={Theme}> */}
-      {/* <Navbar /> */}
-      {/* <BootStrapContainer>
+      {/* <Navbar />
+      <BootStrapContainer>
         <Routes>
           <Route path="/" element={<MyAssessment />} />
           <Route

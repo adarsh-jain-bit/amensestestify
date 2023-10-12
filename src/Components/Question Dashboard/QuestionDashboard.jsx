@@ -10,7 +10,7 @@ import {
   ListItem,
   IconButton,
 } from "@mui/material";
-import ReactQuillDemo from "./ReactQuill";
+import MyQuillEditor from "./ReactQuill";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Stack } from "@mui/system";
 
@@ -28,8 +28,17 @@ const VisuallyHiddenInput = styled("input")({
 });
 function QuestionDashboard() {
   const [displayOption, setDisplayOption] = useState(true);
+  const [displayQuestion, setDisplayQuestion] = useState(false);
   const [option, setOption] = useState("");
   const [optionArray, setOptionArray] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [questionArray, setQuestionArray] = useState({
+    Question: question,
+    option1: option[0],
+    option2: option[1],
+    option3: option[2],
+    option4: option[3],
+  });
 
   const handleOptionChange = (event) => {
     setOption(event.target.value);
@@ -45,6 +54,18 @@ function QuestionDashboard() {
 
     setOption("");
   };
+
+  const handleAddMoreQuestion = () => {
+    setDisplayOption(true);
+  };
+
+  const updateQuestionContent = (content) => {
+    setQuestion(content);
+  };
+
+  //   const handleAllQuestion = () => {
+  //     setDisplayQuestion(!displayQuestion);
+  //   };
   return (
     <Box
       sx={{
@@ -57,25 +78,28 @@ function QuestionDashboard() {
       }}
     >
       <Box sx={{ width: "70%", height: "85%", bgcolor: "#FFFFFF" }}>
-        <Box sx={{ width: "100%", height: "15%", mt: "5%", mx: "10%" }}>
-          <Stack direction="row" spacing="5%">
-            <Box sx={{ width: "60%" }}>
-              <ReactQuillDemo />
-            </Box>
-            <Box sx={{ width: "15%" }}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={techStack}
-                renderInput={(params) => (
-                  <TextField {...params} label="Tech Stack" />
-                )}
-              />
-            </Box>
-          </Stack>
-        </Box>
         {displayOption ? (
           <>
+            <Box sx={{ width: "100%", height: "15%", mt: "5%", mx: "10%" }}>
+              <Stack direction="row" spacing="5%">
+                <Box sx={{ width: "60%" }}>
+                  <MyQuillEditor
+                    value={question}
+                    onChange={updateQuestionContent}
+                  />
+                </Box>
+                <Box sx={{ width: "15%" }}>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={techStack}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Tech Stack" />
+                    )}
+                  />
+                </Box>
+              </Stack>
+            </Box>
             <Box
               sx={{
                 width: "60%",
@@ -128,6 +152,7 @@ function QuestionDashboard() {
           <Stack alignItems="flex-end" justifyContent="flex-end">
             <Button
               variant="outlined"
+              onClick={handleAddMoreQuestion}
               sx={{
                 bgcolor: "#5C5470",
                 color: "#ffffff",
@@ -136,33 +161,68 @@ function QuestionDashboard() {
                 "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
               }}
             >
-              Submit question
+              Add more question
             </Button>
           </Stack>
         )}
-
-        <List>
-          {optionArray.map((item, index) => (
-            <Box
+        {/* <Stack alignItems="flex-end" justifyContent="flex-end">
+          <Button
+            variant="outlined"
+            onClick={handleAllQuestion}
+            sx={{
+              bgcolor: "#5C5470",
+              color: "#ffffff",
+              mr: "10%",
+              my: 2,
+              "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
+            }}
+          >
+            Show all questions
+          </Button>
+        </Stack> */}
+        {displayQuestion && (
+          <>
+            <Typography
+              variant="h6"
               sx={{
-                width: "60%",
-                pl: "10%",
+                fontWeight: "bold",
+                display: "flex",
+                gap: "5px",
+                ml: "10%",
               }}
             >
-              <ListItem
-                secondaryAction={
-                  <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <Typography key={index} variant="h5">
-                  {item}
-                </Typography>
-              </ListItem>
-            </Box>
-          ))}
-        </List>
+              Q :
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: question,
+                }}
+              />
+            </Typography>
+
+            <List>
+              {optionArray.map((item, index) => (
+                <Box
+                  sx={{
+                    width: "60%",
+                    pl: "10%",
+                  }}
+                >
+                  <ListItem
+                    secondaryAction={
+                      <IconButton edge="end" aria-label="delete">
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                  >
+                    <Typography key={index} variant="h5">
+                      {item}
+                    </Typography>
+                  </ListItem>
+                </Box>
+              ))}
+            </List>
+          </>
+        )}
       </Box>
     </Box>
   );
