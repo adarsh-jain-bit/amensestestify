@@ -24,7 +24,6 @@ import {
   Business,
   Group,
   Settings,
-  MonetizationOn,
   ExitToApp,
 } from "@mui/icons-material"; // Import icons
 
@@ -38,12 +37,10 @@ const options = [
 ];
 
 function Navbar() {
-  const theme = useTheme();
   const nav = useNavigate();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleMenuItemClick = (option) => {
     const newOption = option.replace(/ /g, "");
