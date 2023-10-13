@@ -44,7 +44,7 @@ const MyAssessment = () => {
 
   return (
     <Container>
-      <Box sx={{ height: "91vh" }}>
+      <Box sx={{ minHeight: "91vh" }}>
         <Stack
           display="flex"
           justifyContent="space-between"

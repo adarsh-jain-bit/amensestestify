@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { styled } from "@mui/system";
 import MyAssessment from "./Components/AdminPages/Assessment/MyAssessment";
-import Navbar from "./Components/Navbar/Navbar";
+import Navbar from "./Components/AdminPages/Navbar/Navbar";
 import MyCandidates from "./Components/AdminPages/Candidates/MyCandidates";
 import ProfileSection from "./Components/MyProfile/ProfileSection";
-import NewAssessment from "./Components/MyAssessment/CreateNewAssessment/NewAssessment";
+import NewAssessment from "./Components/AdminPages/CreateNewAssessment/NewAssessment";
 import Login from "./Components/Login/Login";
 import ResetPassword from "./Components/Login/ResetPassword";
 import CandidateForm from "./Components/CandidatePages/CandidateForm/CandidateForm";
@@ -30,7 +30,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* <ThemeProvider theme={Theme}> */}
-      {/* <Navbar />
+      <Navbar />
       <BootStrapContainer>
         <Routes>
           <Route path="/" element={<MyAssessment />} />
@@ -59,8 +59,8 @@ function App() {
           <Route path="/Tests" element={<Test />} />
           <Route path="/NewAssessment" element={<NewAssessment />} />
         </Routes>
-      </BootStrapContainer> */}
-      <QuestionDashboard />
+      </BootStrapContainer>
+      {/* <QuestionDashboard /> */}
       {/* <MyAssessment /> */}
       {/* <TestWindow /> */}
       {/* <MyCandidates /> */}
