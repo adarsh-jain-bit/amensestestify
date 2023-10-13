@@ -35,9 +35,7 @@ function StepperStep() {
   const handleNext = () => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -63,7 +61,7 @@ function StepperStep() {
   };
 
   return (
-    <Box>
+    <Box sx={{ minHeight: "91vh" }}>
       <Stepper
         nonLinear
         activeStep={activeStep}
@@ -105,7 +103,7 @@ function StepperStep() {
               {activeStep === 1 && <AssessmentStage2nd />}
               {activeStep === 2 && <AssessmentStage3rd />}
             </Typography>
-            <Box sx={{ pt: "2%", mb: "2%" }}>
+            <Box sx={{ pt: "2%", pb: "2%" }}>
               <Stack direction="row" justifyContent="space-between">
                 <Button
                   variant="contained"
