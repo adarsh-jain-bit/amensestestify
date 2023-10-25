@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import TestCard from "../Tests/TestCard";
-import { Stack, Grid, Paper } from "@mui/material";
+import { Stack, Grid, Paper, useMediaQuery } from "@mui/material";
 import CustomDropDown from "../../Common/CustomDropDown";
-
+import { useTheme } from "@mui/material/styles";
 const ListItem = styled("li")(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
@@ -25,7 +24,8 @@ function AssessmentStage2nd() {
     { key: 3, label: "React" },
     { key: 4, label: "Vue.js" },
   ]);
-
+  const theme = useTheme();
+  const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
       chips.filter((chip) => chip.key !== chipToDelete.key)
@@ -41,10 +41,9 @@ function AssessmentStage2nd() {
             justifyContent: "center",
             flexWrap: "wrap",
             listStyle: "none",
-            p: 0.5,
+            p: 2,
             m: 0,
             width: 1200,
-            height: 70,
           }}
           component="ul"
         >
@@ -72,7 +71,14 @@ function AssessmentStage2nd() {
           })}
         </Paper>
       </Stack>
-      <Stack direction="row" justifyContent="space-between" mb={5}>
+      <Stack
+        direction="row"
+        justifyContent={onlySmallScreen ? "center" : "space-between"}
+        mb={5}
+        display="flex"
+        flexWrap="wrap"
+        gap={2}
+      >
         <CustomDropDown
           background="white"
           label="Job role"

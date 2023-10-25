@@ -7,6 +7,7 @@ import {
   Paper,
   InputBase,
   IconButton,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import TestCard from "./TestCard";
@@ -15,7 +16,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import SearchIcon from "@mui/icons-material/Search";
 import CustomDropDown from "../../Common/CustomDropDown";
 import { Link } from "react-router-dom";
-
+import { useTheme } from "@mui/material/styles";
 var arr = [];
 
 for (let i = 0; i < 10; i++) {
@@ -25,12 +26,15 @@ const Test = () => {
   const Language = ["Hindi", "English", "Urdu", "German"];
   const JobRole = ["Backend", "Frontend", "Full Stack"];
   const TestType = ["Aptitude Test", "Typing Test", "Software Skills"];
-
+  const theme = useTheme();
+  const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const onlyLargeScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const buttonStyle = {
     backgroundColor: "#5C5470",
     color: "white",
-    height: "50px",
-    width: "250px",
+    height: onlySmallScreen ? "40px" : "50px",
+    width: onlySmallScreen ? "40px" : "250px",
+    paddingRight: 0,
   };
 
   return (
@@ -45,35 +49,34 @@ const Test = () => {
           My Assessments
         </Typography>
         <Stack display="flex" direction="row" gap={2}>
-          <Button
-            variant="outlined"
-            startIcon={<AddCircleOutlineIcon />}
-            style={buttonStyle}
+          <Link
+            to="/NewAssessment"
+            style={{ textDecoration: "none", color: "white" }}
           >
-            <Link
-              to="/NewAssessment"
-              style={{ textDecoration: "none", color: "white" }}
+            <Button
+              variant="outlined"
+              startIcon={<AddCircleOutlineIcon />}
+              style={buttonStyle}
             >
-              Create new Assessment
-            </Link>
-          </Button>
+              {onlySmallScreen ? " " : "Create new Assessment"}
+            </Button>
+          </Link>
         </Stack>
       </Stack>
-      <Stack direction="row" gap={4} mt={3}>
-        {/* <Input
-            placeholder="Search anything here"
-            type="text"
-            variant="outlined"
-            size="small"
-            background="white"
-          /> */}
+      <Stack
+        direction="row"
+        gap={4}
+        mt={3}
+        justifyContent="center"
+        flexWrap={onlyLargeScreen ? "wrap" : "nowrap"}
+      >
         <Paper
           component="form"
           sx={{
             p: "2px 2px",
             display: "flex",
             alignItems: "center",
-            width: 500,
+            width: `${onlyLargeScreen ? "43%" : "500px"}`,
             height: 60,
           }}
         >
@@ -86,9 +89,24 @@ const Test = () => {
             <SearchIcon />
           </IconButton>
         </Paper>
-        <CustomDropDown background="white" label="Language" data={Language} />
-        <CustomDropDown background="white" label="Job role" data={JobRole} />
-        <CustomDropDown background="white" label="Test type" data={TestType} />
+        <CustomDropDown
+          background="white"
+          label="Language"
+          data={Language}
+          width={onlyLargeScreen ? "43%" : "500px"}
+        />
+        <CustomDropDown
+          background="white"
+          label="Job role"
+          data={JobRole}
+          width={onlyLargeScreen ? "43%" : "500px"}
+        />
+        <CustomDropDown
+          background="white"
+          label="Test type"
+          data={TestType}
+          width={onlyLargeScreen ? "43%" : "500px"}
+        />
       </Stack>
       <Grid container spacing={4} mt={3}>
         {arr.map((arr, index) => {
