@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-const theme = createTheme({
+const Theme = createTheme({
   palette: {
     primary: {
       main: "#5C5470",
@@ -23,6 +23,7 @@ const theme = createTheme({
         },
       },
     },
+
     MuiButtonBase: {
       styleOverrides: {
         root: ({ ownerState }) => ({
@@ -37,21 +38,30 @@ const theme = createTheme({
       fontSize: "2.5rem",
       fontFamily: "'Poppins', sans-serif",
       color: "#352F44",
-      fontWeight: 300,
+      fontWeight: 600,
     },
     h2: {
       fontSize: "2rem",
       fontFamily: "'Poppins', sans-serif",
       color: "#352F44",
-      fontWeight: 200,
+      fontWeight: 500,
     },
     h3: {
       fontSize: "1.75rem",
       fontFamily: "'Poppins', sans-serif",
       color: "#352F44",
-      fontWeight: 100,
+      fontWeight: 500,
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
     },
   },
 });
 
-export default theme;
+export default Theme;
