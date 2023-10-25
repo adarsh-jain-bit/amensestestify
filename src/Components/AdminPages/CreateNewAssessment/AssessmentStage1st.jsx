@@ -9,7 +9,7 @@ function AssessmentStage1st() {
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "1152px" },
+          "& .MuiTextField-root": { my: 1 },
         }}
         noValidate
         autoComplete="off"
@@ -25,6 +25,7 @@ function AssessmentStage1st() {
           <Autocomplete
             disablePortal
             id="combo-box-demo"
+            fullWidth
             options={languages}
             renderInput={(params) => (
               <TextField
@@ -36,6 +37,7 @@ function AssessmentStage1st() {
           />
           <Autocomplete
             disablePortal
+            fullWidth
             id="combo-box-demo"
             options={jobRoles}
             renderInput={(params) => (

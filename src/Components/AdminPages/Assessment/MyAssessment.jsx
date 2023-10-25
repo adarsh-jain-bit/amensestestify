@@ -15,14 +15,16 @@ import {
   Container,
   Button,
   Box,
+  useMediaQuery,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link } from "react-router-dom";
-
+import { useTheme } from "@mui/material/styles";
 const MyAssessment = () => {
+  const theme = useTheme();
+  const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const Assessment = ["Active", "Archived"];
-
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
@@ -38,8 +40,9 @@ const MyAssessment = () => {
   const buttonStyle = {
     backgroundColor: "#5C5470",
     color: "white",
-    height: "50px",
-    width: "250px",
+    height: onlySmallScreen ? "40px" : "50px",
+    width: onlySmallScreen ? "40px" : "250px",
+    paddingRight: 0,
   };
 
   return (
@@ -55,18 +58,18 @@ const MyAssessment = () => {
             My Assessments
           </Typography>
           <Stack display="flex" direction="row" gap={2}>
-            <Button
-              variant="outlined"
-              startIcon={<AddCircleOutlineIcon />}
-              style={buttonStyle}
+            <Link
+              to="/NewAssessment"
+              style={{ textDecoration: "none", color: "white" }}
             >
-              <Link
-                to="/NewAssessment"
-                style={{ textDecoration: "none", color: "white" }}
+              <Button
+                variant="outlined"
+                startIcon={<AddCircleOutlineIcon />}
+                style={buttonStyle}
               >
-                Create new Assessment
-              </Link>
-            </Button>
+                {onlySmallScreen ? "" : "Create new Assessment"}
+              </Button>
+            </Link>
           </Stack>
         </Stack>
         <Stack
@@ -75,6 +78,9 @@ const MyAssessment = () => {
           direction="row"
           py={3} // Add padding top and bottom for spacing
           mb={5}
+          flexWrap="wrap"
+          columnGap="30px"
+          rowGap="20px"
         >
           <Paper
             component="form"
@@ -87,7 +93,12 @@ const MyAssessment = () => {
             }}
           >
             <InputBase
-              sx={{ ml: 1, flex: 1, height: "5px" }}
+              sx={{
+                ml: 1,
+                flex: 1,
+                height: "5px",
+                width: onlySmallScreen ? "400px" : "100%",
+              }}
               placeholder="Search Assessment"
               inputProps={{ "aria-label": "Search Assessment" }}
             />
@@ -96,7 +107,7 @@ const MyAssessment = () => {
             </IconButton>
           </Paper>
           <CustomDropDown
-            width="200px"
+            width={onlySmallScreen ? "400px" : "200px"}
             background="white"
             label="Language"
             data={Assessment}

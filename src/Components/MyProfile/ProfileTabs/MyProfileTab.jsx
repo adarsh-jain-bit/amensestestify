@@ -8,11 +8,16 @@ import {
   CssBaseline,
   Container,
   Stack,
+  useMediaQuery,
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import KeyIcon from "@mui/icons-material/Key";
 import EmailIcon from "@mui/icons-material/Email";
+import { useTheme } from "@mui/material/styles";
 function MyProfileTab() {
+  const theme = useTheme();
+  const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const onlyMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [value, setValue] = useState("");
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -24,7 +29,7 @@ function MyProfileTab() {
         <Box
           component="form"
           sx={{
-            "& .MuiTextField-root": { m: "1%", width: "50ch" },
+            "& .MuiTextField-root": { m: "1%" },
             height: "60vh",
           }}
           noValidate
@@ -39,8 +44,13 @@ function MyProfileTab() {
             Personal information
           </Typography>
 
-          <Stack direction="row" spacing="3%" ml="1%">
+          <Stack
+            direction={onlySmallScreen ? "column" : "row"}
+            spacing="3%"
+            ml="1%"
+          >
             <TextField
+              fullWidth
               placeholder="First Name"
               variant="outlined"
               type="text"
@@ -48,6 +58,7 @@ function MyProfileTab() {
               size="small"
             />
             <TextField
+              fullWidth
               placeholder="Last Name"
               variant="outlined"
               type="text"
@@ -56,8 +67,14 @@ function MyProfileTab() {
             />
           </Stack>
 
-          <Stack direction="row" spacing="2%" ml="1.5%" width={"49%"}>
+          <Stack
+            direction="row"
+            spacing="2%"
+            ml="1.5%"
+            width={onlyMediumScreen ? "100%" : "49%"}
+          >
             <MuiTelInput
+              fullWidth
               value={value}
               onChange={handleChange}
               id="outlined-required"
@@ -89,7 +106,14 @@ function MyProfileTab() {
               />
             )}
           />
-          <Box mt="3%" ml="2%" display="flex" justifyContent="space-around">
+          <Box
+            mt="3%"
+            ml="2%"
+            display="flex"
+            justifyContent="space-between"
+            flexWrap="wrap"
+            gap={2}
+          >
             <Button
               variant="contained"
               startIcon={<KeyIcon />}

@@ -25,7 +25,7 @@ const Item = styled(Paper)({
 
 const TestCard = ({ index }) => {
   return (
-    <Grid item xs={3} key={index} mb="20px">
+    <Grid item xs md={3} key={index} mb="20px">
       <Item elevation={4}>
         <Stack gap={1}>
           <Typography fontWeight={700} mb="20px">
@@ -48,7 +48,7 @@ const TestCard = ({ index }) => {
               {/* detail button */}
               <DetailModal />
             </Stack>
-            <Button
+            {/* <Button
               sx={{
                 padding: "5px 8px",
                 background: "#5C5470",
@@ -57,7 +57,7 @@ const TestCard = ({ index }) => {
               }}
             >
               Add
-            </Button>
+            </Button> */}
           </Grid>
         </Stack>
       </Item>
