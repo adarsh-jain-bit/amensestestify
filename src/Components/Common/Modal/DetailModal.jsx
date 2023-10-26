@@ -5,16 +5,18 @@ import { Stack } from "@mui/system";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 import CloseIcon from "@mui/icons-material/Close";
-import { Typography, Avatar, Box } from "@mui/material";
+import { Typography, Avatar, Box, useMediaQuery } from "@mui/material";
 import ModalItem1 from "../Modal/ModalItem1";
 import CheckIcon from "@mui/icons-material/Check";
+import { useTheme } from "@mui/material/styles";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const DetailModal = () => {
   const [open, setOpen] = React.useState(false);
-
+  const theme = useTheme();
+  const onlyLargeScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -60,7 +62,7 @@ const DetailModal = () => {
             </Button>
             <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
           </Stack>
-          <Stack direction="row" gap={4} mt={6}>
+          <Stack direction={onlyLargeScreen ? "column" : "row"} gap={4} mt={6}>
             <Stack>
               <Typography variant="h5">
                 CNC machinist (imperial measurements)
