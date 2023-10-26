@@ -30,7 +30,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* <ThemeProvider theme={Theme}> */}
-      {/* <Navbar />
+      <Navbar />
       <BootStrapContainer>
         <Routes>
           <Route path="/" element={<MyAssessment />} />
@@ -59,8 +59,8 @@ function App() {
           <Route path="/Tests" element={<Test />} />
           <Route path="/NewAssessment" element={<NewAssessment />} />
         </Routes>
-      </BootStrapContainer> */}
-      <QuestionDashboard />
+      </BootStrapContainer>
+      {/* <QuestionDashboard /> */}
       {/* <MyAssessment /> */}
       {/* <TestWindow /> */}
       {/* <MyCandidates /> */}
