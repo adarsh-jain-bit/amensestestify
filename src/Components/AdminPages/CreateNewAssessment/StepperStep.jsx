@@ -15,6 +15,24 @@ const steps = ["Name assessment", "Select tests", "review and configure"];
 function StepperStep() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
+  const [fields, setFields] = useState({
+    assessmentName: "",
+    language: null,
+    jobRole: null,
+    move: false,
+    error: {
+      assessmentName: "",
+      language: null,
+      jobRole: null,
+    },
+  });
+  console.log(fields);
+  const handleFieldChange = (field, value) => {
+    setFields((prevFields) => ({
+      ...prevFields,
+      [field]: value,
+    }));
+  };
 
   const totalSteps = () => {
     return steps.length;
@@ -33,10 +51,34 @@ function StepperStep() {
   };
 
   const handleNext = () => {
+    // Check if it's the 1st step and if the required fields are filled
+    if (activeStep === 0) {
+      if (
+        fields.assessmentName.trim() === "" ||
+        fields.language === null ||
+        fields.jobRole === null
+      ) {
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            assessmentName: "Please provide a valid assessment name.",
+            language: "Please select the language",
+            jobRole: "Please Select the Valid Job Role",
+          },
+        }));
+        console.error("Please fill in all required fields in the 1st step.");
+        return;
+      } else {
+        setFields((prev) => ({ ...prev, move: true }));
+      }
+    }
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
+
     setActiveStep(newActiveStep);
   };
 
@@ -63,8 +105,8 @@ function StepperStep() {
   return (
     <Box sx={{ minHeight: "91vh" }}>
       <Stepper
-        nonLinear
         activeStep={activeStep}
+        nonLinear={fields.move}
         alternativeLabel
         sx={{ mb: 5, mt: 5 }}
       >
@@ -99,7 +141,12 @@ function StepperStep() {
         ) : (
           <React.Fragment>
             <Typography sx={{ mt: 5, py: "1%" }}>
-              {activeStep === 0 && <AssessmentStage1st />}
+              {activeStep === 0 && (
+                <AssessmentStage1st
+                  fields={fields}
+                  onFieldChange={handleFieldChange}
+                />
+              )}
               {activeStep === 1 && <AssessmentStage2nd />}
               {activeStep === 2 && <AssessmentStage3rd />}
             </Typography>

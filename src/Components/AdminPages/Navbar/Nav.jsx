@@ -87,16 +87,15 @@ const Nav = () => {
         >
           {isMediumAndBelowDevices ? (
             <>
-              <Stack direction="row" alignItems="center">
+              <Stack direction="row" alignItems="center" width="100%">
                 <DrawerComp />
                 <Typography
                   sx={{
                     color: "black",
                     fontSize: `${isSmallAndBelowDevices ? "18px" : "22px"}`,
                     fontWeight: "bold",
-                    marginLeft: `${
-                      isSmallAndBelowDevices ? "130px" : undefined
-                    }`,
+                    width: "100%",
+                    textAlign: "center",
                   }}
                 >
                   TestGorilla
