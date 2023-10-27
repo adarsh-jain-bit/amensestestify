@@ -67,7 +67,7 @@ function App() {
         {/* <MyCandidates /> */}
         {/* <ProfileSection /> */}
         {/* <NewAssessment /> */}
-        {/* <Login /> */}
+
         {/* <CandidateForm /> */}
         {/* <Test /> */}
         {/* <ResetPassword /> */}

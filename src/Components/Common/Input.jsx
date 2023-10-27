@@ -8,9 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function Input({
+<<<<<<< HEAD
+=======
+  value = "",
+  handleUserData,
+>>>>>>> e62b0c7ffc11e7d8baf227b1d69169b259cb0286
   placeholder,
   value = "",
   type,
+  name = "",
   handleClickShowPassword,
   showPassword,
   color,
@@ -19,11 +25,18 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
+<<<<<<< HEAD
   name,
   onChange,
   width = "auto",
   background = undefined,
   height = "auto", // Adjust the height as needed
+=======
+  // defaultValue = "",
+  width = "auto",
+  background = undefined,
+  // height = "60px", // Adjust the height as needed
+>>>>>>> e62b0c7ffc11e7d8baf227b1d69169b259cb0286
 }) {
   const inputStyles = {
     label: {
@@ -70,12 +83,18 @@ export default function Input({
         size={size}
         rows={rows}
         name={name}
+<<<<<<< HEAD
         multiline={multiline}
         onChange={onChange}
+=======
+        // defaultValue={defaultValue}
+        multiline={multiline}
+        onChange={(e) => handleUserData(e)}
+>>>>>>> e62b0c7ffc11e7d8baf227b1d69169b259cb0286
         InputProps={{
           style: {
             color: color,
-            height: height, // Set the height here
+            // height: height, // Set the height here
           },
           endAdornment: (
             <InputAdornment position="end">
@@ -96,7 +115,11 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
+<<<<<<< HEAD
           shrink: true,
+=======
+          // shrink: shrink,
+>>>>>>> e62b0c7ffc11e7d8baf227b1d69169b259cb0286
         }}
         sx={{
           color: color,
