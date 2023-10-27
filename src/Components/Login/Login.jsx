@@ -62,6 +62,16 @@ const LoginButton = styled("button")({
   zIndex: 2,
 });
 const Login = () => {
+  const [signUp, setSignUp] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [logIn, setLogIn] = useState({
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [flip, setFlip] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -120,14 +130,28 @@ const Login = () => {
                 SIGN UP
               </Typography>
               <Stack gap={2} my={1}>
-                <Input placeholder="Name" type="text" color="white" />
-                <Input placeholder="Email" type="email" color="white" />
+                <Input
+                  placeholder="Name"
+                  type="text"
+                  color="white"
+                  name="signUpName"
+                  value={signUp.name}
+                />
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  color="white"
+                  name="signUpEmail"
+                  value={signUp.email}
+                />
                 <Input
                   placeholder="Password"
                   type={showPassword ? "text" : "password"}
                   handleClickShowPassword={handleClickShowPassword}
                   showPassword={showPassword}
                   color="white"
+                  name="signUpPassword"
+                  value={signUp.password}
                 />
                 <FormControlLabel
                   control={
@@ -185,13 +209,19 @@ const Login = () => {
                 Login
               </Typography>
               <Stack gap={3} my={1}>
-                <Input placeholder="Email" type="email" color="white" />
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  color="white"
+                  name="logInName"
+                />
                 <Input
                   placeholder="Password"
                   type={showPassword ? "text" : "password"}
                   handleClickShowPassword={handleClickShowPassword}
                   showPassword={showPassword}
                   color="white"
+                  name="logInPassword"
                 />
                 <FormControlLabel
                   control={

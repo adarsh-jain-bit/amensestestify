@@ -20,6 +20,7 @@ import Theme from "./Components/Common/theme";
 import TestWindow from "./Components/Test window/TestWindow";
 import QuestionDashboard from "./Components/Question Dashboard/QuestionDashboard";
 import Nav from "./Components/AdminPages/Navbar/Nav";
+
 function App() {
   const BootStrapContainer = styled("div")({
     width: "100%",
@@ -30,7 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={Theme}>
-        <Nav />
+        {/* <Nav />
         <BootStrapContainer>
           <Routes>
             <Route path="/" element={<MyAssessment />} />
@@ -59,14 +60,14 @@ function App() {
             <Route path="/Tests" element={<Test />} />
             <Route path="/NewAssessment" element={<NewAssessment />} />
           </Routes>
-        </BootStrapContainer>
+        </BootStrapContainer> */}
         {/* <QuestionDashboard /> */}
         {/* <MyAssessment /> */}
         {/* <TestWindow /> */}
         {/* <MyCandidates /> */}
         {/* <ProfileSection /> */}
         {/* <NewAssessment /> */}
-        {/* <Login /> */}
+        <Login />
         {/* <CandidateForm /> */}
         {/* <Test /> */}
         {/* <ResetPassword /> */}

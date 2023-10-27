@@ -8,8 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function Input({
-  value = "",
   placeholder,
+  value = "",
   type,
   handleClickShowPassword,
   showPassword,
@@ -19,10 +19,10 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
-  defaultValue = "",
-  width = 'auto',
+  name,
+  width = "auto",
   background = undefined,
-  height = "60px", // Adjust the height as needed
+  height = "auto", // Adjust the height as needed
 }) {
   const inputStyles = {
     label: {
@@ -62,13 +62,13 @@ export default function Input({
     >
       <TextField
         fullWidth
-        value={value}
         label={placeholder}
+        value={value}
         type={type}
         variant={variant}
         size={size}
         rows={rows}
-        defaultValue={defaultValue}
+        name={name}
         multiline={multiline}
         InputProps={{
           style: {
