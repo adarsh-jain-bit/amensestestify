@@ -88,7 +88,7 @@ const MyAssessment = () => {
               p: "2px 2px",
               display: "flex",
               alignItems: "center",
-              width: 400,
+              width: !onlySmallScreen ? "400px" : "100%",
               height: 60,
             }}
           >
