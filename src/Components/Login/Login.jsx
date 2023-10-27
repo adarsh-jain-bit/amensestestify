@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ReactCardFlip from "react-card-flip";
+import { useDispatch } from "react-redux";
+import { submitSignUp } from "../ReduxSlice/ApiSlice";
+
 const Background = styled("div")({
   height: "100vh",
   display: "flex",
@@ -58,7 +61,7 @@ const LoginButton = styled("button")({
   boxShadow: "1px 1px 10px #636e72",
   cursor: "pointer",
   transition: "0.6s",
-  Color: "#206592",
+  color: "#206592",
   zIndex: 2,
 });
 const Login = () => {
@@ -75,6 +78,35 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [flip, setFlip] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleSignUpChange = (e) => {
+    const { name, value } = e.target;
+    setSignUp((prevSignUp) => ({
+      ...prevSignUp,
+      [name]: value,
+    }));
+  };
+
+  const handleLogInChange = (e) => {
+    const { name, value } = e.target;
+    setLogIn((prevLogIn) => ({
+      ...prevLogIn,
+      [name]: value,
+    }));
+  };
+
+  const dispatch = useDispatch();
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const formData = {
+      ...signUp,
+      assessment_id: [],
+    };
+    dispatch(submitSignUp(formData));
+    console.log("data send");
+  };
+
   return (
     <Background>
       <BackSidebox>
@@ -134,15 +166,17 @@ const Login = () => {
                   placeholder="Name"
                   type="text"
                   color="white"
-                  name="signUpName"
+                  name="name"
                   value={signUp.name}
+                  onChange={handleSignUpChange}
                 />
                 <Input
                   placeholder="Email"
                   type="email"
                   color="white"
-                  name="signUpEmail"
+                  name="email"
                   value={signUp.email}
+                  onChange={handleSignUpChange}
                 />
                 <Input
                   placeholder="Password"
@@ -150,9 +184,11 @@ const Login = () => {
                   handleClickShowPassword={handleClickShowPassword}
                   showPassword={showPassword}
                   color="white"
-                  name="signUpPassword"
+                  name="password"
                   value={signUp.password}
+                  onChange={handleSignUpChange}
                 />
+
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -168,7 +204,7 @@ const Login = () => {
                   }}
                 />
               </Stack>
-              <LoginButton>sign up</LoginButton>
+              <LoginButton onClick={handleSignUp}>sign up</LoginButton>
               <Typography
                 variant="p"
                 display="flex"
@@ -213,7 +249,9 @@ const Login = () => {
                   placeholder="Email"
                   type="email"
                   color="white"
-                  name="logInName"
+                  name="email"
+                  value={logIn.email}
+                  onChange={handleLogInChange}
                 />
                 <Input
                   placeholder="Password"
@@ -221,7 +259,9 @@ const Login = () => {
                   handleClickShowPassword={handleClickShowPassword}
                   showPassword={showPassword}
                   color="white"
-                  name="logInPassword"
+                  name="password"
+                  value={logIn.password}
+                  onChange={handleLogInChange}
                 />
                 <FormControlLabel
                   control={

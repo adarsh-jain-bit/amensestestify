@@ -61,13 +61,13 @@ function App() {
             <Route path="/NewAssessment" element={<NewAssessment />} />
           </Routes>
         </BootStrapContainer> */}
-        {/* <QuestionDashboard /> */}
+        <QuestionDashboard />
         {/* <MyAssessment /> */}
         {/* <TestWindow /> */}
         {/* <MyCandidates /> */}
         {/* <ProfileSection /> */}
         {/* <NewAssessment /> */}
-        <Login />
+        {/* <Login /> */}
         {/* <CandidateForm /> */}
         {/* <Test /> */}
         {/* <ResetPassword /> */}

@@ -20,6 +20,7 @@ export default function Input({
   multiline = false,
   shrink = false,
   name,
+  onChange,
   width = "auto",
   background = undefined,
   height = "auto", // Adjust the height as needed
@@ -70,6 +71,7 @@ export default function Input({
         rows={rows}
         name={name}
         multiline={multiline}
+        onChange={onChange}
         InputProps={{
           style: {
             color: color,
@@ -94,7 +96,7 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          shrink: shrink,
+          shrink: true,
         }}
         sx={{
           color: color,
