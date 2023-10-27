@@ -31,6 +31,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={Theme}>
         <Nav />
+        {/* <Login /> */}
         <BootStrapContainer>
           <Routes>
             <Route path="/" element={<MyAssessment />} />
@@ -66,7 +67,7 @@ function App() {
         {/* <MyCandidates /> */}
         {/* <ProfileSection /> */}
         {/* <NewAssessment /> */}
-        {/* <Login /> */}
+
         {/* <CandidateForm /> */}
         {/* <Test /> */}
         {/* <ResetPassword /> */}

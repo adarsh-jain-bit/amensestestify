@@ -64,6 +64,16 @@ const LoginButton = styled("button")({
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [flip, setFlip] = useState(false);
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const handleUserData = (e) => {
+    const { name, value } = e.target;
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+  console.log(user);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   return (
     <Background>
@@ -120,14 +130,31 @@ const Login = () => {
                 SIGN UP
               </Typography>
               <Stack gap={2} my={1}>
-                <Input placeholder="Name" type="text" color="white" />
-                <Input placeholder="Email" type="email" color="white" />
+                <Input
+                  placeholder="Name"
+                  type="text"
+                  color="white"
+                  value={user.name}
+                  name="name"
+                  handleUserData={handleUserData}
+                />
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  color="white"
+                  value={user.email}
+                  name="email"
+                  handleUserData={handleUserData}
+                />
                 <Input
                   placeholder="Password"
                   type={showPassword ? "text" : "password"}
                   handleClickShowPassword={handleClickShowPassword}
                   showPassword={showPassword}
                   color="white"
+                  name="password"
+                  value={user.password}
+                  handleUserData={handleUserData}
                 />
                 <FormControlLabel
                   control={

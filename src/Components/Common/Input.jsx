@@ -9,8 +9,10 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function Input({
   value = "",
+  handleUserData,
   placeholder,
   type,
+  name = "",
   handleClickShowPassword,
   showPassword,
   color,
@@ -19,10 +21,10 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
-  defaultValue = "",
-  width = 'auto',
+  // defaultValue = "",
+  width = "auto",
   background = undefined,
-  height = "60px", // Adjust the height as needed
+  // height = "60px", // Adjust the height as needed
 }) {
   const inputStyles = {
     label: {
@@ -68,12 +70,14 @@ export default function Input({
         variant={variant}
         size={size}
         rows={rows}
-        defaultValue={defaultValue}
+        name={name}
+        // defaultValue={defaultValue}
         multiline={multiline}
+        onChange={(e) => handleUserData(e)}
         InputProps={{
           style: {
             color: color,
-            height: height, // Set the height here
+            // height: height, // Set the height here
           },
           endAdornment: (
             <InputAdornment position="end">
@@ -94,7 +98,7 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          shrink: shrink,
+          // shrink: shrink,
         }}
         sx={{
           color: color,
