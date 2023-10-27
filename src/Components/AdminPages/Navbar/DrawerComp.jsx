@@ -17,6 +17,7 @@ const pages = [
   { name: "My assessments", link: "/MyAssessment" },
   { name: "My candidates", link: "/MyCandidates" },
   { name: "Tests", link: "/Tests" },
+  { name: "My Profile", link: "/MyProfile" },
 ];
 const DrawerComp = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -36,7 +37,7 @@ const DrawerComp = () => {
         <Paper
           elevation={2}
           sx={{
-            p: "10px",
+            p: "15px",
           }}
         >
           <Stack direction="row" justifyContent="space-between">

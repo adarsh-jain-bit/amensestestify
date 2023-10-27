@@ -27,8 +27,11 @@ const Test = () => {
   const JobRole = ["Backend", "Frontend", "Full Stack"];
   const TestType = ["Aptitude Test", "Typing Test", "Software Skills"];
   const theme = useTheme();
-  const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const onlyLargeScreen = useMediaQuery(theme.breakpoints.down("lg"));
+  const onlySmallScreen = useMediaQuery("(min-width:500px)");
+
+  const onlyLargeScreen = useMediaQuery("(min-width:1000px)");
+  const onlyMediumScreen = useMediaQuery("(min-width:700px)");
+
   const buttonStyle = {
     backgroundColor: "#5C5470",
     color: "white",
