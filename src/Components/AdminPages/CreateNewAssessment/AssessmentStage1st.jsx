@@ -37,7 +37,7 @@ function AssessmentStage1st({ fields, onFieldChange, validate }) {
             options={languages}
             value={fields.language}
             onChange={(_, newValue) => {
-              console.log(_, newValue);
+              // console.log(_, newValue);
               onFieldChange("language", newValue);
             }}
             onBlur={() => validate("language")}

@@ -37,7 +37,6 @@ function StepperStep() {
   });
 
   const handleFieldChange = (field, value) => {
-    console.log(field, value);
     setFields((prevFields) => ({
       ...prevFields,
       [field]: value,
@@ -143,7 +142,7 @@ function StepperStep() {
       setActiveStep(newActiveStep);
     }
   };
-  console.log(fields);
+  // console.log(fields);
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -153,6 +152,7 @@ function StepperStep() {
   };
 
   const handleReset = () => {
+    dispatch(clearFields());
     setActiveStep(0);
     setCompleted({});
   };
