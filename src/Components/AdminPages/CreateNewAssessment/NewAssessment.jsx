@@ -7,10 +7,11 @@ import { useTheme } from "@mui/material/styles";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import StepperStep from "./StepperStep";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
+import { useSelector } from "react-redux";
 function NewAssessment() {
   const theme = useTheme();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { assessmentName } = useSelector((state) => state.newAssessmentField);
   return (
     <div>
       <Container>
@@ -35,7 +36,12 @@ function NewAssessment() {
                 </Typography>
                 <Box display="flex" gap={2} alignItems="center" color="#6699C2">
                   {!onlySmallScreen ? (
-                    <Typography> Untitled assessment </Typography>
+                    <Typography>
+                      {" "}
+                      {assessmentName.length > 0
+                        ? assessmentName
+                        : "Untitled assessment"}{" "}
+                    </Typography>
                   ) : (
                     ""
                   )}
