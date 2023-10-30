@@ -12,6 +12,8 @@ import { styled } from "@mui/system";
 import ReactCardFlip from "react-card-flip";
 import { useDispatch } from "react-redux";
 import { submitSignUp } from "../ReduxSlice/ApiSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Background = styled("div")({
   height: "100vh",
@@ -75,6 +77,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const [errors, setErrors] = useState({});
+
   const [showPassword, setShowPassword] = useState(false);
   const [flip, setFlip] = useState(false);
 
@@ -82,6 +87,7 @@ const Login = () => {
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
+
     setSignUp((prevSignUp) => ({
       ...prevSignUp,
       [name]: value,
@@ -98,14 +104,71 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    if (!signUp.name) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+    if (!signUp.email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(signUp.email)) {
+      newErrors.email = "Invalid email address";
+      isValid = false;
+    }
+    if (!signUp.password) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    } else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        signUp.password
+      )
+    ) {
+      newErrors.password =
+        "Password must be at least 8 characters, and include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const formData = {
-      ...signUp,
-      assessment_id: [],
-    };
-    dispatch(submitSignUp(formData));
-    console.log("data send");
+    if (validateForm()) {
+      const formData = {
+        ...signUp,
+        assessment_id: [],
+      };
+      dispatch(submitSignUp(formData));
+      toast.success("sign up Sucess", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
+      console.log("Form data:", signUp, "is send sucessfully");
+    } else {
+      toast.error("Error", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      console.log("Form has errors");
+    }
   };
 
   return (
@@ -171,6 +234,8 @@ const Login = () => {
                   value={signUp.name}
                   onChange={handleSignUpChange}
                 />
+                <span className="error">{errors.name}</span>
+
                 <Input
                   placeholder="Email"
                   type="email"
@@ -179,6 +244,7 @@ const Login = () => {
                   value={signUp.email}
                   onChange={handleSignUpChange}
                 />
+                <span className="error">{errors.email}</span>
                 <Input
                   placeholder="Password"
                   type={showPassword ? "text" : "password"}
@@ -189,7 +255,7 @@ const Login = () => {
                   value={signUp.password}
                   onChange={handleSignUpChange}
                 />
-
+                <span className="error">{errors.password}</span>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -206,6 +272,7 @@ const Login = () => {
                 />
               </Stack>
               <LoginButton onClick={handleSignUp}>sign up</LoginButton>
+
               <Typography
                 variant="p"
                 display="flex"
@@ -316,6 +383,18 @@ const Login = () => {
           </LoginForm>
         </ReactCardFlip>
       </Stack>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </Background>
   );
 };
