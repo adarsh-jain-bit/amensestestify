@@ -24,6 +24,7 @@ import { useTheme } from "@mui/material/styles";
 const MyAssessment = () => {
   const theme = useTheme();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const onlyMediumScreen = useMediaQuery("(min-width:674px)");
   const Assessment = ["Active", "Archived"];
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -67,7 +68,7 @@ const MyAssessment = () => {
                 startIcon={<AddCircleOutlineIcon />}
                 style={buttonStyle}
               >
-                {onlySmallScreen ? "" : "Create new Assessment"}
+                {onlySmallScreen ? " " : "Create new Assessment"}
               </Button>
             </Link>
           </Stack>
@@ -107,7 +108,9 @@ const MyAssessment = () => {
             </IconButton>
           </Paper>
           <CustomDropDown
-            width={onlySmallScreen ? "400px" : "200px"}
+            width={
+              !onlyMediumScreen ? (onlySmallScreen ? "100%" : "400px") : "200px"
+            }
             background="white"
             label="Language"
             data={Assessment}

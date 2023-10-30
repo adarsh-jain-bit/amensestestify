@@ -5,16 +5,109 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Stack from "@mui/material/Stack";
 import AssessmentStage1st from "./AssessmentStage1st";
 import AssessmentStage3rd from "./AssessmentStage3rd";
 import AssessmentStage2nd from "./AssessmentStage2nd";
-const steps = ["Name assessment", "Select tests", "review and configure"];
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateField,
+  updateError,
+  clearFields,
+} from "../../ReduxSlice/NewAssessmentFieldData";
+const steps = ["Name assessment", "Select tests", "Review and configure"];
 
 function StepperStep() {
+  const dispatch = useDispatch();
+  const AssessmentData = useSelector((state) => state.newAssessmentField);
+  console.log(AssessmentData);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
+  const [fields, setFields] = useState({
+    assessmentName: "",
+    language: null,
+    jobRole: null,
+    move: false,
+    error: {
+      assessmentName: "",
+      language: null,
+      jobRole: null,
+    },
+  });
+
+  const handleFieldChange = (field, value) => {
+    console.log(field, value);
+    setFields((prevFields) => ({
+      ...prevFields,
+      [field]: value,
+    }));
+    dispatch(updateField({ field, value }));
+  };
+  const validate = (field) => {
+    if (field === "assessmentName") {
+      if (fields.assessmentName.trim() === "") {
+        // Check the value in fields
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            assessmentName: "Please provide a valid assessment name.",
+          },
+        }));
+      } else {
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            assessmentName: "",
+          },
+        }));
+      }
+    } else if (field === "language") {
+      if (!fields.language) {
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            language: "Please select the language.",
+          },
+        }));
+      } else {
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            language: null,
+          },
+        }));
+      }
+    } else if (field === "jobRole") {
+      if (!fields.jobRole) {
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            jobRole: "Please select a valid job role.",
+          },
+        }));
+      } else {
+        setFields((prevFields) => ({
+          ...prevFields,
+          move: false,
+          error: {
+            ...prevFields.error,
+            jobRole: null,
+          },
+        }));
+      }
+    }
+  };
 
   const totalSteps = () => {
     return steps.length;
@@ -29,30 +122,34 @@ function StepperStep() {
   };
 
   const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
+    return completedSteps() === totalSteps;
   };
 
   const handleNext = () => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    setActiveStep(newActiveStep);
-  };
+    if (
+      fields.assessmentName.trim() == "" ||
+      fields.jobRole === null ||
+      fields.language === null
+    ) {
+      validate("assessmentName");
+      validate("language");
+      validate("jobRole");
+    } else {
+      const newActiveStep =
+        isLastStep() && !allStepsCompleted()
+          ? steps.findIndex((step, i) => !(i in completed))
+          : activeStep + 1;
 
+      setActiveStep(newActiveStep);
+    }
+  };
+  console.log(fields);
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStep = (step) => () => {
+  const handleStep = (step) => {
     setActiveStep(step);
-  };
-
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
   };
 
   const handleReset = () => {
@@ -61,18 +158,49 @@ function StepperStep() {
   };
 
   return (
-    <Box sx={{ minHeight: "91vh" }}>
+    <Box sx={{ minHeight: "91vh", position: "relative" }}>
+      <Box sx={{ position: "absolute", right: 0, top: "-85px" }}>
+        <Stack direction="row" justifyContent="flex-end" gap={3}>
+          {activeStep !== 0 && (
+            <Button
+              variant="contained"
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{
+                color: "white",
+                bgcolor: "#5C5470",
+                "&:hover": { bgcolor: "#5C5470" },
+              }}
+            >
+              <ArrowBackIosIcon />
+            </Button>
+          )}
+          <Box>
+            <Stack direction="row" spacing={3}>
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                sx={{
+                  bgcolor: "#5C5470",
+                  "&:hover": { bgcolor: "#5C5470" },
+                }}
+              >
+                Next
+              </Button>
+            </Stack>
+          </Box>
+        </Stack>
+      </Box>
       <Stepper
-        nonLinear
         activeStep={activeStep}
+        nonLinear={fields.move}
         alternativeLabel
         sx={{ mb: 5, mt: 5 }}
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="#5C5470" onClick={handleStep(index)}>
-              {label}
-            </StepButton>
+            <StepButton onClick={() => handleStep(index)}>{label}</StepButton>
           </Step>
         ))}
       </Stepper>
@@ -80,7 +208,7 @@ function StepperStep() {
         {allStepsCompleted() ? (
           <React.Fragment>
             <Typography sx={{ mt: "2%", mb: 10 }}>
-              All steps completed - you&apos;re finished
+              All steps completed - you're finished
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 3 }}>
               <Box sx={{ flex: "1 1 auto" }} />
@@ -99,63 +227,16 @@ function StepperStep() {
         ) : (
           <React.Fragment>
             <Typography sx={{ mt: 5, py: "1%" }}>
-              {activeStep === 0 && <AssessmentStage1st />}
+              {activeStep === 0 && (
+                <AssessmentStage1st
+                  fields={fields}
+                  onFieldChange={handleFieldChange}
+                  validate={validate}
+                />
+              )}
               {activeStep === 1 && <AssessmentStage2nd />}
               {activeStep === 2 && <AssessmentStage3rd />}
             </Typography>
-            <Box sx={{ pt: "2%", pb: "2%" }}>
-              <Stack direction="row" justifyContent="space-between">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{
-                    color: "white",
-                    bgcolor: "#5C5470",
-                    "&:hover": { bgcolor: "#5C5470" },
-                  }}
-                >
-                  Back
-                </Button>
-                <Box>
-                  <Stack direction="row" spacing={3}>
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{
-                        bgcolor: "#5C5470",
-                        "&:hover": { bgcolor: "#5C5470" },
-                      }}
-                    >
-                      Next
-                    </Button>
-                    {activeStep !== steps.length &&
-                      (completed[activeStep] ? (
-                        <Typography
-                          variant="caption"
-                          sx={{ display: "inline-block" }}
-                        >
-                          Step {activeStep + 1} already completed
-                        </Typography>
-                      ) : (
-                        <Button
-                          variant="contained"
-                          onClick={handleComplete}
-                          sx={{
-                            bgcolor: "#5C5470",
-                            "&:hover": { bgcolor: "#5C5470" },
-                          }}
-                        >
-                          {completedSteps() === totalSteps() - 1
-                            ? "Finish"
-                            : "Complete Step"}
-                        </Button>
-                      ))}
-                  </Stack>
-                </Box>
-              </Stack>
-            </Box>
           </React.Fragment>
         )}
       </div>

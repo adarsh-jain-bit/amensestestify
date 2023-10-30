@@ -35,8 +35,8 @@ const Test = () => {
   const buttonStyle = {
     backgroundColor: "#5C5470",
     color: "white",
-    height: onlySmallScreen ? "40px" : "50px",
-    width: onlySmallScreen ? "40px" : "250px",
+    height: !onlySmallScreen ? "40px" : "50px",
+    width: !onlySmallScreen ? "40px" : "250px",
     paddingRight: 0,
   };
 
@@ -61,7 +61,7 @@ const Test = () => {
               startIcon={<AddCircleOutlineIcon />}
               style={buttonStyle}
             >
-              {onlySmallScreen ? " " : "Create new Assessment"}
+              {!onlySmallScreen ? " " : "Create new Assessment"}
             </Button>
           </Link>
         </Stack>
@@ -71,7 +71,7 @@ const Test = () => {
         gap={4}
         mt={3}
         justifyContent="center"
-        flexWrap={onlyLargeScreen ? "wrap" : "nowrap"}
+        flexWrap={!onlyLargeScreen ? "wrap" : "nowrap"}
       >
         <Paper
           component="form"
@@ -79,7 +79,9 @@ const Test = () => {
             p: "2px 2px",
             display: "flex",
             alignItems: "center",
-            width: `${onlyLargeScreen ? "43%" : "500px"}`,
+            width: `${
+              !onlyLargeScreen ? (!onlySmallScreen ? "100%" : "43%") : "500px"
+            }`,
             height: 60,
           }}
         >
@@ -96,19 +98,25 @@ const Test = () => {
           background="white"
           label="Language"
           data={Language}
-          width={onlyLargeScreen ? "43%" : "500px"}
+          width={
+            !onlyLargeScreen ? (!onlySmallScreen ? "100%" : "43%") : "500px"
+          }
         />
         <CustomDropDown
           background="white"
           label="Job role"
           data={JobRole}
-          width={onlyLargeScreen ? "43%" : "500px"}
+          width={
+            !onlyLargeScreen ? (!onlySmallScreen ? "100%" : "43%") : "500px"
+          }
         />
         <CustomDropDown
           background="white"
           label="Test type"
           data={TestType}
-          width={onlyLargeScreen ? "43%" : "500px"}
+          width={
+            !onlyLargeScreen ? (!onlySmallScreen ? "100%" : "43%") : "500px"
+          }
         />
       </Stack>
       <Grid container spacing={4} mt={3}>
