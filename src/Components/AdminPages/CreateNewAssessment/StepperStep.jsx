@@ -20,91 +20,40 @@ const steps = ["Name assessment", "Select tests", "Review and configure"];
 
 function StepperStep() {
   const dispatch = useDispatch();
-  const AssessmentData = useSelector((state) => state.newAssessmentField);
-  console.log(AssessmentData);
+  const { assessmentName, language, jobRole, move } = useSelector(
+    (state) => state.newAssessmentField
+  );
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  const [fields, setFields] = useState({
-    assessmentName: "",
-    language: null,
-    jobRole: null,
-    move: false,
-    error: {
-      assessmentName: "",
-      language: null,
-      jobRole: null,
-    },
-  });
 
   const handleFieldChange = (field, value) => {
-    console.log(field, value);
-    setFields((prevFields) => ({
-      ...prevFields,
-      [field]: value,
-    }));
     dispatch(updateField({ field, value }));
   };
   const validate = (field) => {
     if (field === "assessmentName") {
-      if (fields.assessmentName.trim() === "") {
-        // Check the value in fields
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            assessmentName: "Please provide a valid assessment name.",
-          },
-        }));
+      if (assessmentName.trim() === "") {
+        dispatch(
+          updateError({
+            field,
+            value: "Please provide a valid assessment name.",
+          })
+        );
       } else {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            assessmentName: "",
-          },
-        }));
+        dispatch(updateError({ field, value: "" }));
       }
     } else if (field === "language") {
-      if (!fields.language) {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            language: "Please select the language.",
-          },
-        }));
+      if (!language) {
+        dispatch(updateError({ field, value: "Please select the language." }));
       } else {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            language: null,
-          },
-        }));
+        dispatch(updateError({ field, value: "" }));
       }
     } else if (field === "jobRole") {
-      if (!fields.jobRole) {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            jobRole: "Please select a valid job role.",
-          },
-        }));
+      if (!jobRole) {
+        dispatch(
+          updateError({ field, value: "Please select a valid job role." })
+        );
       } else {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            jobRole: null,
-          },
-        }));
+        dispatch(updateError({ field, value: "" }));
       }
     }
   };
@@ -126,11 +75,7 @@ function StepperStep() {
   };
 
   const handleNext = () => {
-    if (
-      fields.assessmentName.trim() == "" ||
-      fields.jobRole === null ||
-      fields.language === null
-    ) {
+    if (assessmentName.trim() == "" || jobRole === null || language === null) {
       validate("assessmentName");
       validate("language");
       validate("jobRole");
@@ -143,7 +88,6 @@ function StepperStep() {
       setActiveStep(newActiveStep);
     }
   };
-  console.log(fields);
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -153,6 +97,7 @@ function StepperStep() {
   };
 
   const handleReset = () => {
+    dispatch(clearFields());
     setActiveStep(0);
     setCompleted({});
   };
@@ -186,7 +131,7 @@ function StepperStep() {
                   "&:hover": { bgcolor: "#5C5470" },
                 }}
               >
-                Next
+                {activeStep === 2 ? "Finish" : "Back"}
               </Button>
             </Stack>
           </Box>
@@ -194,7 +139,7 @@ function StepperStep() {
       </Box>
       <Stepper
         activeStep={activeStep}
-        nonLinear={fields.move}
+        nonLinear={move}
         alternativeLabel
         sx={{ mb: 5, mt: 5 }}
       >
@@ -229,7 +174,6 @@ function StepperStep() {
             <Typography sx={{ mt: 5, py: "1%" }}>
               {activeStep === 0 && (
                 <AssessmentStage1st
-                  fields={fields}
                   onFieldChange={handleFieldChange}
                   validate={validate}
                 />

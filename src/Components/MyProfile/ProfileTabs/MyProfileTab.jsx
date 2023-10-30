@@ -14,14 +14,19 @@ import { MuiTelInput } from "mui-tel-input";
 import KeyIcon from "@mui/icons-material/Key";
 import EmailIcon from "@mui/icons-material/Email";
 import { useTheme } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
 function MyProfileTab() {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  // const { name, email } = useSelector((state) => state.api);
+
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const onlyMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [value, setValue] = useState("");
   const handleChange = (newValue) => {
     setValue(newValue);
   };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -54,7 +59,7 @@ function MyProfileTab() {
               placeholder="First Name"
               variant="outlined"
               type="text"
-              defaultValue="Deepesh"
+              defaultValue="deepesh"
               size="small"
             />
             <TextField
