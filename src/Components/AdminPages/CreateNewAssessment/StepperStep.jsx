@@ -131,7 +131,7 @@ function StepperStep() {
                   "&:hover": { bgcolor: "#5C5470" },
                 }}
               >
-                {activeStep === 2 ? "Finish" : "Back"}
+                {activeStep === 2 ? "Finish" : "Next"}
               </Button>
             </Stack>
           </Box>

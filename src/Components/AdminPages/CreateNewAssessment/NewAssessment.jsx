@@ -8,8 +8,10 @@ import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import StepperStep from "./StepperStep";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function NewAssessment() {
   const theme = useTheme();
+  const Navigate = useNavigate();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { assessmentName } = useSelector((state) => state.newAssessmentField);
   return (
@@ -27,6 +29,7 @@ function NewAssessment() {
                 alignItems="center"
                 sx={{ backgroundColor: "#EDEDED" }}
                 mt={5}
+                onClick={() => {Navigate(-1)}}
               >
                 <ArrowBackIosIcon />
               </Box>
