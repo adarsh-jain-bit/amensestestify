@@ -119,20 +119,22 @@ function MyProfileTab() {
             flexWrap="wrap"
             gap={2}
           >
-            <Button
-              variant="contained"
-              startIcon={<KeyIcon />}
-              sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
-            >
-              Change Password
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<EmailIcon />}
-              sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
-            >
-              Change Email
-            </Button>
+            <Box sx={{ display: "flex", gap: "10px" }}>
+              <Button
+                variant="contained"
+                startIcon={<KeyIcon />}
+                sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+              >
+                Change Password
+              </Button>
+              <Button
+                variant="contained"
+                endIcon={<EmailIcon />}
+                sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+              >
+                Change Email
+              </Button>
+            </Box>
             <Button
               variant="contained"
               sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}

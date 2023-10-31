@@ -29,14 +29,15 @@ function ProfileSection({ tabs, value }) {
   return (
     <>
       <Box sx={{ height: "91vh" }}>
-        <Stack alignItems="center">
+        <Stack alignItems="center" bgcolor="#F5F6F6">
           <Box
             sx={{
-              width: `${onlyMediumScreen ? "90%" : "70%"}`,
+              width: `${onlyMediumScreen ? "90%" : "80%"}`,
               height: "80%",
               typography: "body1",
               backgroundColor: "#FFFFFF",
-              mt: 10,
+              my: 10,
+              pb: 5,
             }}
           >
             <TabContext value={newValue}>

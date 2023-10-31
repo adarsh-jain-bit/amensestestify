@@ -31,9 +31,9 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={Theme}>
-        {/* <Nav /> */}
-        <Login />
-        {/* <BootStrapContainer>
+        <Nav />
+        {/* <Login /> */}
+        <BootStrapContainer>
           <Routes>
             <Route path="/" element={<MyAssessment />} />
             <Route
@@ -61,7 +61,7 @@ function App() {
             <Route path="/Tests" element={<Test />} />
             <Route path="/NewAssessment" element={<NewAssessment />} />
           </Routes>
-        </BootStrapContainer> */}
+        </BootStrapContainer>
         {/* <QuestionDashboard /> */}
         {/* <MyAssessment /> */}
         {/* <TestWindow /> */}
