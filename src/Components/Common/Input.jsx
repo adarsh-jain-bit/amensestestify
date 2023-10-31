@@ -21,10 +21,9 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
-  // defaultValue = "",
   width = "auto",
   background = undefined,
-  // height = "60px", // Adjust the height as needed
+  height = "auto", // Adjust the height as needed
 }) {
   const inputStyles = {
     label: {
@@ -71,9 +70,8 @@ export default function Input({
         size={size}
         rows={rows}
         name={name}
-        // defaultValue={defaultValue}
         multiline={multiline}
-        onChange={(e) => onChange(e)}
+        onChange={onChange}
         InputProps={{
           style: {
             color: color,
@@ -98,7 +96,7 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          // shrink: shrink,
+          shrink: true,
         }}
         sx={{
           color: color,

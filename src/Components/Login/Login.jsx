@@ -167,6 +167,7 @@ const Login = () => {
         progress: undefined,
         theme: "colored",
       });
+
       console.log("Form has errors");
     }
   };
@@ -228,25 +229,27 @@ const Login = () => {
               <Stack gap={2} my={1}>
                 <Input
                   placeholder="Name"
+                  error={errors.name}
                   type="text"
                   color="white"
                   name="name"
                   value={signUp.name}
                   onChange={handleSignUpChange}
                 />
-                <span className="error">{errors.name}</span>
 
                 <Input
                   placeholder="Email"
+                  error={errors.email}
                   type="email"
                   color="white"
                   name="email"
                   value={signUp.email}
                   onChange={handleSignUpChange}
                 />
-                <span className="error">{errors.email}</span>
+
                 <Input
                   placeholder="Password"
+                  error={errors.password}
                   type={showPassword ? "text" : "password"}
                   handleClickShowPassword={handleClickShowPassword}
                   showPassword={showPassword}
@@ -255,7 +258,7 @@ const Login = () => {
                   value={signUp.password}
                   onChange={handleSignUpChange}
                 />
-                <span className="error">{errors.password}</span>
+
                 <FormControlLabel
                   control={
                     <Checkbox
