@@ -10,14 +10,15 @@ import SignUp from "./SignUp";
 import { useTheme } from "styled-components";
 import PersonalDetails from "./PersonalDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
-
+import { useSelector } from "react-redux";
 const StepsLabel = ["Sign Up", "Personal Detail", "Professional Info"];
 
 export default function CandidateForm() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-
+  const data = useSelector((state) => state.CandidateData);
+  console.log(data);
   const isStepOptional = (step) => {
     return step === 1;
   };

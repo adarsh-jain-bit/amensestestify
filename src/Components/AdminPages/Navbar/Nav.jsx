@@ -16,6 +16,7 @@ import {
   useMediaQuery,
   useTheme,
   MenuItem,
+  Container,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
@@ -76,7 +77,7 @@ const Nav = () => {
 
   return (
     <>
-      <Paper elevation={3}>
+      <Container>
         <Stack
           justifyContent="space-between"
           height={isSmallAndBelowDevices ? "60px" : "80px"}
@@ -104,7 +105,7 @@ const Nav = () => {
             </>
           ) : (
             <Stack
-              pl="5%"
+              // pl="5%"
               display="flex"
               alignItems="center"
               justifyContent="start"
@@ -309,7 +310,7 @@ const Nav = () => {
             </>
           )}
         </Stack>
-      </Paper>
+      </Container>
     </>
   );
 };

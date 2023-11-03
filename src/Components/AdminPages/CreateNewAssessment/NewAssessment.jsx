@@ -29,7 +29,9 @@ function NewAssessment() {
                 alignItems="center"
                 sx={{ backgroundColor: "#EDEDED" }}
                 mt={5}
-                onClick={() => {Navigate(-1)}}
+                onClick={() => {
+                  Navigate(-1);
+                }}
               >
                 <ArrowBackIosIcon />
               </Box>
@@ -37,7 +39,7 @@ function NewAssessment() {
                 <Typography variant="h5" fontWeight="bold" mt={5}>
                   {onlySmallScreen ? "New Assessment" : "Create New Assessment"}
                 </Typography>
-                <Box display="flex" gap={2} alignItems="center" color="#6699C2">
+                <Box display="flex" gap={2} alignItems="center" color="#5C5470">
                   {!onlySmallScreen ? (
                     <Typography>
                       {" "}

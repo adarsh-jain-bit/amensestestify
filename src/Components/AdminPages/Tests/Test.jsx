@@ -10,28 +10,21 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import TestCard from "./TestCard";
 // import Input from "../../Common/Input";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import SearchIcon from "@mui/icons-material/Search";
 import CustomDropDown from "../../Common/CustomDropDown";
 import { Link } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-var arr = [];
+import TestData from "./TestData";
 
-for (let i = 0; i < 10; i++) {
-  arr.push(i);
-}
 const Test = () => {
   const Language = ["Hindi", "English", "Urdu", "German"];
   const JobRole = ["Backend", "Frontend", "Full Stack"];
   const TestType = ["Aptitude Test", "Typing Test", "Software Skills"];
-  const theme = useTheme();
+  // const theme = useTheme();
   const onlySmallScreen = useMediaQuery("(min-width:500px)");
 
   const onlyLargeScreen = useMediaQuery("(min-width:1000px)");
-  const onlyMediumScreen = useMediaQuery("(min-width:700px)");
-
   const buttonStyle = {
     backgroundColor: "#5C5470",
     color: "white",
@@ -119,11 +112,8 @@ const Test = () => {
           }
         />
       </Stack>
-      <Grid container spacing={4} mt={3}>
-        {arr.map((arr, index) => {
-          return <TestCard index={index} />;
-        })}
-      </Grid>
+      {/* test data  */}
+      <TestData addButton={false} />
     </Container>
   );
 };

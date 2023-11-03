@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
-import TestCard from "../Tests/TestCard";
+import TestData from "../Tests/TestData";
 import { Stack, Grid, Paper, useMediaQuery } from "@mui/material";
 import CustomDropDown from "../../Common/CustomDropDown";
 import { useTheme } from "@mui/material/styles";
@@ -11,18 +11,13 @@ const ListItem = styled("li")(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
-var arr = [];
-
-for (let i = 0; i < 10; i++) {
-  arr.push(i);
-}
 function AssessmentStage2nd() {
   const [chipData, setChipData] = useState([
-    { key: 0, label: "Angular" },
-    { key: 1, label: "jQuery" },
-    { key: 2, label: "Polymer" },
-    { key: 3, label: "React" },
-    { key: 4, label: "Vue.js" },
+    { key: 0, label: "1st Test" },
+    { key: 1, label: "2st Test" },
+    { key: 2, label: "3st Test" },
+    { key: 3, label: "4st Test" },
+    { key: 4, label: "5st Test" },
   ]);
   const theme = useTheme();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -63,7 +58,7 @@ function AssessmentStage2nd() {
                     color="primary"
                     variant="outlined"
                     size="large"
-                    sx={{ ml: 4, border: "none", my: 1, fontSize: 20, mx: 2 }}
+                    sx={{ border: "none", my: 1, fontSize: 20 }}
                   />
                 </Box>
               </ListItem>
@@ -92,12 +87,9 @@ function AssessmentStage2nd() {
           data={testName}
         />
       </Stack>
+      {/* test data */}
       <Stack direction="row" justifyContent="space-between">
-        <Grid container spacing={4} mt={3}>
-          {arr.map((arr, index) => {
-            return <TestCard index={index} />;
-          })}
-        </Grid>
+        <TestData addButton={true} />
       </Stack>
     </div>
   );
