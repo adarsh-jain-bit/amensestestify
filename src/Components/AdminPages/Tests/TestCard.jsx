@@ -23,18 +23,16 @@ const Item = styled(Paper)({
   minHeight: "300px", // Adjust the height as needed
 });
 
-const TestCard = ({ index }) => {
+const TestCard = ({ index, name, desc, addButton }) => {
   return (
     <Grid item xs md={3} key={index} mb="20px">
       <Item elevation={4}>
         <Stack gap={1}>
           <Typography fontWeight={700} mb="20px">
-            .NET
+            {name}
           </Typography>
           <Typography variant="p" mb="20px">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde quas,
-            commodi doloremque reprehenderit aperiam velit?Lorem ipsum dolor sit
-            amet.
+            {desc}
           </Typography>
           <Typography display="flex" alignItems="center" gap={1}>
             <AccessAlarmsIcon fontSize="15px" mb="20px" />
@@ -48,16 +46,18 @@ const TestCard = ({ index }) => {
               {/* detail button */}
               <DetailModal />
             </Stack>
-            {/* <Button
-              sx={{
-                padding: "5px 8px",
-                background: "#5C5470",
-                color: "white",
-                p: "5px 10px",
-              }}
-            >
-              Add
-            </Button> */}
+            {addButton && (
+              <Button
+                sx={{
+                  padding: "5px 8px",
+                  background: "#5C5470",
+                  color: "white",
+                  p: "5px 10px",
+                }}
+              >
+                Add
+              </Button>
+            )}
           </Grid>
         </Stack>
       </Item>
