@@ -15,6 +15,7 @@ import {
   updateField,
   updateError,
   clearFields,
+  makeApiCall,
 } from "../../ReduxSlice/NewAssessmentFieldData";
 const steps = ["Name assessment", "Select tests", "Review and configure"];
 
@@ -75,7 +76,7 @@ function StepperStep() {
   };
 
   const handleNext = () => {
-    if (assessmentName.trim() == "" || jobRole === null || language === null) {
+    if (assessmentName.trim() === "" || jobRole === null || language === null) {
       validate("assessmentName");
       validate("language");
       validate("jobRole");
@@ -102,6 +103,28 @@ function StepperStep() {
     setCompleted({});
   };
 
+  const handleFinish = async () => {
+    console.log(assessmentName, jobRole);
+    const assessmentData = {
+      organisation_id: "653f503e64f189e30667b7cc",
+      name: assessmentName,
+      tech_stack: jobRole,
+      test_level: "easy",
+      question_id: [],
+    };
+
+    try {
+      const response = await dispatch(makeApiCall(assessmentData));
+      console.log("API response:", response);
+    } catch (error) {
+      console.error("API call error:", error);
+    }
+
+    dispatch(clearFields());
+    setActiveStep(0);
+    setCompleted({});
+  };
+
   return (
     <Box sx={{ minHeight: "91vh", position: "relative" }}>
       <Box sx={{ position: "absolute", right: 0, top: "-85px" }}>
@@ -123,16 +146,29 @@ function StepperStep() {
           )}
           <Box>
             <Stack direction="row" spacing={3}>
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{
-                  bgcolor: "#5C5470",
-                  "&:hover": { bgcolor: "#5C5470" },
-                }}
-              >
-                {activeStep === 2 ? "Finish" : "Back"}
-              </Button>
+              {activeStep === 2 ? (
+                <Button
+                  variant="contained"
+                  onClick={handleFinish}
+                  sx={{
+                    bgcolor: "#5C5470",
+                    "&:hover": { bgcolor: "#5C5470" },
+                  }}
+                >
+                  Finish
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{
+                    bgcolor: "#5C5470",
+                    "&:hover": { bgcolor: "#5C5470" },
+                  }}
+                >
+                  Back
+                </Button>
+              )}
             </Stack>
           </Box>
         </Stack>
