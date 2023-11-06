@@ -4,7 +4,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateField } from "../ReduxSlice/CandidateDataSlice";
 export default function BasicSelect({
   width = "500px",
   background = undefined,
@@ -12,7 +13,7 @@ export default function BasicSelect({
   data,
 }) {
   const [info, setInfo] = React.useState("");
-
+  const { degree } = useSelector((data) => data.CandidateData);
   const handleChange = (event) => {
     setInfo(event.target.value);
   };
@@ -21,10 +22,16 @@ export default function BasicSelect({
       <FormControl
         sx={{
           width: "100%",
-          height: "60px", // Adjust the height as needed
+          height: "40px", // Adjust the height as needed
         }}
       >
-        <InputLabel id="demo-simple-select-label" sx={{ color: "black" }}>
+        <InputLabel
+          id="demo-simple-select-label"
+          sx={{
+            color: "black",
+            top: "-5px",
+          }}
+        >
           {label}
         </InputLabel>
         <Select

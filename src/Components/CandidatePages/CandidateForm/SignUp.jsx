@@ -8,10 +8,12 @@ import {
   TextField,
   OutlinedInput,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 import { LoginForm } from "../../Common/GlobalWrapper";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <LoginForm>
       <Grid sx={{ p: 4 }}>

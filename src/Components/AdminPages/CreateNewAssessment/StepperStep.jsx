@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
+// import { makeStyles } from "@mui/styles";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
@@ -21,42 +22,68 @@ const steps = ["Name assessment", "Select tests", "Review and configure"];
 
 function StepperStep() {
   const dispatch = useDispatch();
-  const { assessmentName, language, jobRole, move } = useSelector(
+  const { assessmentName, language, jobRole, move, error } = useSelector(
     (state) => state.newAssessmentField
   );
+  const data = useSelector((state) => state.newAssessmentField);
+
+  console.log(data);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
+  // const useStyles = makeStyles(() => ({
+  //   root: {
+  //     "& .MuiStepIcon-active": { color: "red" },
+  //     "& .MuiStepIcon-completed": { color: "green" },
+  //     "& .Mui-disabled .MuiStepIcon-root": { color: "cyan" },
+  //   },
+  // }));
+
+  // const c = useStyles();
 
   const handleFieldChange = (field, value) => {
     dispatch(updateField({ field, value }));
   };
   const validate = (field) => {
-    if (field === "assessmentName") {
-      if (assessmentName.trim() === "") {
-        dispatch(
-          updateError({
-            field,
-            value: "Please provide a valid assessment name.",
-          })
-        );
-      } else {
-        dispatch(updateError({ field, value: "" }));
+    if (
+      error.jobRole === "" &&
+      error.language === "" &&
+      error.assessmentName === ""
+    ) {
+      if (field === "assessmentName") {
+        if (assessmentName.trim() === "") {
+          dispatch(
+            updateError({
+              field,
+              value: "Please provide a valid assessment name.",
+            })
+          );
+        } else {
+          dispatch(updateError({ field, value: "" }));
+        }
+      } else if (field === "language") {
+        if (!language) {
+          dispatch(
+            updateError({ field, value: "Please select the language." })
+          );
+        } else {
+          dispatch(updateError({ field, value: "" }));
+        }
+      } else if (field === "jobRole") {
+        if (!jobRole) {
+          dispatch(
+            updateError({ field, value: "Please select a valid job role." })
+          );
+        } else {
+          dispatch(updateError({ field, value: "" }));
+        }
       }
-    } else if (field === "language") {
-      if (!language) {
-        dispatch(updateError({ field, value: "Please select the language." }));
-      } else {
-        dispatch(updateError({ field, value: "" }));
-      }
-    } else if (field === "jobRole") {
-      if (!jobRole) {
-        dispatch(
-          updateError({ field, value: "Please select a valid job role." })
-        );
-      } else {
-        dispatch(updateError({ field, value: "" }));
-      }
+    } else {
+      handleMove();
     }
+  };
+  const handleMove = () => {
+    console.log("handle in handlemove");
+    dispatch(updateField({ field: "move", value: true }));
   };
 
   const totalSteps = () => {
@@ -146,29 +173,16 @@ function StepperStep() {
           )}
           <Box>
             <Stack direction="row" spacing={3}>
-              {activeStep === 2 ? (
-                <Button
-                  variant="contained"
-                  onClick={handleFinish}
-                  sx={{
-                    bgcolor: "#5C5470",
-                    "&:hover": { bgcolor: "#5C5470" },
-                  }}
-                >
-                  Finish
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{
-                    bgcolor: "#5C5470",
-                    "&:hover": { bgcolor: "#5C5470" },
-                  }}
-                >
-                  Back
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                sx={{
+                  bgcolor: "#5C5470",
+                  "&:hover": { bgcolor: "#5C5470" },
+                }}
+              >
+                {activeStep === 2 ? "Finish" : "Next"}
+              </Button>
             </Stack>
           </Box>
         </Stack>
@@ -178,6 +192,7 @@ function StepperStep() {
         nonLinear={move}
         alternativeLabel
         sx={{ mb: 5, mt: 5 }}
+        // className={c.root}
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>

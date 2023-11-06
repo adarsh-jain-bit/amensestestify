@@ -33,13 +33,14 @@ const initialState = {
 const ApiSlice = createSlice({
   name: "form",
   initialState,
+
   reducers: {
     submitFormStart: (state) => {
       state.isLoading = true;
       state.error = null;
     },
     submitFormSuccess: (state, action) => {
-      console.log(action);
+      // console.log(action);
       state.isLoading = false;
       state.success = true;
       // state.formData = action.payload.data;

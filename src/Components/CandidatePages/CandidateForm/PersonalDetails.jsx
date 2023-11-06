@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import Input from "../../Common/Input";
-import styled from "@emotion/styled";
 import { Typography, Grid, Stack } from "@mui/material";
 import { LoginForm } from "../../Common/GlobalWrapper";
-
+import { useSelector, useDispatch } from "react-redux";
+import { updateField } from "../../ReduxSlice/CandidateDataSlice";
 const PersonalDetails = () => {
+  const { email, name, mobileNo, DOB, Address, error } = useSelector(
+    (state) => state.CandidateData
+  );
+  const dispatch = useDispatch();
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(updateField({ field: name, value: value }));
+  };
+
   return (
     <LoginForm>
       <Grid sx={{ p: 4 }}>
@@ -18,6 +27,9 @@ const PersonalDetails = () => {
             color="black"
             variant="outlined"
             size="small"
+            name="name"
+            onChange={handleFieldChange}
+            value={name}
           />
           <Input
             placeholder="Last Name"
@@ -34,6 +46,9 @@ const PersonalDetails = () => {
             color="black"
             variant="outlined"
             size="small"
+            name="mobileNo"
+            onChange={handleFieldChange}
+            value={mobileNo}
           />
           <Input
             placeholder="DOB"
@@ -42,6 +57,9 @@ const PersonalDetails = () => {
             variant="outlined"
             size="small"
             shrink={true}
+            name="DOB"
+            onChange={handleFieldChange}
+            value={DOB}
           />
         </Stack>
         <Stack gap={3} mt={3}>
@@ -51,6 +69,9 @@ const PersonalDetails = () => {
             color="black"
             variant="outlined"
             size="small"
+            name="email"
+            onChange={handleFieldChange}
+            value={email}
           />
           <Input
             placeholder="Address"
@@ -59,6 +80,9 @@ const PersonalDetails = () => {
             variant="outlined"
             rows={6}
             multiline
+            name="Address"
+            onChange={handleFieldChange}
+            value={Address}
           />
         </Stack>
       </Grid>

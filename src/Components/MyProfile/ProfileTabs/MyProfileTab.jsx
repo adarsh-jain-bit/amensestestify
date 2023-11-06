@@ -115,24 +115,30 @@ function MyProfileTab() {
             mt="3%"
             ml="2%"
             display="flex"
-            justifyContent="space-between"
+            justifyContent={onlySmallScreen ? undefined : "space-between"}
             flexWrap="wrap"
             gap={2}
+            flexDirection={onlySmallScreen ? "column" : "row"}
           >
-            <Button
-              variant="contained"
-              startIcon={<KeyIcon />}
-              sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+            <Box
+              sx={{ display: "flex", gap: "10px" }}
+              flexDirection={onlySmallScreen ? "column" : "row"}
             >
-              Change Password
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<EmailIcon />}
-              sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
-            >
-              Change Email
-            </Button>
+              <Button
+                variant="contained"
+                startIcon={<KeyIcon />}
+                sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+              >
+                Change Password
+              </Button>
+              <Button
+                variant="contained"
+                endIcon={<EmailIcon />}
+                sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+              >
+                Change Email
+              </Button>
+            </Box>
             <Button
               variant="contained"
               sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}

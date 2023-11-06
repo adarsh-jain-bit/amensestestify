@@ -6,7 +6,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { useSelector } from "react-redux";
 export default function Input({
   value = "",
   placeholder,
@@ -96,7 +96,7 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          shrink: true,
+          // shrink: shrink,
         }}
         sx={{
           color: color,
