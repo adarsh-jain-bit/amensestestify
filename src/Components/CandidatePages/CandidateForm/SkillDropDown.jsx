@@ -7,9 +7,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import ChipsArray from "./ChipsArray";
-import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
-
+import { useDispatch, useSelector } from "react-redux";
+import { FormHelperText } from "@mui/material";
+import { updateField, updateError } from "../../ReduxSlice/CandidateDataSlice";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
@@ -35,23 +36,28 @@ const names = [
   "Kelly Snyder",
 ];
 
-export default function SkillDropDown() {
-  const [personName, setPersonName] = React.useState([]);
+export default function SkillDropDown({ validateField }) {
+  const dispatch = useDispatch();
   const [chips, setChips] = React.useState([]);
-
+  const { skills, error } = useSelector((data) => data.CandidateData);
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setChips(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
 
   const handleAddChip = () => {
-    setChips([...chips, ...personName]);
-    setPersonName([]);
+    if (chips.length <= 0) {
+      validateField("skills", skills);
+      // dispatch(updateError({ field: "skills", value: "skills is required" }));
+    } else {
+      setChips([...chips]);
+      dispatch(updateError({ field: "skills", value: "" }));
+    }
   };
 
   return (
@@ -59,6 +65,7 @@ export default function SkillDropDown() {
       <Stack display="flex" direction="row" gap={2} alignItems="center">
         <FormControl
           fullWidth
+          error={error.skills}
           sx={{
             fieldset: {
               borderColor: "black",
@@ -79,7 +86,7 @@ export default function SkillDropDown() {
             id="demo-multiple-checkbox"
             multiple
             fullWidth
-            value={personName}
+            value={chips}
             size="small"
             onChange={handleChange}
             onClose={handleAddChip}
@@ -89,11 +96,12 @@ export default function SkillDropDown() {
           >
             {names.map((name) => (
               <MenuItem key={name} value={name}>
-                <Checkbox checked={personName.indexOf(name) > -1} />
+                <Checkbox checked={chips.indexOf(name) > -1} />
                 <ListItemText primary={name} />
               </MenuItem>
             ))}
           </Select>
+          <FormHelperText>{error.skills}</FormHelperText>
         </FormControl>
       </Stack>
       {chips.length > 0 && <ChipsArray chips={chips} setChips={setChips} />}

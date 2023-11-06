@@ -5,17 +5,23 @@ import CustomDropDown from "../../Common/CustomDropDown";
 import FileUpload from "./FileUpload.jsx/FileUpload";
 import SkillDropDown from "../CandidateForm/SkillDropDown";
 import { LoginForm } from "../../Common/GlobalWrapper";
-import { updateField } from "../../ReduxSlice/CandidateDataSlice";
+import { updateField, updateError } from "../../ReduxSlice/CandidateDataSlice";
 import { useSelector, useDispatch } from "react-redux";
-const ProfessionalDetails = () => {
+const ProfessionalDetails = ({ validateField }) => {
   const Degree = ["Btech", "MCA", "BSc", "BCA"];
   const dispatch = useDispatch();
-  const { collegeName, degree, skills, collegeScore, resume, error } =
-    useSelector((state) => state.CandidateData);
+  const { collegeName, collegeScore, error } = useSelector(
+    (state) => state.CandidateData
+  );
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
-    dispatch(updateField({ field: name, value: value }));
+    if (name == "collegeScore") {
+      dispatch(updateField({ field: name, value: parseInt(value) }));
+    } else {
+      dispatch(updateField({ field: name, value: value }));
+    }
   };
+
   return (
     <LoginForm>
       <Grid sx={{ p: 4 }}>
@@ -33,10 +39,17 @@ const ProfessionalDetails = () => {
             name="collegeName"
             onChange={handleFieldChange}
             value={collegeName}
+            error={error.collegeName}
+            helperText={error.collegeName}
+            onValidate={validateField}
           />
         </Stack>
         <Stack gap={3} my={1} mt={3} direction="row">
-          <CustomDropDown label="degree" data={Degree} />
+          <CustomDropDown
+            label="degree"
+            data={Degree}
+            validateField={validateField}
+          />
           <Input
             placeholder="College AGPA"
             type="number"
@@ -46,9 +59,12 @@ const ProfessionalDetails = () => {
             name="collegeScore"
             value={collegeScore}
             onChange={handleFieldChange}
+            onValidate={validateField}
+            error={error.collegeScore}
+            helperText={error.collegeScore}
           />
         </Stack>
-        <SkillDropDown />
+        <SkillDropDown validateField={validateField} />
         <FileUpload />
       </Grid>
     </LoginForm>

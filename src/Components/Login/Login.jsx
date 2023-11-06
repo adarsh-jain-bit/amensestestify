@@ -105,7 +105,6 @@ const Login = () => {
       assessment_id: [],
     };
     dispatch(submitSignUp(formData));
-    console.log("data send");
   };
 
   return (

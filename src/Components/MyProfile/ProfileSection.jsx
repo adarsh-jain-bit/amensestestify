@@ -23,7 +23,7 @@ function ProfileSection({ tabs, value }) {
   };
 
   useEffect(() => {
-    console.log("Route changed to:", location.pathname);
+    // console.log("Route changed to:", location.pathname);
   }, [location.pathname]);
 
   return (
