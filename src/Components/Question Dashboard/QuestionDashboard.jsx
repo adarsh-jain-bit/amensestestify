@@ -73,7 +73,7 @@ function QuestionDashboard() {
 
   const handleAllQuestion = () => {
     setDisplayQuestion(!displayQuestion);
-    console.log(allQuestion);
+    // console.log(allQuestion);
   };
   return (
     <Box

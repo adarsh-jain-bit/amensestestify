@@ -4,25 +4,41 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { FormHelperText } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { updateField } from "../ReduxSlice/CandidateDataSlice";
+import { updateField, updateError } from "../ReduxSlice/CandidateDataSlice";
 export default function BasicSelect({
   width = "500px",
   background = undefined,
   label,
   data,
+  validateField,
 }) {
-  const [info, setInfo] = React.useState("");
-  const { degree } = useSelector((data) => data.CandidateData);
+  const dispatch = useDispatch();
+  const { degree, error } = useSelector((data) => data.CandidateData);
   const handleChange = (event) => {
-    setInfo(event.target.value);
+    if (event.target.value === null) {
+      validateField("degree", degree);
+    } else {
+      dispatch(updateField({ field: "degree", value: event.target.value }));
+      dispatch(updateError({ field: "degree", value: "" }));
+    }
   };
+
   return (
-    <Box sx={{ width: width, background: background }} gap={1}>
+    <Box
+      sx={{
+        width: width,
+        background: background,
+        mb: `${error.degree ? "20px" : undefined}`,
+      }}
+      gap={1}
+    >
       <FormControl
         sx={{
           width: "100%",
           height: "40px", // Adjust the height as needed
+          borderColor: error.degree ? "red" : "initial",
         }}
       >
         <InputLabel
@@ -37,9 +53,9 @@ export default function BasicSelect({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={info}
+          value={degree}
           label={label}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           size="small"
           sx={{
             height: "100%",
@@ -54,6 +70,9 @@ export default function BasicSelect({
               );
             })}
         </Select>
+        <FormHelperText error={Boolean(error.degree)}>
+          {error.degree}
+        </FormHelperText>
       </FormControl>
     </Box>
   );
