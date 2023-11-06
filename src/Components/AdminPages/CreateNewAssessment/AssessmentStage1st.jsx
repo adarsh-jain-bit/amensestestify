@@ -3,8 +3,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
-
-function AssessmentStage1st({ fields, onFieldChange, validate }) {
+import { useSelector } from "react-redux";
+function AssessmentStage1st({ onFieldChange, validate }) {
+  const { assessmentName, language, jobRole, error } = useSelector(
+    (state) => state.newAssessmentField
+  );
   return (
     <div>
       <Box
@@ -19,32 +22,31 @@ function AssessmentStage1st({ fields, onFieldChange, validate }) {
           <TextField
             fullWidth
             required
-            error={fields.error.assessmentName}
+            error={error.assessmentName}
             id="fullWidth"
             label="Name of Assessment"
             sx={{ backgroundColor: "white" }}
-            value={fields.assessmentName}
+            value={assessmentName}
             onChange={(e) => {
               onFieldChange("assessmentName", e.target.value);
             }}
             onBlur={() => validate("assessmentName")}
-            helperText={fields.error.assessmentName}
+            helperText={error.assessmentName}
           />
           <Autocomplete
             disablePortal
             id="language-combo-box"
             fullWidth
             options={languages}
-            value={fields.language}
+            value={language}
             onChange={(_, newValue) => {
-              console.log(_, newValue);
               onFieldChange("language", newValue);
             }}
             onBlur={() => validate("language")}
             renderInput={(params) => (
               <TextField
-                error={fields.error.language}
-                helperText={fields.error.language}
+                error={error.language}
+                helperText={error.language}
                 {...params}
                 label="Language of Assessment"
                 sx={{ backgroundColor: "white" }}
@@ -56,7 +58,7 @@ function AssessmentStage1st({ fields, onFieldChange, validate }) {
             fullWidth
             id="jobRole-combo-box"
             options={jobRoles}
-            value={fields.jobRole}
+            value={jobRole}
             onChange={(_, newValue) => {
               onFieldChange("jobRole", newValue);
             }}
@@ -64,8 +66,8 @@ function AssessmentStage1st({ fields, onFieldChange, validate }) {
             renderInput={(params) => (
               <TextField
                 {...params}
-                error={fields.error.jobRole}
-                helperText={fields.error.jobRole}
+                error={error.jobRole}
+                helperText={error.jobRole}
                 label="Job Roles"
                 sx={{ backgroundColor: "white" }}
               />

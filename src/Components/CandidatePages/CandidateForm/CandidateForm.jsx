@@ -10,17 +10,17 @@ import SignUp from "./SignUp";
 import { useTheme } from "styled-components";
 import PersonalDetails from "./PersonalDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
-
+import { useSelector, useDispatch } from "react-redux";
+import { updateField, updateError } from "../../ReduxSlice/CandidateDataSlice";
 const StepsLabel = ["Sign Up", "Personal Detail", "Professional Info"];
 
 export default function CandidateForm() {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+  const data = useSelector((state) => state.CandidateData);
+  console.log(data);
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -28,34 +28,148 @@ export default function CandidateForm() {
 
   const handleNext = () => {
     let newSkipped = skipped;
+
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
+    }
+
+    if (activeStep === 1) {
+      const validationFields = [
+        "email",
+        "name",
+        "mobileNo",
+        "birthDate",
+        "address",
+      ];
+      let hasErrors = false;
+
+      validationFields.forEach((fieldName) => {
+        if (!data[fieldName]) {
+          validateField(fieldName, "");
+          hasErrors = true;
+        }
+      });
+      if (hasErrors) {
+        return;
+      }
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
 
+  const validateField = (fieldName, value) => {
+    switch (fieldName) {
+      case "email":
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        if (!emailRegex.test(value)) {
+          dispatch(
+            updateError({ field: fieldName, value: "Invalid email format" })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+      case "mobileNo":
+        const mobileRegex = /^\d{10}$/;
+        if (!mobileRegex.test(value)) {
+          dispatch(
+            updateError({
+              field: fieldName,
+              value: "Invalid mobile number format",
+            })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+      case "birthDate":
+        if (!value) {
+          dispatch(
+            updateError({ field: fieldName, value: "birthDate is required" })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+      case "address":
+        if (!value) {
+          dispatch(
+            updateError({ field: fieldName, value: "Address is required" })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+
+      case "collegeName":
+        if (value.trim() === "") {
+          dispatch(
+            updateError({ field: fieldName, value: "College Name is required" })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+      case "skills":
+        if (value.length <= 0) {
+          console.log("come");
+          dispatch(
+            updateError({ field: fieldName, value: "skills is required" })
+          );
+        } else {
+          console.log("come2");
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+      case "collegeScore":
+        if (isNaN(value) || value < 0 || value > 10 || value == "") {
+          dispatch(
+            updateError({
+              field: fieldName,
+              value: "College AGPA should be a number between 0 and 10",
+            })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
+      case "degree":
+        if (value === "") {
+          dispatch(
+            updateError({ field: fieldName, value: "Degree is required" })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+      default:
+        break;
+    }
+  };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  const handleFinish = () => {
+    const validationField = [
+      "collegeName",
+      "degree",
+      "collegeScore",
+      "skills",
+      "resume",
+    ];
+    let hasErrors = false;
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
+    validationField.forEach((fieldName) => {
+      if (!data[fieldName]) {
+        validateField(fieldName, "");
+        hasErrors = true;
+      }
     });
+    if (hasErrors) {
+      return;
+    }
   };
-
   const handleReset = () => {
     setActiveStep(0);
   };
@@ -96,8 +210,12 @@ export default function CandidateForm() {
         ) : (
           <React.Fragment>
             {activeStep === 0 && <SignUp />}
-            {activeStep === 1 && <PersonalDetails />}
-            {activeStep === 2 && <ProfessionalDetails />}
+            {activeStep === 1 && (
+              <PersonalDetails validateField={validateField} />
+            )}
+            {activeStep === 2 && (
+              <ProfessionalDetails validateField={validateField} />
+            )}
             <Box
               sx={{
                 display: "flex",
@@ -116,10 +234,11 @@ export default function CandidateForm() {
                 Back
               </Button>
               <Box sx={{ flex: "1 1 auto" }} />
-
-              <Button onClick={handleNext}>
-                {activeStep === StepsLabel.length - 1 ? "Finish" : "Next"}
-              </Button>
+              {activeStep !== StepsLabel.length - 1 ? (
+                <Button onClick={handleNext}>Next</Button>
+              ) : (
+                <Button onClick={handleFinish}>Finish</Button>
+              )}
             </Box>
           </React.Fragment>
         )}

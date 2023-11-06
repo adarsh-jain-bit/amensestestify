@@ -16,6 +16,7 @@ import {
   useMediaQuery,
   useTheme,
   MenuItem,
+  Container,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
@@ -46,9 +47,7 @@ const Nav = () => {
   const anchorRef = React.useRef(null);
 
   const handleMenuItemClick = (option) => {
-    console.log(option);
     const newOption = option.replace(/ /g, "");
-    console.log(newOption, "newoption");
     nav(`/${newOption}`);
     setOpen(false);
   };
@@ -72,11 +71,11 @@ const Nav = () => {
   const isXlAndAboveDevices = useMediaQuery(theme.breakpoints.up("lg"));
   const isMediumAndBelowDevices = useMediaQuery(theme.breakpoints.down("md"));
   const isSmallAndBelowDevices = useMediaQuery(theme.breakpoints.down("sm"));
-  // console.log(theme);
+
 
   return (
     <>
-      <Paper elevation={3}>
+      <Container>
         <Stack
           justifyContent="space-between"
           height={isSmallAndBelowDevices ? "60px" : "80px"}
@@ -104,7 +103,7 @@ const Nav = () => {
             </>
           ) : (
             <Stack
-              pl="5%"
+              // pl="5%"
               display="flex"
               alignItems="center"
               justifyContent="start"
@@ -309,7 +308,7 @@ const Nav = () => {
             </>
           )}
         </Stack>
-      </Paper>
+      </Container>
     </>
   );
 };

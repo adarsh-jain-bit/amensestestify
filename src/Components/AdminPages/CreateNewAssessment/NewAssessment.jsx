@@ -7,10 +7,13 @@ import { useTheme } from "@mui/material/styles";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import StepperStep from "./StepperStep";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function NewAssessment() {
   const theme = useTheme();
+  const Navigate = useNavigate();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { assessmentName } = useSelector((state) => state.newAssessmentField);
   return (
     <div>
       <Container>
@@ -26,6 +29,9 @@ function NewAssessment() {
                 alignItems="center"
                 sx={{ backgroundColor: "#EDEDED" }}
                 mt={5}
+                onClick={() => {
+                  Navigate(-1);
+                }}
               >
                 <ArrowBackIosIcon />
               </Box>
@@ -33,9 +39,14 @@ function NewAssessment() {
                 <Typography variant="h5" fontWeight="bold" mt={5}>
                   {onlySmallScreen ? "New Assessment" : "Create New Assessment"}
                 </Typography>
-                <Box display="flex" gap={2} alignItems="center" color="#6699C2">
+                <Box display="flex" gap={2} alignItems="center" color="#5C5470">
                   {!onlySmallScreen ? (
-                    <Typography> Untitled assessment </Typography>
+                    <Typography>
+                      {" "}
+                      {assessmentName.length > 0
+                        ? assessmentName
+                        : "Untitled assessment"}{" "}
+                    </Typography>
                   ) : (
                     ""
                   )}

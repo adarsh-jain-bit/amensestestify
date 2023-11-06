@@ -6,10 +6,11 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { useSelector } from "react-redux";
 export default function Input({
-  placeholder,
   value = "",
+  placeholder,
+  onChange,
   type,
   name = "",
   handleClickShowPassword,
@@ -20,10 +21,12 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
-  onChange,
   width = "auto",
   background = undefined,
   height = "auto", // Adjust the height as needed
+  onValidate,
+  error = "",
+  helperText = "",
 }) {
   const inputStyles = {
     label: {
@@ -52,7 +55,6 @@ export default function Input({
       },
     },
   };
-
   return (
     <Box
       sx={{
@@ -72,6 +74,9 @@ export default function Input({
         name={name}
         multiline={multiline}
         onChange={onChange}
+        onBlur={() => onValidate(name, value)}
+        error={error}
+        helperText={helperText}
         InputProps={{
           style: {
             color: color,
@@ -96,7 +101,7 @@ export default function Input({
         }}
         InputLabelProps={{
           style: inputStyles.label,
-          shrink: true,
+          // shrink: shrink,
         }}
         sx={{
           color: color,

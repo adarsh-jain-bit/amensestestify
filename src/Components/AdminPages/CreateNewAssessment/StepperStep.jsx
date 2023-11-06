@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
+// import { makeStyles } from "@mui/styles";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
@@ -15,98 +16,73 @@ import {
   updateField,
   updateError,
   clearFields,
+  makeApiCall,
 } from "../../ReduxSlice/NewAssessmentFieldData";
 const steps = ["Name assessment", "Select tests", "Review and configure"];
 
 function StepperStep() {
   const dispatch = useDispatch();
-  const AssessmentData = useSelector((state) => state.newAssessmentField);
-  console.log(AssessmentData);
+  const { assessmentName, language, jobRole, move, error } = useSelector(
+    (state) => state.newAssessmentField
+  );
+  const data = useSelector((state) => state.newAssessmentField);
+
+  console.log(data);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  const [fields, setFields] = useState({
-    assessmentName: "",
-    language: null,
-    jobRole: null,
-    move: false,
-    error: {
-      assessmentName: "",
-      language: null,
-      jobRole: null,
-    },
-  });
+  // const useStyles = makeStyles(() => ({
+  //   root: {
+  //     "& .MuiStepIcon-active": { color: "red" },
+  //     "& .MuiStepIcon-completed": { color: "green" },
+  //     "& .Mui-disabled .MuiStepIcon-root": { color: "cyan" },
+  //   },
+  // }));
+
+  // const c = useStyles();
 
   const handleFieldChange = (field, value) => {
-    console.log(field, value);
-    setFields((prevFields) => ({
-      ...prevFields,
-      [field]: value,
-    }));
     dispatch(updateField({ field, value }));
   };
   const validate = (field) => {
-    if (field === "assessmentName") {
-      if (fields.assessmentName.trim() === "") {
-        // Check the value in fields
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            assessmentName: "Please provide a valid assessment name.",
-          },
-        }));
-      } else {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            assessmentName: "",
-          },
-        }));
+    if (
+      error.jobRole === "" &&
+      error.language === "" &&
+      error.assessmentName === ""
+    ) {
+      if (field === "assessmentName") {
+        if (assessmentName.trim() === "") {
+          dispatch(
+            updateError({
+              field,
+              value: "Please provide a valid assessment name.",
+            })
+          );
+        } else {
+          dispatch(updateError({ field, value: "" }));
+        }
+      } else if (field === "language") {
+        if (!language) {
+          dispatch(
+            updateError({ field, value: "Please select the language." })
+          );
+        } else {
+          dispatch(updateError({ field, value: "" }));
+        }
+      } else if (field === "jobRole") {
+        if (!jobRole) {
+          dispatch(
+            updateError({ field, value: "Please select a valid job role." })
+          );
+        } else {
+          dispatch(updateError({ field, value: "" }));
+        }
       }
-    } else if (field === "language") {
-      if (!fields.language) {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            language: "Please select the language.",
-          },
-        }));
-      } else {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            language: null,
-          },
-        }));
-      }
-    } else if (field === "jobRole") {
-      if (!fields.jobRole) {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            jobRole: "Please select a valid job role.",
-          },
-        }));
-      } else {
-        setFields((prevFields) => ({
-          ...prevFields,
-          move: false,
-          error: {
-            ...prevFields.error,
-            jobRole: null,
-          },
-        }));
-      }
+    } else {
+      handleMove();
     }
+  };
+  const handleMove = () => {
+    dispatch(updateField({ field: "move", value: true }));
   };
 
   const totalSteps = () => {
@@ -126,11 +102,7 @@ function StepperStep() {
   };
 
   const handleNext = () => {
-    if (
-      fields.assessmentName.trim() == "" ||
-      fields.jobRole === null ||
-      fields.language === null
-    ) {
+    if (assessmentName.trim() === "" || jobRole === null || language === null) {
       validate("assessmentName");
       validate("language");
       validate("jobRole");
@@ -143,7 +115,6 @@ function StepperStep() {
       setActiveStep(newActiveStep);
     }
   };
-  console.log(fields);
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -153,6 +124,29 @@ function StepperStep() {
   };
 
   const handleReset = () => {
+    dispatch(clearFields());
+    setActiveStep(0);
+    setCompleted({});
+  };
+
+  const handleFinish = async () => {
+    console.log(assessmentName, jobRole);
+    const assessmentData = {
+      organisation_id: "653f503e64f189e30667b7cc",
+      name: assessmentName,
+      tech_stack: jobRole,
+      test_level: "easy",
+      question_id: [],
+    };
+
+    try {
+      const response = await dispatch(makeApiCall(assessmentData));
+      console.log("API response:", response);
+    } catch (error) {
+      console.error("API call error:", error);
+    }
+
+    dispatch(clearFields());
     setActiveStep(0);
     setCompleted({});
   };
@@ -186,7 +180,7 @@ function StepperStep() {
                   "&:hover": { bgcolor: "#5C5470" },
                 }}
               >
-                Next
+                {activeStep === 2 ? "Finish" : "Next"}
               </Button>
             </Stack>
           </Box>
@@ -194,9 +188,10 @@ function StepperStep() {
       </Box>
       <Stepper
         activeStep={activeStep}
-        nonLinear={fields.move}
+        nonLinear={move}
         alternativeLabel
         sx={{ mb: 5, mt: 5 }}
+        // className={c.root}
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -229,7 +224,6 @@ function StepperStep() {
             <Typography sx={{ mt: 5, py: "1%" }}>
               {activeStep === 0 && (
                 <AssessmentStage1st
-                  fields={fields}
                   onFieldChange={handleFieldChange}
                   validate={validate}
                 />

@@ -14,14 +14,19 @@ import { MuiTelInput } from "mui-tel-input";
 import KeyIcon from "@mui/icons-material/Key";
 import EmailIcon from "@mui/icons-material/Email";
 import { useTheme } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
 function MyProfileTab() {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  // const { name, email } = useSelector((state) => state.api);
+
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const onlyMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [value, setValue] = useState("");
   const handleChange = (newValue) => {
     setValue(newValue);
   };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -54,7 +59,7 @@ function MyProfileTab() {
               placeholder="First Name"
               variant="outlined"
               type="text"
-              defaultValue="Deepesh"
+              defaultValue="deepesh"
               size="small"
             />
             <TextField
@@ -110,24 +115,30 @@ function MyProfileTab() {
             mt="3%"
             ml="2%"
             display="flex"
-            justifyContent="space-between"
+            justifyContent={onlySmallScreen ? undefined : "space-between"}
             flexWrap="wrap"
             gap={2}
+            flexDirection={onlySmallScreen ? "column" : "row"}
           >
-            <Button
-              variant="contained"
-              startIcon={<KeyIcon />}
-              sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+            <Box
+              sx={{ display: "flex", gap: "10px" }}
+              flexDirection={onlySmallScreen ? "column" : "row"}
             >
-              Change Password
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<EmailIcon />}
-              sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
-            >
-              Change Email
-            </Button>
+              <Button
+                variant="contained"
+                startIcon={<KeyIcon />}
+                sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+              >
+                Change Password
+              </Button>
+              <Button
+                variant="contained"
+                endIcon={<EmailIcon />}
+                sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}
+              >
+                Change Email
+              </Button>
+            </Box>
             <Button
               variant="contained"
               sx={{ bgcolor: "#5C5470", "&:hover": { bgcolor: "#5C5470" } }}

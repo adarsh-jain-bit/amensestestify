@@ -1,7 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Grid, Paper, Typography, ButtonGroup, Stack } from "@mui/material";
 import PDF from "../../../../Assets/PDF.png";
 import PNG from "../../../../Assets/ppng.png";
@@ -11,7 +10,8 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import { useState } from "react";
 import ProgressBar from "../../../Common/ProgressBar";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DownloadingIcon from "@mui/icons-material/Downloading";
+import { useSelector, useDispatch } from "react-redux";
+import { updateField } from "../../../ReduxSlice/CandidateDataSlice";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -25,13 +25,17 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const FileUpload = () => {
+  const dispatch = useDispatch();
   const [progress, setProgress] = useState(10);
   const [file, setFile] = useState("");
   const handleFile = (e) => {
+    const fileData = e.target.files[0];
     setFile(e.target.files[0].name);
+    dispatch(updateField({ field: "resume", value: fileData }));
   };
   const handleDelete = () => {
     setFile("");
+    dispatch(updateField({ field: "resume", value: null }));
   };
   return (
     <Paper sx={{ p: "20px", mt: "10px" }}>
