@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-
+import { useSelector, useDispatch } from "react-redux";
+import { updateField } from "../../ReduxSlice/CandidateDataSlice";
 export default function ChipsArray({ chips, setChips }) {
+  const dispatch = useDispatch();
   const handleDelete = (chipToDelete) => {
     let newChips = chips.filter((val) => {
       return chips.indexOf(val) !== chipToDelete;
     });
     setChips(newChips);
   };
-  console.log(chips);
+  dispatch(updateField({ field: "skills", value: chips }));
+
   return (
     <Paper
       style={{

@@ -24,6 +24,9 @@ export default function Input({
   width = "auto",
   background = undefined,
   height = "auto", // Adjust the height as needed
+  onValidate,
+  error = "",
+  helperText = "",
 }) {
   const inputStyles = {
     label: {
@@ -52,7 +55,6 @@ export default function Input({
       },
     },
   };
-
   return (
     <Box
       sx={{
@@ -72,6 +74,9 @@ export default function Input({
         name={name}
         multiline={multiline}
         onChange={onChange}
+        onBlur={() => onValidate(name, value)}
+        error={error}
+        helperText={helperText}
         InputProps={{
           style: {
             color: color,

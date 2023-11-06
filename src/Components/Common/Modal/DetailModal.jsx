@@ -23,7 +23,6 @@ const DetailModal = () => {
 
   const handleClose = () => {
     setOpen(false);
-    console.log("click");
   };
 
   return (

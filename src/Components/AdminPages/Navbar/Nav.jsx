@@ -47,9 +47,7 @@ const Nav = () => {
   const anchorRef = React.useRef(null);
 
   const handleMenuItemClick = (option) => {
-    console.log(option);
     const newOption = option.replace(/ /g, "");
-    console.log(newOption, "newoption");
     nav(`/${newOption}`);
     setOpen(false);
   };
@@ -73,7 +71,7 @@ const Nav = () => {
   const isXlAndAboveDevices = useMediaQuery(theme.breakpoints.up("lg"));
   const isMediumAndBelowDevices = useMediaQuery(theme.breakpoints.down("md"));
   const isSmallAndBelowDevices = useMediaQuery(theme.breakpoints.down("sm"));
-  // console.log(theme);
+
 
   return (
     <>

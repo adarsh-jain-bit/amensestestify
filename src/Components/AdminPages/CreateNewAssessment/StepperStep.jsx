@@ -82,7 +82,6 @@ function StepperStep() {
     }
   };
   const handleMove = () => {
-    console.log("handle in handlemove");
     dispatch(updateField({ field: "move", value: true }));
   };
 
