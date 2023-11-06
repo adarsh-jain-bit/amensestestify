@@ -61,6 +61,15 @@ export default function CandidateForm() {
 
   const validateField = (fieldName, value) => {
     switch (fieldName) {
+      case "name":
+        if (!value) {
+          dispatch(
+            updateError({ field: fieldName, value: "name is required" })
+          );
+        } else {
+          dispatch(updateError({ field: fieldName, value: "" }));
+        }
+        break;
       case "email":
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         if (!emailRegex.test(value)) {
