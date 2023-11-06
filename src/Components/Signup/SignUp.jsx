@@ -9,31 +9,52 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
+import { submitSignUp } from "../ReduxSlice/ApiSlice";
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
 
-const Login = ({ onLogin }) => {
-  const [logIn, setLogIn] = useState({
+const SignUp = () => {
+  const [flip, setFlip] = useState(false);
+  const [signUp, setSignUp] = useState({
+    name: "",
     email: "",
     password: "",
     error: {
+      name: "",
       email: "",
       password: "",
     },
   });
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  const [flip, setFlip] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const { name, email, password } = signUp;
 
-  const handleLogInChange = (e) => {
+    // Validate the fields
+    handleSignUpValidation("name", name);
+    handleSignUpValidation("email", email);
+    handleSignUpValidation("password", password);
+
+    // Check if there are any errors in the signUp state
+    if (!signUp.error.name && !signUp.error.email && !signUp.error.password) {
+      const formData = {
+        ...signUp,
+        assessment_id: [],
+      };
+
+      // Dispatch the action to submit the signUp data
+      dispatch(submitSignUp(formData));
+    }
+  };
+
+  const handleSignUpChange = (e) => {
     const { name, value } = e.target;
-    setLogIn((prevLogIn) => ({
-      ...prevLogIn,
+    setSignUp((prevSignUp) => ({
+      ...prevSignUp,
       [name]: value,
     }));
   };
-
-  const dispatch = useDispatch();
 
   const isPasswordValid = (password) => {
     // Define your password validation criteria here
@@ -47,12 +68,32 @@ const Login = ({ onLogin }) => {
       // Add more conditions as needed
     );
   };
-  const handleLoginValidation = (fieldName, value) => {
+
+  const handleSignUpValidation = (fieldName, value) => {
     switch (fieldName) {
+      case "name":
+        if (!value) {
+          setSignUp((prevData) => ({
+            ...prevData,
+            error: {
+              ...prevData.error,
+              name: "name is required",
+            },
+          }));
+        } else {
+          setSignUp((prevData) => ({
+            ...prevData,
+            error: {
+              ...prevData.error,
+              name: "",
+            },
+          }));
+        }
+        break;
       case "email":
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         if (!emailRegex.test(value)) {
-          setLogIn((prevData) => ({
+          setSignUp((prevData) => ({
             ...prevData,
             error: {
               ...prevData.error,
@@ -60,7 +101,7 @@ const Login = ({ onLogin }) => {
             },
           }));
         } else {
-          setLogIn((prevData) => ({
+          setSignUp((prevData) => ({
             ...prevData,
             error: {
               ...prevData.error,
@@ -71,7 +112,7 @@ const Login = ({ onLogin }) => {
         break;
       case "password":
         if (!isPasswordValid(value)) {
-          setLogIn((prevData) => ({
+          setSignUp((prevData) => ({
             ...prevData,
             error: {
               ...prevData.error,
@@ -79,7 +120,7 @@ const Login = ({ onLogin }) => {
             },
           }));
         } else {
-          setLogIn((prevData) => ({
+          setSignUp((prevData) => ({
             ...prevData,
             error: {
               ...prevData.error,
@@ -92,42 +133,34 @@ const Login = ({ onLogin }) => {
         break;
     }
   };
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const { email, password } = Login;
-
-    // Validate the fields
-    handleLoginValidation("email", email);
-    handleLoginValidation("password", password);
-
-    // Check if there are any errors in the signUp state
-    if (!Login.error.name && !Login.error.email && !Login.error.password) {
-      const formData = {
-        ...Login,
-        assessment_id: [],
-      };
-
-      // Dispatch the action to submit the signUp data
-      // dispatch(submitSignUp(formData));
-    }
-  };
   return (
     <LoginFormLoginPage>
       <Grid sx={{ p: 4 }}>
         <Typography variant="h4" color="white">
-          Login
+          SIGN UP
         </Typography>
-        <Stack gap={3} my={1}>
+        <Stack gap={2} my={1}>
+          <Input
+            placeholder="Name"
+            type="text"
+            color="white"
+            name="name"
+            value={signUp.name}
+            onChange={handleSignUpChange}
+            onValidate={handleSignUpValidation}
+            error={Boolean(signUp.error.name)}
+            helperText={signUp.error.name}
+          />
           <Input
             placeholder="Email"
             type="email"
             color="white"
             name="email"
-            value={logIn.email}
-            onChange={handleLogInChange}
-            onValidate={handleLoginValidation}
-            error={Boolean(logIn.error.email)}
-            helperText={logIn.error.email}
+            value={signUp.email}
+            onChange={handleSignUpChange}
+            onValidate={handleSignUpValidation}
+            error={Boolean(signUp.error.email)}
+            helperText={signUp.error.email}
           />
           <Input
             placeholder="Password"
@@ -136,12 +169,13 @@ const Login = ({ onLogin }) => {
             showPassword={showPassword}
             color="white"
             name="password"
-            value={logIn.password}
-            onChange={handleLogInChange}
-            onValidate={handleLoginValidation}
-            error={Boolean(logIn.error.password)}
-            helperText={logIn.error.password}
+            value={signUp.password}
+            onChange={handleSignUpChange}
+            onValidate={handleSignUpValidation}
+            error={Boolean(signUp.error.password)}
+            helperText={signUp.error.password}
           />
+
           <FormControlLabel
             control={
               <Checkbox
@@ -157,7 +191,7 @@ const Login = ({ onLogin }) => {
             }}
           />
         </Stack>
-        <LoginButton onClick={handleLogin}>login</LoginButton>
+        <LoginButton onClick={handleSignUp}>sign up</LoginButton>
         <Typography
           variant="p"
           display="flex"
@@ -187,7 +221,7 @@ const Login = ({ onLogin }) => {
             marginLeft={1}
             onClick={() => setFlip(!flip)}
           >
-            sign In
+            Log in
           </Typography>
         </Typography>
       </Grid>
@@ -195,4 +229,4 @@ const Login = ({ onLogin }) => {
   );
 };
 
-export default Login;
+export default SignUp;
