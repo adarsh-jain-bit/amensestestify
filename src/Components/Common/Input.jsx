@@ -8,8 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSelector } from "react-redux";
 export default function Input({
-  placeholder,
   value = "",
+  placeholder,
+  onChange,
   type,
   name = "",
   handleClickShowPassword,
@@ -20,7 +21,6 @@ export default function Input({
   rows = 0,
   multiline = false,
   shrink = false,
-  onChange,
   width = "auto",
   background = undefined,
   height = "auto", // Adjust the height as needed

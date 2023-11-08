@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   TextField,
@@ -14,6 +14,12 @@ import MyQuillEditor from "./ReactQuill";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Stack } from "@mui/system";
 import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setQuestion,
+  createQuestion,
+  submitQuestion,
+} from "../ReduxSlice/QuestionSlice";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -26,54 +32,123 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+
+// Define techStack array
+
 function QuestionDashboard() {
-  const [displayOption, setDisplayOption] = useState(true);
-  const [displayQuestion, setDisplayQuestion] = useState(false);
   const [option, setOption] = useState("");
   const [optionArray, setOptionArray] = useState([]);
   const [question, setQuestion] = useState("");
   const [allQuestion, setAllQuestion] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [techStack, setTechStack] = useState("");
+  const [testLevel, setTestLevel] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState(0);
 
+  const tech_Stack = ["React", "Node", "Flutter", "Python", "Angular"];
+  const test_Level = ["Easy", "Medium", "Difficult"];
+
+  const dispatch = useDispatch();
+  const questionData = useSelector((state) => ({
+    question: question,
+    options: optionArray,
+    techStack: techStack,
+    testLevel: testLevel,
+    correctAnswer: correctAnswer,
+  }));
   const handleOptionChange = (event) => {
     setOption(event.target.value);
   };
 
-  useEffect(() => {
-    if (optionArray.length >= 4) setDisplayOption(false);
-  }, [optionArray]);
-
   const handleAddOption = () => {
-    const newArray = [...optionArray];
-    setOptionArray([...newArray, option]);
-
-    setOption("");
+    if (optionArray.length < 4) {
+      const newArray = [...optionArray];
+      setOptionArray([...newArray, option]);
+      setOption("");
+    }
   };
 
-  const handleAddMoreQuestion = () => {
-    setDisplayOption(true);
+  // const handleAddMoreQuestion = () => {
+  //   dispatch(setQuestion(questionData.question));
+  //   for (let i = 0; i < optionArray.length; i++) {
+  //     dispatch(setOption({ index: i, text: optionArray[i] }));
+  //   }
 
-    setAllQuestion((prevAllQuestion) => [
-      ...prevAllQuestion,
-      {
-        Question: question,
-        option1: optionArray[0],
-        option2: optionArray[1],
-        option3: optionArray[2],
-        option4: optionArray[3],
-      },
-    ]);
+  //   try {
+  //     dispatch(submitQuestion(questionData));
 
-    setQuestion("");
-    setOptionArray([]);
+  //     setQuestion("");
+  //     setOptionArray([]);
+  //     setTechStack("");
+  //     setTestLevel("");
+  //     setCorrectAnswer(0);
+  //   } catch (error) {
+  //     // Handle API request error
+  //     console.error("Error submitting question:", error);
+  //     // You can show an error message to the user if needed
+  //   }
+  //   setAllQuestion((prevAllQuestion) => [
+  //     ...prevAllQuestion,
+  //     {
+  //       Question: question,
+  //       option1: optionArray[0],
+  //       option2: optionArray[1],
+  //       option3: optionArray[2],
+  //       option4: optionArray[3],
+  //     },
+  //   ]);
+  //   setQuestion("");
+  //   setOptionArray([]);
+  // };
+
+  const handleAddMoreQuestion = async () => {
+    try {
+      // Dispatch an action to submit the question data to the API
+      await dispatch(
+        submitQuestion({
+          question: question,
+          options: optionArray,
+          techStack: techStack,
+          testLevel: testLevel,
+          correctAnswer: correctAnswer,
+        })
+      );
+
+      // After successfully submitting the question, update the local state
+      setAllQuestion((prevAllQuestion) => [
+        ...prevAllQuestion,
+        {
+          Question: question,
+          option1: optionArray[0],
+          option2: optionArray[1],
+          option3: optionArray[2],
+          option4: optionArray[3],
+        },
+      ]);
+
+      // Clear the input fields and reset the local state
+      setQuestion("");
+      setOptionArray([]);
+      setTechStack("");
+      setTestLevel("");
+      setCorrectAnswer(0);
+    } catch (error) {
+      // Handle API request error
+      console.error("Error submitting question:", error);
+      // You can show an error message to the user if needed
+    }
   };
 
   const updateQuestionContent = (content) => {
     setQuestion(content);
   };
 
-  const handleAllQuestion = () => {
-    setDisplayQuestion(!displayQuestion);
-    // console.log(allQuestion);
+  const handleSelectTechStack = (e, newValue) => {
+    setTechStack(newValue);
+  };
+
+  const handleSelectTestLevel = (e, newValue) => {
+    setTestLevel(newValue);
   };
   return (
     <Box
@@ -87,81 +162,75 @@ function QuestionDashboard() {
       }}
     >
       <Box sx={{ width: "70%", minHeight: "85%", bgcolor: "#FFFFFF" }}>
-        {displayOption ? (
-          <>
-            <Box sx={{ width: "100%", height: "15%", mt: "5%", mx: "10%" }}>
-              <Stack direction="row" spacing="5%">
-                <Box sx={{ width: "60%" }}>
-                  <MyQuillEditor
-                    value={question}
-                    onChange={updateQuestionContent}
-                  />
-                </Box>
-                <Box sx={{ width: "15%" }}>
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={techStack}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Tech Stack" />
-                    )}
-                  />
-                </Box>
-              </Stack>
-            </Box>
-            <Box
-              sx={{
-                width: "60%",
-                height: "20%",
-                border: "1px solid #000000",
-                ml: "10%",
-                mt: "1%",
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
-              <TextField
-                variant="outlined"
-                label="Enter option"
-                value={option}
-                onChange={handleOptionChange}
+        <Box sx={{ width: "100%", height: "15%", mt: "5%", mx: "10%" }}>
+          <Stack direction="row" spacing="5%">
+            <Box sx={{ width: "60%" }}>
+              <MyQuillEditor
+                value={question}
+                onChange={updateQuestionContent}
               />
-              <Typography variant="h5">or</Typography>
-              <Button
-                component="label"
-                variant="contained"
-                startIcon={<CloudUploadIcon />}
-                sx={{
-                  bgcolor: "#5C5470",
-                  "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
-                }}
-              >
-                Upload Image
-                <VisuallyHiddenInput type="file" />
-              </Button>
             </Box>
-            <Stack alignItems="flex-end" justifyContent="flex-end">
-              <Button
-                variant="outlined"
-                onClick={handleAddOption}
-                sx={{
-                  bgcolor: "#5C5470",
-                  color: "#ffffff",
-                  mr: "10%",
-                  mt: 2,
-                  "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
-                }}
-              >
-                Add more option
-              </Button>
-            </Stack>
-          </>
-        ) : (
-          <Stack alignItems="flex-end" justifyContent="flex-end">
+            <Box sx={{ width: "15%" }}>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={tech_Stack}
+                sx={{ mb: 5 }}
+                onChange={handleSelectTechStack}
+                renderInput={(params) => (
+                  <TextField {...params} label="Tech Stack" />
+                )}
+              />
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={test_Level}
+                onChange={handleSelectTestLevel}
+                renderInput={(params) => (
+                  <TextField {...params} label="Test Level" />
+                )}
+              />
+            </Box>
+          </Stack>
+        </Box>
+        <Box
+          sx={{
+            width: "60%",
+            height: "20%",
+            border: "1px solid #000000",
+            ml: "10%",
+            mt: "1%",
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            py: "5%",
+          }}
+        >
+          <TextField
+            variant="outlined"
+            label="Enter option"
+            value={option}
+            onChange={handleOptionChange}
+          />
+          <Typography variant="h5">or</Typography>
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+            sx={{
+              bgcolor: "#5C5470",
+              "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
+            }}
+          >
+            Upload Image
+            <VisuallyHiddenInput type="file" />
+          </Button>
+        </Box>
+        <Stack alignItems="flex-end" justifyContent="flex-end">
+          {optionArray.length < 4 && (
             <Button
-              variant="outlined"
-              onClick={handleAddMoreQuestion}
+              component="label"
+              variant="contained"
               sx={{
                 bgcolor: "#5C5470",
                 color: "#ffffff",
@@ -169,15 +238,16 @@ function QuestionDashboard() {
                 my: 2,
                 "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
               }}
+              onClick={handleAddOption}
             >
-              Add more question
+              Add more option
             </Button>
-          </Stack>
-        )}
+          )}
+        </Stack>
         <Stack alignItems="flex-end" justifyContent="flex-end">
           <Button
             variant="outlined"
-            onClick={handleAllQuestion}
+            onClick={handleAddMoreQuestion}
             sx={{
               bgcolor: "#5C5470",
               color: "#ffffff",
@@ -186,89 +256,54 @@ function QuestionDashboard() {
               "&:hover": { bgcolor: "#5C5470", color: "#ffffff" },
             }}
           >
-            Show all questions
+            Add more question
           </Button>
         </Stack>
-
-        {displayQuestion && (
-          <div>
-            {allQuestion.map((q, index) => (
-              <div key={index}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: "bold",
-                    display: "flex",
-                    gap: "0.2rem",
-                    mx: "2%",
+        <div>
+          {allQuestion.map((q, index) => (
+            <div key={index}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  display: "flex",
+                  gap: "0.2rem",
+                  mx: "2%",
+                }}
+              >
+                <span style={{ display: "contents" }}>{`Q${index + 1}: `}</span>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: q.Question,
                   }}
-                >
-                  <span style={{ display: "contents" }}>{`Q${
-                    index + 1
-                  } : `}</span>
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: q.Question,
-                    }}
-                  />
-                </Typography>
-
-                <List>
-                  <Box sx={{ width: "60%", pl: "10%" }}>
-                    <ListItem
-                      secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                          <EditIcon />
-                        </IconButton>
-                      }
-                    >
-                      {q.option1 && (
-                        <Typography variant="h5">{`Option 1: ${q.option1}`}</Typography>
-                      )}
-                    </ListItem>
-                    <ListItem
-                      secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                          <EditIcon />
-                        </IconButton>
-                      }
-                    >
-                      {q.option2 && (
-                        <Typography variant="h5">{`Option 2: ${q.option2}`}</Typography>
-                      )}
-                    </ListItem>
-                    <ListItem
-                      secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                          <EditIcon />
-                        </IconButton>
-                      }
-                    >
-                      {q.option3 && (
-                        <Typography variant="h5">{`Option 3: ${q.option3}`}</Typography>
-                      )}
-                    </ListItem>
-                    <ListItem
-                      secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                          <EditIcon />
-                        </IconButton>
-                      }
-                    >
-                      {q.option4 && (
-                        <Typography variant="h5">{`Option 4: ${q.option4}`}</Typography>
-                      )}
-                    </ListItem>
-                  </Box>
-                </List>
-              </div>
-            ))}
-          </div>
-        )}
+                />
+                <IconButton aria-label="delete" size="large">
+                  <EditIcon fontSize="inherit" />
+                </IconButton>
+              </Typography>
+              <List>
+                <Box sx={{ width: "60%", pl: "10%" }}>
+                  {Array.from({ length: 4 }, (_, index) => {
+                    const option = q[`option${index + 1}`];
+                    if (option) {
+                      return (
+                        <ListItem key={index}>
+                          <Typography variant="h5">
+                            {`Option ${index + 1}: ${option}`}
+                          </Typography>
+                        </ListItem>
+                      );
+                    }
+                    return null;
+                  })}
+                </Box>
+              </List>
+            </div>
+          ))}
+        </div>
       </Box>
     </Box>
   );
 }
-export default QuestionDashboard;
 
-const techStack = ["React", "Node", "Flutter", "Python", "Angular"];
+export default QuestionDashboard;

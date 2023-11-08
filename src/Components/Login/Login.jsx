@@ -15,32 +15,111 @@ const Login = ({ onLogin }) => {
   const [logIn, setLogIn] = useState({
     email: "",
     password: "",
-    error: {
+  });
+
+  const Login = ({ onLogin }) => {
+    const [logIn, setLogIn] = useState({
       email: "",
       password: "",
-    },
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [flip, setFlip] = useState(false);
+      error: {
+        email: "",
+        password: "",
+      },
+    });
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const [errors, setErrors] = useState({});
 
-  const handleLogInChange = (e) => {
-    const { name, value } = e.target;
-    setLogIn((prevLogIn) => ({
-      ...prevLogIn,
-      [name]: value,
-    }));
-  };
+    const [showPassword, setShowPassword] = useState(false);
+    const [flip, setFlip] = useState(false);
 
-  const dispatch = useDispatch();
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const isPasswordValid = (password) => {
-    // Define your password validation criteria here
-    const minLength = 8;
-    const containsLetter = /[a-zA-Z]/.test(password);
-    const containsNumber = /\d/.test(password);
-    // You can add more criteria as needed
+    const handleSignUpChange = (e) => {
+      const { name, value } = e.target;
+
+      setSignUp((prevSignUp) => ({
+        ...prevSignUp,
+        [name]: value,
+      }));
+    };
+
+    const handleLogInChange = (e) => {
+      const { name, value } = e.target;
+      setLogIn((prevLogIn) => ({
+        ...prevLogIn,
+        [name]: value,
+      }));
+    };
+
+    const dispatch = useDispatch();
+
+    const validateForm = () => {
+      const newErrors = {};
+      let isValid = true;
+
+      if (!signUp.name) {
+        newErrors.name = "Name is required";
+        isValid = false;
+      }
+      if (!signUp.email) {
+        newErrors.email = "Email is required";
+        isValid = false;
+      } else if (!/\S+@\S+\.\S+/.test(signUp.email)) {
+        newErrors.email = "Invalid email address";
+        isValid = false;
+      }
+      if (!signUp.password) {
+        newErrors.password = "Password is required";
+        isValid = false;
+      } else if (
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+          signUp.password
+        )
+      ) {
+        newErrors.password =
+          "Password must be at least 8 characters, and include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+        isValid = false;
+      }
+
+      setErrors(newErrors);
+      return isValid;
+    };
+
+    const handleSignUp = async (e) => {
+      e.preventDefault();
+      if (validateForm()) {
+        const formData = {
+          ...signUp,
+          assessment_id: [],
+        };
+        dispatch(submitSignUp(formData));
+        toast.success("sign up Sucess", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        console.log("Form data:", signUp, "is send sucessfully");
+      } else {
+        toast.error("Error", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        console.log("Form has errors");
+      }
+    };
 
     return (
       password.length >= minLength && containsLetter && containsNumber

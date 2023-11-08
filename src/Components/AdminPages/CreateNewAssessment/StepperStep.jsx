@@ -15,6 +15,7 @@ import {
   updateField,
   updateError,
   clearFields,
+  makeApiCall,
 } from "../../ReduxSlice/NewAssessmentFieldData";
 const steps = ["Name assessment", "Select tests", "Review and configure"];
 
@@ -83,7 +84,7 @@ function StepperStep() {
   };
 
   const handleNext = () => {
-    if (assessmentName.trim() == "" || jobRole === null || language === null) {
+    if (assessmentName.trim() === "" || jobRole === null || language === null) {
       validate("assessmentName");
       validate("language");
       validate("jobRole");
@@ -106,6 +107,28 @@ function StepperStep() {
   };
 
   const handleReset = () => {
+    dispatch(clearFields());
+    setActiveStep(0);
+    setCompleted({});
+  };
+
+  const handleFinish = async () => {
+    console.log(assessmentName, jobRole);
+    const assessmentData = {
+      organisation_id: "653f503e64f189e30667b7cc",
+      name: assessmentName,
+      tech_stack: jobRole,
+      test_level: "easy",
+      question_id: [],
+    };
+
+    try {
+      const response = await dispatch(makeApiCall(assessmentData));
+      console.log("API response:", response);
+    } catch (error) {
+      console.error("API call error:", error);
+    }
+
     dispatch(clearFields());
     setActiveStep(0);
     setCompleted({});
