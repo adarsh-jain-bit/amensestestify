@@ -21,7 +21,7 @@ import QuestionDashboard from "./Components/Question Dashboard/QuestionDashboard
 import Nav from "./Components/AdminPages/Navbar/Nav";
 import LoginSignUp from "./Components/Login/LoginSignUpPage";
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const BootStrapContainer = styled("div")({
     width: "100%",
     height: "100%",
@@ -37,7 +37,7 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={Theme}>
-        {loggedIn ? (
+        {/* {loggedIn ? (
           <>
             <Nav />
             <BootStrapContainer>
@@ -74,13 +74,14 @@ function App() {
           </>
         ) : (
           <LoginSignUp onLogin={handleLogin} />
-        )}
+        )} */}
         {/* <QuestionDashboard /> */}
         {/* <TestWindow /> */}
         {/* <MyCandidates /> */}
         {/* <CandidateForm /> */}
         {/* <ResetPassword /> */}
         {/* <MyCandidates /> */}
+        <LoginSignUp />
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -11,29 +11,19 @@ import { useTheme } from "styled-components";
 import PersonalDetails from "./PersonalDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
 import { useSelector, useDispatch } from "react-redux";
-import { updateField, updateError } from "../../ReduxSlice/CandidateDataSlice";
+import { updateError } from "../../ReduxSlice/CandidateDataSlice";
+import { createCandidate } from "../../ReduxSlice/CandidateDataSlice";
+import Swal from "sweetalert2";
 const StepsLabel = ["Sign Up", "Personal Detail", "Professional Info"];
 
 export default function CandidateForm() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
   const data = useSelector((state) => state.CandidateData);
   console.log(data);
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
   const handleNext = () => {
-    let newSkipped = skipped;
-
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
     if (activeStep === 1) {
       const validationFields = [
         "email",
@@ -56,7 +46,6 @@ export default function CandidateForm() {
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const validateField = (fieldName, value) => {
@@ -175,8 +164,32 @@ export default function CandidateForm() {
         hasErrors = true;
       }
     });
-    if (hasErrors) {
-      return;
+    if (!hasErrors) {
+      console.log("data send");
+      const candidateData = {
+        email: data.email,
+        name: data.name,
+        mobile_number: data.mobileNo,
+        DateOfBirth: data.birthDate,
+        address: data.address,
+        College_Name: data.collegeName,
+        Degree: data.degree,
+        Skills: data.skills,
+        College_Score: data.collegeScore,
+        resume: data.resume,
+        experience: "3",
+        education: data.collegeName,
+        assessment_id: "string",
+        submission_id: [],
+      };
+      dispatch(createCandidate(candidateData));
+      setActiveStep(StepsLabel.length);
+      Swal.fire({
+        title: "Successfull",
+        text: "form Submitted Successfully",
+        icon: "success",
+        confirmButtonText: "Done",
+      });
     }
   };
   const handleReset = () => {
@@ -190,10 +203,6 @@ export default function CandidateForm() {
           {StepsLabel.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
-
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>{label}</StepLabel>

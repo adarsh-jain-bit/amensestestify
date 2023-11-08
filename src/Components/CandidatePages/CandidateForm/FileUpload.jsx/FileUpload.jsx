@@ -25,17 +25,29 @@ const VisuallyHiddenInput = styled("input")({
 });
 const FileUpload = ({ onValidate }) => {
   const { error } = useSelector((state) => state.CandidateData);
+
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(10);
   const [file, setFile] = useState("");
   const handleFile = (e) => {
     const fileData = e.target.files[0];
-    setFile(e.target.files[0].name);
-    dispatch(updateField({ field: "resume", value: fileData }));
+    if (fileData) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64String = e.target.result;
+        setFile(fileData.name);
+        // Dispatch an action to save the encoded file in Redux
+        dispatch(updateField({ field: "resume", value: base64String }));
+      };
+
+      reader.readAsDataURL(fileData);
+    }
   };
+
   const handleDelete = () => {
     setFile("");
-    dispatch(updateField({ field: "resume", value: null }));
+    dispatch(updateField({ field: "resume", value: "" }));
   };
   return (
     <Paper sx={{ p: "20px", mt: "10px" }}>

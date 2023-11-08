@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomDropDown from "../../Common/CustomDropDown";
 import {
   IconButton,
@@ -21,6 +21,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+
 const MyAssessment = () => {
   const theme = useTheme();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -37,7 +40,75 @@ const MyAssessment = () => {
     createData("Cupcake", 305, 3.7, 67, 4.3),
     createData("Gingerbread", 356, 16.0, 49, 3.9),
   ];
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        element: "#container",
+        popover: {
+          title: "Animated Tour Example",
+          description:
+            "Here is the code example showing animated tour. Let's walk you through it.",
+          side: "left",
+          align: "start",
+        },
+      },
+      {
+        element: "#createAssessment",
+        popover: {
+          title: "Animated Tour Example",
+          description:
+            "Here is the code example showing animated tour. Let's walk you through it.",
+          side: "left",
+          align: "start",
+        },
+      },
+      {
+        element: "#myAssessment",
+        popover: {
+          title: "Animated Tour Example",
+          description:
+            "Here is the code example showing animated tour. Let's walk you through it.",
+          side: "left",
+          align: "start",
+        },
+      },
 
+      {
+        element: "#search",
+        popover: {
+          title: "Animated Tour Example",
+          description:
+            "Here is the code example showing animated tour. Let's walk you through it.",
+          side: "left",
+          align: "start",
+        },
+      },
+      {
+        element: "#language",
+        popover: {
+          title: "Animated Tour Example",
+          description:
+            "Here is the code example showing animated tour. Let's walk you through it.",
+          side: "left",
+          align: "start",
+        },
+      },
+      {
+        element: "#table",
+        popover: {
+          title: "Animated Tour Example",
+          description:
+            "Here is the code example showing animated tour. Let's walk you through it.",
+          side: "left",
+          align: "start",
+        },
+      },
+    ],
+  });
+  useEffect(() => {
+    driverObj.drive();
+  }, []);
   const buttonStyle = {
     backgroundColor: "#5C5470",
     color: "white",
@@ -55,7 +126,12 @@ const MyAssessment = () => {
           direction="row"
           py={5} // Add padding top and bottom for spacing
         >
-          <Typography variant="h6" fontWeight="700" fontFamily="sans-serif">
+          <Typography
+            variant="h6"
+            fontWeight="700"
+            fontFamily="sans-serif"
+            id="myAssessment"
+          >
             My Assessments
           </Typography>
           <Stack display="flex" direction="row" gap={2}>
@@ -67,6 +143,7 @@ const MyAssessment = () => {
                 variant="outlined"
                 startIcon={<AddCircleOutlineIcon />}
                 style={buttonStyle}
+                id="createAssessment"
               >
                 {onlySmallScreen ? " " : "Create new Assessment"}
               </Button>
@@ -92,6 +169,7 @@ const MyAssessment = () => {
               width: !onlySmallScreen ? "400px" : "100%",
               height: 60,
             }}
+            id="search"
           >
             <InputBase
               sx={{
@@ -114,9 +192,11 @@ const MyAssessment = () => {
             background="white"
             label="Language"
             data={Assessment}
+            height="60px"
+            id="language"
           />
         </Stack>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} id="table">
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
