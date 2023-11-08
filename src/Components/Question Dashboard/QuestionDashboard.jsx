@@ -14,6 +14,12 @@ import MyQuillEditor from "./ReactQuill";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Stack } from "@mui/system";
 import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setQuestion,
+  createQuestion,
+  submitQuestion,
+} from "../ReduxSlice/QuestionSlice";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -28,7 +34,6 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 // Define techStack array
-const techStack = ["React", "Node", "Flutter", "Python", "Angular"];
 
 function QuestionDashboard() {
   const [option, setOption] = useState("");
@@ -36,7 +41,21 @@ function QuestionDashboard() {
   const [question, setQuestion] = useState("");
   const [allQuestion, setAllQuestion] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [techStack, setTechStack] = useState("");
+  const [testLevel, setTestLevel] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState(0);
 
+  const tech_Stack = ["React", "Node", "Flutter", "Python", "Angular"];
+  const test_Level = ["Easy", "Medium", "Difficult"];
+
+  const dispatch = useDispatch();
+  const questionData = useSelector((state) => ({
+    question: question,
+    options: optionArray,
+    techStack: techStack,
+    testLevel: testLevel,
+    correctAnswer: correctAnswer,
+  }));
   const handleOptionChange = (event) => {
     setOption(event.target.value);
   };
@@ -49,25 +68,88 @@ function QuestionDashboard() {
     }
   };
 
-  const handleAddMoreQuestion = () => {
-    setAllQuestion((prevAllQuestion) => [
-      ...prevAllQuestion,
-      {
-        Question: question,
-        option1: optionArray[0],
-        option2: optionArray[1],
-        option3: optionArray[2],
-        option4: optionArray[3],
-      },
-    ]);
-    setQuestion("");
-    setOptionArray([]);
+  // const handleAddMoreQuestion = () => {
+  //   dispatch(setQuestion(questionData.question));
+  //   for (let i = 0; i < optionArray.length; i++) {
+  //     dispatch(setOption({ index: i, text: optionArray[i] }));
+  //   }
+
+  //   try {
+  //     dispatch(submitQuestion(questionData));
+
+  //     setQuestion("");
+  //     setOptionArray([]);
+  //     setTechStack("");
+  //     setTestLevel("");
+  //     setCorrectAnswer(0);
+  //   } catch (error) {
+  //     // Handle API request error
+  //     console.error("Error submitting question:", error);
+  //     // You can show an error message to the user if needed
+  //   }
+  //   setAllQuestion((prevAllQuestion) => [
+  //     ...prevAllQuestion,
+  //     {
+  //       Question: question,
+  //       option1: optionArray[0],
+  //       option2: optionArray[1],
+  //       option3: optionArray[2],
+  //       option4: optionArray[3],
+  //     },
+  //   ]);
+  //   setQuestion("");
+  //   setOptionArray([]);
+  // };
+
+  const handleAddMoreQuestion = async () => {
+    try {
+      // Dispatch an action to submit the question data to the API
+      await dispatch(
+        submitQuestion({
+          question: question,
+          options: optionArray,
+          techStack: techStack,
+          testLevel: testLevel,
+          correctAnswer: correctAnswer,
+        })
+      );
+
+      // After successfully submitting the question, update the local state
+      setAllQuestion((prevAllQuestion) => [
+        ...prevAllQuestion,
+        {
+          Question: question,
+          option1: optionArray[0],
+          option2: optionArray[1],
+          option3: optionArray[2],
+          option4: optionArray[3],
+        },
+      ]);
+
+      // Clear the input fields and reset the local state
+      setQuestion("");
+      setOptionArray([]);
+      setTechStack("");
+      setTestLevel("");
+      setCorrectAnswer(0);
+    } catch (error) {
+      // Handle API request error
+      console.error("Error submitting question:", error);
+      // You can show an error message to the user if needed
+    }
   };
 
   const updateQuestionContent = (content) => {
     setQuestion(content);
   };
 
+  const handleSelectTechStack = (e, newValue) => {
+    setTechStack(newValue);
+  };
+
+  const handleSelectTestLevel = (e, newValue) => {
+    setTestLevel(newValue);
+  };
   return (
     <Box
       sx={{
@@ -92,9 +174,20 @@ function QuestionDashboard() {
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={techStack}
+                options={tech_Stack}
+                sx={{ mb: 5 }}
+                onChange={handleSelectTechStack}
                 renderInput={(params) => (
                   <TextField {...params} label="Tech Stack" />
+                )}
+              />
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={test_Level}
+                onChange={handleSelectTestLevel}
+                renderInput={(params) => (
+                  <TextField {...params} label="Test Level" />
                 )}
               />
             </Box>
@@ -197,9 +290,6 @@ function QuestionDashboard() {
                         <ListItem key={index}>
                           <Typography variant="h5">
                             {`Option ${index + 1}: ${option}`}
-                            <IconButton aria-label="delete" size="large">
-                              <EditIcon fontSize="inherit" />
-                            </IconButton>
                           </Typography>
                         </ListItem>
                       );
