@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
-
+import { submitLogin } from "../ReduxSlice/LoginSlice";
 const Login = ({ onLogin }) => {
   const [logIn, setLogIn] = useState({
     email: "",
@@ -94,21 +94,22 @@ const Login = ({ onLogin }) => {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = Login;
+    const { email, password } = logIn;
 
     // Validate the fields
     handleLoginValidation("email", email);
     handleLoginValidation("password", password);
-
+    console.log(logIn);
     // Check if there are any errors in the signUp state
-    if (!Login.error.name && !Login.error.email && !Login.error.password) {
+    if (!logIn.error.name && !logIn.error.email && !logIn.error.password) {
       const formData = {
-        ...Login,
+        email: logIn.email,
+        password: logIn.password,
         assessment_id: [],
       };
 
       // Dispatch the action to submit the signUp data
-      // dispatch(submitSignUp(formData));
+      dispatch(submitLogin(formData));
     }
   };
   return (

@@ -6,7 +6,6 @@ export const submitSignUp = createAsyncThunk(
   "form/submitSignUp",
   async (formData, { dispatch, rejectWithValue }) => {
     try {
-  
       dispatch(submitFormStart());
       const response = await axios.post(
         "https://testify-qvv2.onrender.com/org/create_organisation",
@@ -14,7 +13,7 @@ export const submitSignUp = createAsyncThunk(
       );
       // dispatch(submitFormSuccess(response.data));
       dispatch(submitFormSuccess());
-      // console.log("response", response.data);
+      console.log("response", response.data);
       return response.data;
     } catch (error) {
       dispatch(submitFormFailure(error.message));
