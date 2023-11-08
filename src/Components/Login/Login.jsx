@@ -9,65 +9,10 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { submitSignUp } from "../ReduxSlice/ApiSlice";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-const Background = styled("div")({
-  height: "100vh",
-  display: "flex",
-  alignItems: " center",
-  justifyContent: "center",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  position: "relative",
-  backgroundImage: `  linear-gradient(
-    rgba(0, 0, 0, 0.6), 
-    rgba(0, 0, 0, 0.6)
-  ), url(${backGroundImg})`,
-});
-const LoginForm = styled("div")({
-  backgroundColor: "#7d5ce9",
-  height: "27.5rem",
-  width: "21.8rem",
-  zIndex: 2,
-  borderRadius: "5px",
-});
-
-const BackSidebox = styled("div")({
-  backgroundColor: "white",
-  width: "60%",
-  height: "22rem",
-  position: "absolute",
-  borderRadius: "5px",
-  display: "flex",
-  left: "15%",
-  "@media(max-width: 1200px)": {
-    display: "none",
-  },
-});
-
-const LoginButton = styled("button")({
-  position: "relative",
-  height: "38px",
-  width: "100%",
-  margin: "5px auto",
-  display: "block",
-  letterSpacing: "1px",
-  borderRadius: "8px",
-  border: "none",
-  outline: "none",
-  boxShadow: "1px 1px 10px #636e72",
-  cursor: "pointer",
-  transition: "0.6s",
-  color: "#206592",
-  zIndex: 2,
-});
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
-const Login = () => {
-  const [signUp, setSignUp] = useState({
-    name: "",
+import { submitLogin } from "../ReduxSlice/LoginSlice";
+const Login = ({ onLogin }) => {
+  const [logIn, setLogIn] = useState({
     email: "",
     password: "",
   });
@@ -228,21 +173,22 @@ const Login = () => {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = Login;
+    const { email, password } = logIn;
 
     // Validate the fields
     handleLoginValidation("email", email);
     handleLoginValidation("password", password);
-
+    console.log(logIn);
     // Check if there are any errors in the signUp state
-    if (!Login.error.name && !Login.error.email && !Login.error.password) {
+    if (!logIn.error.name && !logIn.error.email && !logIn.error.password) {
       const formData = {
-        ...Login,
+        email: logIn.email,
+        password: logIn.password,
         assessment_id: [],
       };
 
       // Dispatch the action to submit the signUp data
-      // dispatch(submitSignUp(formData));
+      dispatch(submitLogin(formData));
     }
   };
   return (
