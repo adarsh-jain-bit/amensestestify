@@ -23,8 +23,8 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
-
-const FileUpload = () => {
+const FileUpload = ({ onValidate }) => {
+  const { error } = useSelector((state) => state.CandidateData);
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(10);
   const [file, setFile] = useState("");
@@ -84,14 +84,18 @@ const FileUpload = () => {
               <AddIcon />
               <VisuallyHiddenInput
                 type="file"
+                // name="resume"
                 onChange={(e) => handleFile(e)}
+                // onBlur={() => onValidate(name, value)}
               />
             </Button>
             <Button component="label">
               Add file
               <VisuallyHiddenInput
                 type="file"
+                // name="resume"
                 onChange={(e) => handleFile(e)}
+                // onBlur={() => onValidate(name, value)}
               />
             </Button>
           </ButtonGroup>

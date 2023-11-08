@@ -10,27 +10,12 @@ const PersonalDetails = ({ validateField }) => {
     (state) => state.CandidateData
   );
   const dispatch = useDispatch();
-  const [fullName, setFullName] = useState({
-    fName: "",
-    lName: "",
-  });
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
-    if (name === "fName" || name === "lName") {
-      setFullName((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
+    if (name === "mobileNo") {
+      dispatch(updateField({ field: name, value: parseInt(value) }));
     } else {
-      if (name === "mobileNo") {
-        dispatch(updateField({ field: name, value: parseInt(value) }));
-      } else {
-        dispatch(updateField({ field: name, value: value }));
-      }
-    }
-    if (fullName.fName && fullName.lName) {
-      const fullNameValue = `${fullName.fName} ${fullName.lName}`;
-      dispatch(updateField({ field: "name", value: fullNameValue }));
+      dispatch(updateField({ field: name, value: value }));
     }
   };
 
@@ -42,26 +27,18 @@ const PersonalDetails = ({ validateField }) => {
         </Typography>
         <Stack gap={3} my={1} mt={3} direction="row">
           <Input
-            placeholder="First Name"
+            placeholder="Enter Your Name"
             type="text"
             color="black"
             variant="outlined"
             size="small"
-            name="fName"
+            name="name"
+            width="100%"
             onChange={handleFieldChange}
-            value={fullName.fName}
+            value={name}
             onValidate={validateField}
-          />
-          <Input
-            placeholder="Last Name"
-            type="text"
-            color="black"
-            variant="outlined"
-            size="small"
-            name="lName"
-            onChange={handleFieldChange}
-            value={fullName.lName}
-            onValidate={validateField}
+            error={error.name}
+            helperText={error.name}
           />
         </Stack>
         <Stack gap={3} my={1} mt={3} direction="row">
