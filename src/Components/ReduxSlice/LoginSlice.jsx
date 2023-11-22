@@ -6,6 +6,7 @@ import axios from "axios";
 export const submitLogin = createAsyncThunk(
   "auth/submitLogin",
   async (loginData, { dispatch, rejectWithValue }) => {
+    console.log("loginData", loginData);
     try {
       dispatch(submitLoginStart());
       const response = await axios.post(

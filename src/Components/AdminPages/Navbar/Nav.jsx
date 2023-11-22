@@ -21,7 +21,7 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   AccountCircle,
   Notifications,
@@ -42,6 +42,7 @@ const options = [
 ];
 const Nav = () => {
   const nav = useNavigate();
+  const location = useLocation();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -71,8 +72,9 @@ const Nav = () => {
   const isXlAndAboveDevices = useMediaQuery(theme.breakpoints.up("lg"));
   const isMediumAndBelowDevices = useMediaQuery(theme.breakpoints.down("md"));
   const isSmallAndBelowDevices = useMediaQuery(theme.breakpoints.down("sm"));
-
-
+  if (location.pathname === "/") {
+    return null;
+  }
   return (
     <>
       <Container>
@@ -113,7 +115,7 @@ const Nav = () => {
                 isXlAndAboveDevices || isMediumAndBelowDevices ? "50%" : "70%"
               }
             >
-              <Link to="/">
+              <Link to="/AssessmentPage">
                 <Typography
                   sx={{
                     color: "black",

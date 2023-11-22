@@ -54,7 +54,7 @@ export const BackSidebox = styled("div")({
   },
 });
 export const LoginFormLoginPage = styled("div")({
-  backgroundColor: "#7d5ce9",
+  backgroundColor: "rgb(145 133 184)",
   height: "27.5rem",
   width: "21.8rem",
   zIndex: 2,

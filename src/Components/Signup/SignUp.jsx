@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../Common/Input";
-
-import {
-  Stack,
-  Typography,
-  Grid,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Stack, Typography, Grid } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { submitSignUp } from "../ReduxSlice/ApiSlice";
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
 
 const SignUp = () => {
+  const { formData } = useSelector((state) => state.api);
   const [flip, setFlip] = useState(false);
   const [signUp, setSignUp] = useState({
     name: "",
@@ -25,6 +20,7 @@ const SignUp = () => {
     },
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleSignUp = async (e) => {
@@ -38,15 +34,21 @@ const SignUp = () => {
 
     // Check if there are any errors in the signUp state
     if (!signUp.error.name && !signUp.error.email && !signUp.error.password) {
-      const formData = {
+      const data = {
         ...signUp,
         assessment_id: [],
       };
 
       // Dispatch the action to submit the signUp data
-      dispatch(submitSignUp(formData));
+      dispatch(submitSignUp(data));
     }
   };
+  useEffect(() => {
+    if (formData.status === "ok") {
+      localStorage.setItem("token", formData.access_token);
+      navigate("/AssessmentPage");
+    }
+  }, [formData.status, formData.access_token, navigate]);
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
@@ -57,16 +59,11 @@ const SignUp = () => {
   };
 
   const isPasswordValid = (password) => {
-    // Define your password validation criteria here
     const minLength = 8;
     const containsLetter = /[a-zA-Z]/.test(password);
     const containsNumber = /\d/.test(password);
-    // You can add more criteria as needed
 
-    return (
-      password.length >= minLength && containsLetter && containsNumber
-      // Add more conditions as needed
-    );
+    return password.length >= minLength && containsLetter && containsNumber;
   };
 
   const handleSignUpValidation = (fieldName, value) => {
@@ -78,6 +75,14 @@ const SignUp = () => {
             error: {
               ...prevData.error,
               name: "name is required",
+            },
+          }));
+        } else if (value.length < 3) {
+          setSignUp((prevData) => ({
+            ...prevData,
+            error: {
+              ...prevData.error,
+              name: "name should be more than 3 character",
             },
           }));
         } else {
@@ -175,28 +180,16 @@ const SignUp = () => {
             error={Boolean(signUp.error.password)}
             helperText={signUp.error.password}
           />
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                defaultChecked
-                style={{
-                  color: "white",
-                }}
-              />
-            }
-            label="Remember me?"
-            sx={{
-              color: "white",
-            }}
-          />
         </Stack>
-        <LoginButton onClick={handleSignUp}>sign up</LoginButton>
+        <LoginButton onClick={handleSignUp}>Sign Up</LoginButton>
         <Typography
           variant="p"
           display="flex"
           justifyContent="flex-end"
           color="white"
+          sx={{
+            cursor: "pointer",
+          }}
         >
           Forgot Password?
         </Typography>

@@ -41,6 +41,7 @@ const LoginSignUp = ({ onLogin }) => {
               borderRadius: "10px",
               textAlign: "center",
               padding: "6px",
+              cursor: "pointer",
               "&:hover": {
                 border: "1px solid green",
               },
