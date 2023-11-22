@@ -2,18 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const getAuthToken = () => {
+  return "beuwbvebvhbgyvyvtct121314";
+};
+let token = "beuwbvebvhbgyvyvtct121314";
 export const submitSignUp = createAsyncThunk(
   "form/submitSignUp",
-  async (formData, { dispatch, rejectWithValue }) => {
+  async (formData, { dispatch, getState, rejectWithValue }) => {
     try {
       dispatch(submitFormStart());
       const response = await axios.post(
-        "https://testify-qvv2.onrender.com/org/create_organisation",
-        formData
+        "https://testify-qvv2.onrender.com/org/create_user",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      // dispatch(submitFormSuccess(response.data));
-      dispatch(submitFormSuccess());
-      console.log("response", response.data);
+      dispatch(submitFormSuccess(response.data));
+      console.log(response.data);
       return response.data;
     } catch (error) {
       dispatch(submitFormFailure(error.message));
@@ -27,6 +35,7 @@ const initialState = {
   isLoading: false,
   error: null,
   success: false,
+  access_token: "",
 };
 
 const ApiSlice = createSlice({
@@ -39,10 +48,11 @@ const ApiSlice = createSlice({
       state.error = null;
     },
     submitFormSuccess: (state, action) => {
-      // console.log(action);
+      console.log(action);
       state.isLoading = false;
       state.success = true;
-      // state.formData = action.payload.data;
+      state.formData = action.payload.data;
+      state.access_token = action.payload.access_token;
     },
     submitFormFailure: (state, action) => {
       state.isLoading = false;

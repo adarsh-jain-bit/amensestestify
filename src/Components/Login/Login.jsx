@@ -11,121 +11,45 @@ import {
 import { useDispatch } from "react-redux";
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
 import { submitLogin } from "../ReduxSlice/LoginSlice";
-const Login = ({ onLogin }) => {
+
+const Login = () => {
   const [logIn, setLogIn] = useState({
     email: "",
     password: "",
-  });
-
-  const Login = ({ onLogin }) => {
-    const [logIn, setLogIn] = useState({
+    error: {
       email: "",
       password: "",
-      error: {
-        email: "",
-        password: "",
-      },
-    });
+    },
+  });
 
-    const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [flip, setFlip] = useState(false);
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [flip, setFlip] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleSignUpChange = (e) => {
-      const { name, value } = e.target;
-
-      setSignUp((prevSignUp) => ({
-        ...prevSignUp,
-        [name]: value,
-      }));
-    };
-
-    const handleLogInChange = (e) => {
-      const { name, value } = e.target;
-      setLogIn((prevLogIn) => ({
-        ...prevLogIn,
-        [name]: value,
-      }));
-    };
-
-    const dispatch = useDispatch();
-
-    const validateForm = () => {
-      const newErrors = {};
-      let isValid = true;
-
-      if (!signUp.name) {
-        newErrors.name = "Name is required";
-        isValid = false;
-      }
-      if (!signUp.email) {
-        newErrors.email = "Email is required";
-        isValid = false;
-      } else if (!/\S+@\S+\.\S+/.test(signUp.email)) {
-        newErrors.email = "Invalid email address";
-        isValid = false;
-      }
-      if (!signUp.password) {
-        newErrors.password = "Password is required";
-        isValid = false;
-      } else if (
-        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-          signUp.password
-        )
-      ) {
-        newErrors.password =
-          "Password must be at least 8 characters, and include at least one uppercase letter, one lowercase letter, one number, and one special character.";
-        isValid = false;
-      }
-
-      setErrors(newErrors);
-      return isValid;
-    };
-
-    const handleSignUp = async (e) => {
-      e.preventDefault();
-      if (validateForm()) {
-        const formData = {
-          ...signUp,
-          assessment_id: [],
-        };
-        dispatch(submitSignUp(formData));
-        toast.success("sign up Sucess", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-
-        console.log("Form data:", signUp, "is send sucessfully");
-      } else {
-        toast.error("Error", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-
-        console.log("Form has errors");
-      }
-    };
+  const handleLogInChange = (e) => {
+    const { name, value } = e.target;
+    setLogIn((prevLogIn) => ({
+      ...prevLogIn,
+      [name]: value,
+    }));
+  };
+  const isPasswordValid = (password) => {
+    // Define your password validation criteria here
+    const minLength = 8;
+    const containsLetter = /[a-zA-Z]/.test(password);
+    const containsNumber = /\d/.test(password);
+    // You can add more criteria as needed
 
     return (
       password.length >= minLength && containsLetter && containsNumber
       // Add more conditions as needed
     );
   };
+  const dispatch = useDispatch();
+
   const handleLoginValidation = (fieldName, value) => {
     switch (fieldName) {
       case "email":
@@ -178,15 +102,14 @@ const Login = ({ onLogin }) => {
     // Validate the fields
     handleLoginValidation("email", email);
     handleLoginValidation("password", password);
-    console.log(logIn);
+
     // Check if there are any errors in the signUp state
     if (!logIn.error.name && !logIn.error.email && !logIn.error.password) {
       const formData = {
         email: logIn.email,
         password: logIn.password,
-        assessment_id: [],
       };
-
+      console.log(formData);
       // Dispatch the action to submit the signUp data
       dispatch(submitLogin(formData));
     }
@@ -237,7 +160,7 @@ const Login = ({ onLogin }) => {
             }}
           />
         </Stack>
-        <LoginButton onClick={handleLogin}>login</LoginButton>
+        <LoginButton onClick={handleLogin}>Login</LoginButton>
         <Typography
           variant="p"
           display="flex"
@@ -274,5 +197,4 @@ const Login = ({ onLogin }) => {
     </LoginFormLoginPage>
   );
 };
-
 export default Login;
