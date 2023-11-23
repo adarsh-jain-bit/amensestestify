@@ -36,6 +36,7 @@ const initialState = {
   error: null,
   success: false,
   access_token: "",
+  status: "",
 };
 
 const ApiSlice = createSlice({
@@ -53,6 +54,7 @@ const ApiSlice = createSlice({
       state.success = true;
       state.formData = action.payload.data;
       state.access_token = action.payload.access_token;
+      state.status = action.payload.status;
     },
     submitFormFailure: (state, action) => {
       state.isLoading = false;
