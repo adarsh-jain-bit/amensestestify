@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Common/Input";
 import { useNavigate } from "react-router-dom";
-import { Stack, Typography, Grid } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  Grid,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { submitSignUp } from "../ReduxSlice/ApiSlice";
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
-
 const SignUp = () => {
-  const { formData } = useSelector((state) => state.api);
+  const { formData, status, access_token } = useSelector((state) => state.api);
   const [flip, setFlip] = useState(false);
   const [signUp, setSignUp] = useState({
     name: "",
@@ -21,12 +26,14 @@ const SignUp = () => {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  console.log(rememberMe);
+  console.log(formData, status, access_token);
   const handleSignUp = async (e) => {
     e.preventDefault();
     const { name, email, password } = signUp;
-
     // Validate the fields
     handleSignUpValidation("name", name);
     handleSignUpValidation("email", email);
@@ -44,11 +51,14 @@ const SignUp = () => {
     }
   };
   useEffect(() => {
-    if (formData.status === "ok") {
-      localStorage.setItem("token", formData.access_token);
-      navigate("/AssessmentPage");
+    console.log("in1");
+    if (status === "Success") {
+      console.log("in");
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("loggedIn", rememberMe);
+      navigate("/");
     }
-  }, [formData.status, formData.access_token, navigate]);
+  }, [status, access_token, navigate]);
 
   const handleSignUpChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +67,9 @@ const SignUp = () => {
       [name]: value,
     }));
   };
-
+  const handleChange = (event) => {
+    setRememberMe(event.target.checked);
+  };
   const isPasswordValid = (password) => {
     const minLength = 8;
     const containsLetter = /[a-zA-Z]/.test(password);
@@ -181,6 +193,21 @@ const SignUp = () => {
             helperText={signUp.error.password}
           />
         </Stack>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={rememberMe}
+              onChange={handleChange}
+              style={{
+                color: "white",
+              }}
+            />
+          }
+          label="Remember me?"
+          sx={{
+            color: "white",
+          }}
+        />
         <LoginButton onClick={handleSignUp}>Sign Up</LoginButton>
         <Typography
           variant="p"

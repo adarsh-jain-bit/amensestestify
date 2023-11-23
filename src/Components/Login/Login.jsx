@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../Common/Input";
 
 import {
@@ -114,6 +114,14 @@ const Login = () => {
       dispatch(submitLogin(formData));
     }
   };
+  // useEffect(() => {
+  //   if (formData.status === "ok") {
+  //     localStorage.setItem("token", formData.access_token);
+  //     localStorage.setItem("loggedIn", true);
+  //     navigate("/AssessmentPage");
+  //   }
+  // }, []);
+
   return (
     <LoginFormLoginPage>
       <Grid sx={{ p: 4 }}>

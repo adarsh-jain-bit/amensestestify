@@ -72,7 +72,7 @@ const Nav = () => {
   const isXlAndAboveDevices = useMediaQuery(theme.breakpoints.up("lg"));
   const isMediumAndBelowDevices = useMediaQuery(theme.breakpoints.down("md"));
   const isSmallAndBelowDevices = useMediaQuery(theme.breakpoints.down("sm"));
-  if (location.pathname === "/") {
+  if (location.pathname === "/login") {
     return null;
   }
   return (

@@ -36,7 +36,7 @@ function App() {
           <BootStrapContainer>
             <Routes>
               <Route
-                path="/AssessmentPage"
+                path="/"
                 element={<PrivateRoute element={<MyAssessment />} />}
               />
               <Route
@@ -97,7 +97,7 @@ function App() {
                 path="/NewAssessment"
                 element={<PrivateRoute element={<NewAssessment />} />}
               />
-              <Route path="/" element={<LoginSignUp />} />
+              <Route path="/login" element={<LoginSignUp />} />
             </Routes>
           </BootStrapContainer>
         </>
