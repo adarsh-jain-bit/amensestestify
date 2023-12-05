@@ -82,6 +82,7 @@ export default function Input({
             color: color,
             // height: height, // Set the height here
           },
+
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
@@ -104,6 +105,9 @@ export default function Input({
           // shrink: shrink,
         }}
         sx={{
+          ".css-1d1r5q-MuiFormHelperText-root.Mui-error": {
+            color: "#f22c2c",
+          },
           color: color,
           "& label.Mui-focused": inputStyles.label,
           "& .MuiInput-underline": inputStyles.underline,

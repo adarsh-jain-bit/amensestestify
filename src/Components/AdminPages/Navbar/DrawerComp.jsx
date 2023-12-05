@@ -41,7 +41,7 @@ const DrawerComp = () => {
           }}
         >
           <Stack direction="row" justifyContent="space-between">
-            <Link to="/">
+            <Link to="AssessmentPage">
               <Typography
                 sx={{
                   color: "black",

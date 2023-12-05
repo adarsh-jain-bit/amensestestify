@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
-// import { makeStyles } from "@mui/styles";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
@@ -30,55 +29,38 @@ function StepperStep() {
   console.log(data);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  // const useStyles = makeStyles(() => ({
-  //   root: {
-  //     "& .MuiStepIcon-active": { color: "red" },
-  //     "& .MuiStepIcon-completed": { color: "green" },
-  //     "& .Mui-disabled .MuiStepIcon-root": { color: "cyan" },
-  //   },
-  // }));
-
-  // const c = useStyles();
 
   const handleFieldChange = (field, value) => {
     dispatch(updateField({ field, value }));
   };
   const validate = (field) => {
-    if (
-      error.jobRole === "" &&
-      error.language === "" &&
-      error.assessmentName === ""
-    ) {
-      if (field === "assessmentName") {
-        if (assessmentName.trim() === "") {
-          dispatch(
-            updateError({
-              field,
-              value: "Please provide a valid assessment name.",
-            })
-          );
-        } else {
-          dispatch(updateError({ field, value: "" }));
-        }
-      } else if (field === "language") {
-        if (!language) {
-          dispatch(
-            updateError({ field, value: "Please select the language." })
-          );
-        } else {
-          dispatch(updateError({ field, value: "" }));
-        }
-      } else if (field === "jobRole") {
-        if (!jobRole) {
-          dispatch(
-            updateError({ field, value: "Please select a valid job role." })
-          );
-        } else {
-          dispatch(updateError({ field, value: "" }));
-        }
+    // console.log("run");
+
+    if (field === "assessmentName") {
+      if (assessmentName.trim() === "") {
+        dispatch(
+          updateError({
+            field,
+            value: "Please provide a valid assessment name.",
+          })
+        );
+      } else {
+        dispatch(updateError({ field, value: "" }));
       }
-    } else {
-      handleMove();
+    } else if (field === "language") {
+      if (!language) {
+        dispatch(updateError({ field, value: "Please select the language." }));
+      } else {
+        dispatch(updateError({ field, value: "" }));
+      }
+    } else if (field === "jobRole") {
+      if (!jobRole) {
+        dispatch(
+          updateError({ field, value: "Please select a valid job role." })
+        );
+      } else {
+        dispatch(updateError({ field, value: "" }));
+      }
     }
   };
   const handleMove = () => {
@@ -113,6 +95,7 @@ function StepperStep() {
           : activeStep + 1;
 
       setActiveStep(newActiveStep);
+      handleMove();
     }
   };
   const handleBack = () => {
@@ -130,7 +113,7 @@ function StepperStep() {
   };
 
   const handleFinish = async () => {
-    console.log(assessmentName, jobRole);
+    // console.log(assessmentName, jobRole);
     const assessmentData = {
       organisation_id: "653f503e64f189e30667b7cc",
       name: assessmentName,

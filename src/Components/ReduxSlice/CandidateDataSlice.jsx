@@ -1,5 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
+export const createCandidate = (candidateData) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      "https://testify-qvv2.onrender.com/candidate/create_candidate",
+      candidateData
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 const fieldsSlice = createSlice({
   name: "candidateData",
   initialState: {
@@ -12,7 +24,7 @@ const fieldsSlice = createSlice({
     degree: "",
     skills: [],
     collegeScore: "",
-    resume: null,
+    resume: "",
     error: {
       email: "",
       name: "",
@@ -44,7 +56,7 @@ const fieldsSlice = createSlice({
         degree: "",
         skills: [],
         collegeScore: "",
-        resume: null,
+        resume: "",
         error: {
           email: "",
           name: "",

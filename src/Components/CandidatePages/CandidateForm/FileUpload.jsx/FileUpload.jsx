@@ -23,19 +23,31 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+const FileUpload = ({ onValidate }) => {
+  const { error } = useSelector((state) => state.CandidateData);
 
-const FileUpload = () => {
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(10);
   const [file, setFile] = useState("");
   const handleFile = (e) => {
     const fileData = e.target.files[0];
-    setFile(e.target.files[0].name);
-    dispatch(updateField({ field: "resume", value: fileData }));
+    if (fileData) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64String = e.target.result;
+        setFile(fileData.name);
+        // Dispatch an action to save the encoded file in Redux
+        dispatch(updateField({ field: "resume", value: base64String }));
+      };
+
+      reader.readAsDataURL(fileData);
+    }
   };
+
   const handleDelete = () => {
     setFile("");
-    dispatch(updateField({ field: "resume", value: null }));
+    dispatch(updateField({ field: "resume", value: "" }));
   };
   return (
     <Paper sx={{ p: "20px", mt: "10px" }}>
@@ -84,14 +96,18 @@ const FileUpload = () => {
               <AddIcon />
               <VisuallyHiddenInput
                 type="file"
+                // name="resume"
                 onChange={(e) => handleFile(e)}
+                // onBlur={() => onValidate(name, value)}
               />
             </Button>
             <Button component="label">
               Add file
               <VisuallyHiddenInput
                 type="file"
+                // name="resume"
                 onChange={(e) => handleFile(e)}
+                // onBlur={() => onValidate(name, value)}
               />
             </Button>
           </ButtonGroup>

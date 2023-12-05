@@ -65,7 +65,7 @@ const ProfessionalDetails = ({ validateField }) => {
           />
         </Stack>
         <SkillDropDown validateField={validateField} />
-        <FileUpload />
+        <FileUpload onValidate={validateField} />
       </Grid>
     </LoginForm>
   );

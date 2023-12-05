@@ -13,6 +13,8 @@ export default function BasicSelect({
   label,
   data,
   validateField,
+  height = "60px",
+  id = "id",
 }) {
   const dispatch = useDispatch();
   const { degree, error } = useSelector((data) => data.CandidateData);
@@ -31,13 +33,15 @@ export default function BasicSelect({
         width: width,
         background: background,
         mb: `${error.degree ? "20px" : undefined}`,
+        height: `calc(${height} - 3px)`,
       }}
       gap={1}
+      id={id}
     >
       <FormControl
         sx={{
           width: "100%",
-          height: "40px", // Adjust the height as needed
+          height: height, // Adjust the height as needed
           borderColor: error.degree ? "red" : "initial",
         }}
       >
