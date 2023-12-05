@@ -14,6 +14,7 @@ function NewAssessment() {
   const Navigate = useNavigate();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { assessmentName } = useSelector((state) => state.newAssessmentField);
+
   return (
     <div>
       <Container>

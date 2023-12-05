@@ -1,15 +1,18 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ element, ...rest }) => {
-  const { formData } = useSelector((state) => state.api);
-  const accessToken = formData.access_token;
+  console.log("private route");
   const loggedIn = localStorage.getItem("loggedIn");
-  return accessToken || loggedIn === true
-    ? React.cloneElement(element)
-    : // <Navigate to="/login" replace />
-      "";
+  const token = localStorage.getItem("token");
+  const checkToken = token !== null && token !== undefined;
+  if (checkToken || loggedIn === true) {
+    console.log("checked");
+    return React.cloneElement(element);
+  } else {
+    console.log("not navigated");
+    return <Navigate to="/login" replace />;
+  }
 };
 
 export default PrivateRoute;

@@ -29,7 +29,7 @@ const SignUp = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  console.log(rememberMe);
+  // console.log(rememberMe);
   console.log(formData, status, access_token);
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -51,9 +51,9 @@ const SignUp = () => {
     }
   };
   useEffect(() => {
-    console.log("in1");
+    // console.log("in1");
     if (status === "Success") {
-      console.log("in");
+      // console.log("in");
       localStorage.setItem("token", access_token);
       localStorage.setItem("loggedIn", rememberMe);
       navigate("/");

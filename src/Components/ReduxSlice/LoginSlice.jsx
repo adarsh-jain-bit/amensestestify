@@ -29,6 +29,8 @@ const initialState = {
   isLoading: false,
   error: null,
   success: false,
+  access_token: "",
+  status: "",
 };
 
 const loginSlice = createSlice({
@@ -43,7 +45,9 @@ const loginSlice = createSlice({
     submitLoginSuccess: (state, action) => {
       state.isLoading = false;
       state.success = true;
-      // You can update the state with user data here if needed
+      state.formData = action.payload.data;
+      state.access_token = action.payload.access_token;
+      state.status = action.payload.status;
     },
     submitLoginFailure: (state, action) => {
       state.isLoading = false;

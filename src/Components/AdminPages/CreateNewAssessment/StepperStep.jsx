@@ -34,7 +34,7 @@ function StepperStep() {
     dispatch(updateField({ field, value }));
   };
   const validate = (field) => {
-    console.log("run");
+    // console.log("run");
 
     if (field === "assessmentName") {
       if (assessmentName.trim() === "") {
@@ -113,7 +113,7 @@ function StepperStep() {
   };
 
   const handleFinish = async () => {
-    console.log(assessmentName, jobRole);
+    // console.log(assessmentName, jobRole);
     const assessmentData = {
       organisation_id: "653f503e64f189e30667b7cc",
       name: assessmentName,

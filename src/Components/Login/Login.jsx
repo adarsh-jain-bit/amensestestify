@@ -8,10 +8,10 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginFormLoginPage, LoginButton } from "../Common/GlobalWrapper";
 import { submitLogin } from "../ReduxSlice/LoginSlice";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [logIn, setLogIn] = useState({
     email: "",
@@ -21,10 +21,13 @@ const Login = () => {
       password: "",
     },
   });
-
+  const { formData, status, access_token } = useSelector(
+    (state) => state.login
+  );
+  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [flip, setFlip] = useState(false);
-
+  const navigate = useNavigate();
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
   };
@@ -49,7 +52,9 @@ const Login = () => {
     );
   };
   const dispatch = useDispatch();
-
+  const handleChange = (event) => {
+    setRememberMe(event.target.checked);
+  };
   const handleLoginValidation = (fieldName, value) => {
     switch (fieldName) {
       case "email":
@@ -114,13 +119,15 @@ const Login = () => {
       dispatch(submitLogin(formData));
     }
   };
-  // useEffect(() => {
-  //   if (formData.status === "ok") {
-  //     localStorage.setItem("token", formData.access_token);
-  //     localStorage.setItem("loggedIn", true);
-  //     navigate("/AssessmentPage");
-  //   }
-  // }, []);
+  useEffect(() => {
+    // console.log("in1");
+    if (status === "Success") {
+      // console.log("in");
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("loggedIn", rememberMe);
+      navigate("/");
+    }
+  }, [status, access_token, navigate]);
 
   return (
     <LoginFormLoginPage>
@@ -156,7 +163,8 @@ const Login = () => {
           <FormControlLabel
             control={
               <Checkbox
-                defaultChecked
+                checked={rememberMe}
+                onChange={handleChange}
                 style={{
                   color: "white",
                 }}

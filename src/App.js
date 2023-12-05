@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import "./App.css";
 import { styled } from "@mui/system";
 import MyAssessment from "./Components/AdminPages/Assessment/MyAssessment";
-import MyCandidates from "./Components/AdminPages/Candidates/MyCandidates";
+import MyCandidates from "./Components/AdminPages/CreateNewAssessment/Candidates/MyCandidates";
 import ProfileSection from "./Components/MyProfile/ProfileSection";
 import NewAssessment from "./Components/AdminPages/CreateNewAssessment/NewAssessment";
 import ResetPassword from "./Components/Login/ResetPassword";
-import CandidateForm from "./Components/CandidatePages/CandidateForm/CandidateForm";
 import Test from "./Components/AdminPages/Tests/Test";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyProfileTab from "./Components/MyProfile/ProfileTabs/MyProfileTab";
@@ -21,6 +20,7 @@ import QuestionDashboard from "./Components/Question Dashboard/QuestionDashboard
 import Nav from "./Components/AdminPages/Navbar/Nav";
 import LoginSignUp from "./Components/Login/LoginSignUpPage";
 import PrivateRoute from "./Components/Common/PrivateRoute";
+import CandidateForm from "./Components/CandidatePages/CandidateForm/CandidateForm";
 function App() {
   const BootStrapContainer = styled("div")({
     width: "100%",

@@ -49,7 +49,7 @@ const ApiSlice = createSlice({
       state.error = null;
     },
     submitFormSuccess: (state, action) => {
-      console.log(action);
+      // console.log(action);
       state.isLoading = false;
       state.success = true;
       state.formData = action.payload.data;

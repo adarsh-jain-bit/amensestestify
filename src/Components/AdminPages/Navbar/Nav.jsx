@@ -48,9 +48,16 @@ const Nav = () => {
   const anchorRef = React.useRef(null);
 
   const handleMenuItemClick = (option) => {
-    const newOption = option.replace(/ /g, "");
-    nav(`/${newOption}`);
-    setOpen(false);
+    // console.log(option, typeof option);
+    if (option === "Log out") {
+      // console.log("log out");
+      localStorage.clear();
+      nav("/login");
+    } else {
+      const newOption = option.replace(/ /g, "");
+      nav(`/${newOption}`);
+      setOpen(false);
+    }
   };
 
   const handleToggle = () => {
@@ -129,7 +136,7 @@ const Nav = () => {
               <List sx={{ display: "flex" }}>
                 <ListItem disablePadding sx={{ maxWidth: "max-content" }}>
                   <ListItemButton>
-                    <Link to="/MyAssessment">
+                    <Link to="/">
                       <ListItemText
                         primary="My assessments"
                         sx={{

@@ -19,19 +19,22 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
 const MyAssessment = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const onlySmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const onlyMediumScreen = useMediaQuery("(min-width:674px)");
   const Assessment = ["Active", "Archived"];
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
+  const loggedIn = localStorage.getItem("loggedIn");
+  const token = localStorage.getItem("token");
 
   const rows = [
     createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
@@ -107,7 +110,12 @@ const MyAssessment = () => {
     ],
   });
   useEffect(() => {
-    driverObj.drive();
+    if (token == undefined || loggedIn == false || !token) {
+      // console.log(" my assessment");
+      navigate("/login");
+    } else {
+      driverObj.drive();
+    }
   }, []);
   const buttonStyle = {
     backgroundColor: "#5C5470",
